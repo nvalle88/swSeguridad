@@ -1,0 +1,51 @@
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.deps.json
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.runtimeconfig.json
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.runtimeconfig.dev.json
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.dll
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.pdb
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.csprojResolveAssemblyReference.cache
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.AssemblyInfo.cs
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.dll
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.pdb
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.datos.dll
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.entidades.dll
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.datos.pdb
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.entidades.pdb
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.servicios.dll
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.utils.dll
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.servicios.pdb
+C:\Users\yanelys darzon\documents\visual studio 2017\Projects\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.utils.pdb
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.deps.json
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.runtimeconfig.json
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.runtimeconfig.dev.json
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.dll
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.pdb
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.datos.dll
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.entidades.dll
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.servicios.dll
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.utils.dll
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.datos.pdb
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.entidades.pdb
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.servicios.pdb
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.utils.pdb
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.csprojResolveAssemblyReference.cache
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.AssemblyInfo.cs
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.dll
+C:\Users\yanelys darzon\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.deps.json
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.runtimeconfig.json
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.runtimeconfig.dev.json
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.web.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.datos.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.entidades.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.servicios.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.utils.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.datos.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.entidades.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.servicios.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Debug\netcoreapp1.1\bd.log.utils.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.csprojResolveAssemblyReference.cache
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.AssemblyInfo.cs
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Debug\netcoreapp1.1\bd.log.web.pdb

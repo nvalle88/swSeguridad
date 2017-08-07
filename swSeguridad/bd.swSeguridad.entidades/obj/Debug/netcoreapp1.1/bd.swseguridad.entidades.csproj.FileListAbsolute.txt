@@ -1,0 +1,6 @@
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.deps.json
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.AssemblyInfo.cs
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb

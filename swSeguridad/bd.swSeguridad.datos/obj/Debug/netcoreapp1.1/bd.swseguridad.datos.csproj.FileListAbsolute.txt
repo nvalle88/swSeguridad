@@ -1,0 +1,9 @@
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.deps.json
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.csprojResolveAssemblyReference.cache
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.AssemblyInfo.cs
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb

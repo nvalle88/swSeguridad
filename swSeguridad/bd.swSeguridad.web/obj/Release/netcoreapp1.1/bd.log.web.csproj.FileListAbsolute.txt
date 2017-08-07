@@ -1,0 +1,17 @@
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.web.deps.json
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.web.runtimeconfig.json
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.web.runtimeconfig.dev.json
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.web.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.web.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.datos.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.entidades.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.servicios.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.utils.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.datos.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.entidades.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.servicios.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\bin\Release\netcoreapp1.1\bd.log.utils.pdb
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Release\netcoreapp1.1\bd.log.web.csprojResolveAssemblyReference.cache
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Release\netcoreapp1.1\bd.log.web.AssemblyInfo.cs
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Release\netcoreapp1.1\bd.log.web.dll
+D:\Source\Repos\LogEntryProyect\bd.log.web\obj\Release\netcoreapp1.1\bd.log.web.pdb

@@ -1,0 +1,9 @@
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\bin\Debug\netcoreapp1.1\bd.swcompartido.datos.deps.json
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\bin\Debug\netcoreapp1.1\bd.swcompartido.datos.dll
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\bin\Debug\netcoreapp1.1\bd.swcompartido.datos.pdb
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\bin\Debug\netcoreapp1.1\bd.swcompartido.entidades.dll
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\bin\Debug\netcoreapp1.1\bd.swcompartido.entidades.pdb
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\obj\Debug\netcoreapp1.1\bd.swcompartido.datos.csprojResolveAssemblyReference.cache
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\obj\Debug\netcoreapp1.1\bd.swcompartido.datos.AssemblyInfo.cs
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\obj\Debug\netcoreapp1.1\bd.swcompartido.datos.dll
+D:\Source\Repos\swCompartido\swCompartido\bd.swcompartido.datos\obj\Debug\netcoreapp1.1\bd.swcompartido.datos.pdb

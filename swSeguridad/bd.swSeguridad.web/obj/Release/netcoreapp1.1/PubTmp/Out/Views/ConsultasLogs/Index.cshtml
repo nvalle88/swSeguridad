@@ -1,0 +1,44 @@
+@model bd.log.entidades.ViewModels.LogEntryViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<select asp-for="LogLevelId" asp-class="form-control" asp-items="ViewBag.Id">
+    <option value="0" > Vacio</option>
+</select>
+
+<p>
+    <a asp-action="Create">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LogEntrys.FirstOrDefault().ApplicationName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LogEntrys.FirstOrDefault().LogDate)
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LogEntrys)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApplicationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LogDate)
+                </td>
+               
+               
+            </tr>
+        }
+    </tbody>
+</table>

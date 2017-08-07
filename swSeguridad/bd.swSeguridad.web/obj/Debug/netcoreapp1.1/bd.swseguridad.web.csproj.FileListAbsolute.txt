@@ -1,0 +1,15 @@
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.deps.json
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.json
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.dev.json
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.sw.externos.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.sw.externos.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.csprojResolveAssemblyReference.cache
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.pdb

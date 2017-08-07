@@ -1,0 +1,7 @@
+D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\bin\Debug\netcoreapp1.1\bd.sw.externos.deps.json
+D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\bin\Debug\netcoreapp1.1\bd.sw.externos.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\bin\Debug\netcoreapp1.1\bd.sw.externos.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.AssemblyInfo.cs
+D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.csprojResolveAssemblyReference.cache

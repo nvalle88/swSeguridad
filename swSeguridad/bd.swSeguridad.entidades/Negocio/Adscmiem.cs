@@ -14,6 +14,7 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdmiBdd { get; set; }
 
 
+
         public string AdmiTotal { get; set; }
 
         public string AdmiCodigoEmpleado { get; set; }

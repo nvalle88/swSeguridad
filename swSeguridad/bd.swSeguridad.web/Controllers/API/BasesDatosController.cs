@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
 using bd.swseguridad.entidades.Negocio;
+using bd.swseguridad.entidades.Utils;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -14,11 +15,11 @@ namespace bd.swseguridad.web.Controllers.API
     [Route("api/BasesDatos")]
     public class BasesDatosController : Controller
     {
-        private readonly SwSeguridadDbContext _context;
+        private readonly SwSeguridadDbContext db;
 
-        public BasesDatosController(SwSeguridadDbContext context)
+        public BasesDatosController(SwSeguridadDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
         // GET: api/BasesDatos
@@ -26,7 +27,7 @@ namespace bd.swseguridad.web.Controllers.API
         [Route("ListarBasesDatos")]
         public IEnumerable<Adscbdd> GetAdscbdd()
         {
-            return _context.Adscbdd;
+            return db.Adscbdd;
         }
 
         // GET: api/BasesDatos/5
@@ -38,7 +39,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            var adscbdd = await _context.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
+            var adscbdd = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
 
             if (adscbdd == null)
             {
@@ -62,11 +63,11 @@ namespace bd.swseguridad.web.Controllers.API
                 return BadRequest();
             }
 
-            _context.Entry(adscbdd).State = EntityState.Modified;
+            db.Entry(adscbdd).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,17 +86,49 @@ namespace bd.swseguridad.web.Controllers.API
 
         // POST: api/BasesDatos
         [HttpPost]
-        public async Task<IActionResult> PostAdscbdd([FromBody] Adscbdd adscbdd)
+        [Route("InsertarBaseDatos")]
+        public async Task<Response> PostAdscbdd([FromBody] Adscbdd adscbdd)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess=false,
+                        Message="Módelo inválido"
+                    };
+                }
+
+                var respuesta = Existe(adscbdd);
+                if (!respuesta.IsSuccess)
+                {
+                    db.Adscbdd.Add(adscbdd);
+                    await db.SaveChangesAsync();
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Message = "OK"
+                    };
+                }
+               
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "OK"
+                };
+
             }
+            catch (Exception ex)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+                };
 
-            _context.Adscbdd.Add(adscbdd);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAdscbdd", new { id = adscbdd.AdbdBdd }, adscbdd);
+                throw;
+            }
         }
 
         // DELETE: api/BasesDatos/5
@@ -107,21 +140,43 @@ namespace bd.swseguridad.web.Controllers.API
                 return BadRequest(ModelState);
             }
 
-            var adscbdd = await _context.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
+            var adscbdd = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
             if (adscbdd == null)
             {
                 return NotFound();
             }
 
-            _context.Adscbdd.Remove(adscbdd);
-            await _context.SaveChangesAsync();
+            db.Adscbdd.Remove(adscbdd);
+            await db.SaveChangesAsync();
 
             return Ok(adscbdd);
         }
 
         private bool AdscbddExists(string id)
         {
-            return _context.Adscbdd.Any(e => e.AdbdBdd == id);
+            return db.Adscbdd.Any(e => e.AdbdBdd == id);
+        }
+
+        public Response Existe(Adscbdd adscbdd)
+        {
+            var bdd = adscbdd.AdbdBdd.ToUpper().TrimEnd().TrimStart();
+            var loglevelrespuesta = db.Adscbdd.Where(p => p.AdbdBdd.ToUpper().TrimStart().TrimEnd() == bdd).FirstOrDefault();
+            if (loglevelrespuesta != null)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Existe una base de datos de igual nombre",
+                    Resultado = null,
+                };
+
+            }
+
+            return new Response
+            {
+                IsSuccess = false,
+                Resultado = loglevelrespuesta,
+            };
         }
     }
 }

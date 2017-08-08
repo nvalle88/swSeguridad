@@ -208,6 +208,63 @@ namespace bd.swseguridad.datos
                     .HasConstraintName("FK_ADSCMIEM_ADSCGRP");
             });
 
+            modelBuilder.Entity<Adscpassw>(entity =>
+            {
+                entity.HasKey(e => e.AdpsLogin)
+                    .HasName("PK_ADSCPASSW");
+
+                entity.ToTable("ADSCPASSW");
+
+                entity.Property(e => e.AdpsLogin)
+                    .HasColumnName("ADPS_LOGIN")
+                    .HasColumnType("varchar(32)");
+
+                entity.Property(e => e.AdpsCodigoEmpleado)
+                    .HasColumnName("ADPS_CODIGO_EMPLEADO")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdpsFechaCambio)
+                    .HasColumnName("ADPS_FECHA_CAMBIO")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.AdpsFechaVencimiento)
+                    .HasColumnName("ADPS_FECHA_VENCIMIENTO")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.AdpsIdContacto)
+                    .HasColumnName("ADPS_ID_CONTACTO")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdpsIdEntidad)
+                    .HasColumnName("ADPS_ID_ENTIDAD")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdpsIntentos).HasColumnName("ADPS_INTENTOS");
+
+                entity.Property(e => e.AdpsLoginAdm)
+                    .HasColumnName("ADPS_LOGIN_ADM")
+                    .HasColumnType("varchar(32)");
+
+                entity.Property(e => e.AdpsPasswCg)
+                    .HasColumnName("ADPS_PASSW_CG")
+                    .HasColumnType("varchar(100)");
+
+                entity.Property(e => e.AdpsPassword)
+                    .HasColumnName("ADPS_PASSWORD")
+                    .HasColumnType("varchar(32)");
+
+                entity.Property(e => e.AdpsPreguntaRecuperacion)
+                    .HasColumnName("ADPS_PREGUNTA_RECUPERACION")
+                    .HasColumnType("varchar(100)");
+
+                entity.Property(e => e.AdpsRespuestaRecuperacion)
+                    .HasColumnName("ADPS_RESPUESTA_RECUPERACION")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdpsTipoUso)
+                    .HasColumnName("ADPS_TIPO_USO")
+                    .HasColumnType("varchar(50)");
+            });
             modelBuilder.Entity<Adscsist>(entity =>
             {
                 entity.HasKey(e => e.AdstSistema)

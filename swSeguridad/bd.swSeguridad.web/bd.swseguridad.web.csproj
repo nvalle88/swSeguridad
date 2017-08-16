@@ -28,6 +28,7 @@
     <Folder Include="Controllers\MVC\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\SalvarLogEntry\bd.guardarlog.servicios\bd.log.guardar.csproj" />
     <ProjectReference Include="..\bd.sw.externos\bd.sw.externos.csproj" />
     <ProjectReference Include="..\bd.swSeguridad.datos\bd.swseguridad.datos.csproj" />
     <ProjectReference Include="..\bd.swSeguridad.entidades\bd.swseguridad.entidades.csproj" />

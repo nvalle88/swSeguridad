@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bd.swseguridad.datos", "bd.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bd.swseguridad.entidades", "bd.swSeguridad.entidades\bd.swseguridad.entidades.csproj", "{87CF74D7-84F7-458A-A64F-DFE316D651CE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bd.log.guardar", "..\..\SalvarLogEntry\bd.guardarlog.servicios\bd.log.guardar.csproj", "{A7C855E8-76BF-4219-9A9F-96FD997EC42D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{87CF74D7-84F7-458A-A64F-DFE316D651CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87CF74D7-84F7-458A-A64F-DFE316D651CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87CF74D7-84F7-458A-A64F-DFE316D651CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7C855E8-76BF-4219-9A9F-96FD997EC42D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7C855E8-76BF-4219-9A9F-96FD997EC42D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7C855E8-76BF-4219-9A9F-96FD997EC42D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7C855E8-76BF-4219-9A9F-96FD997EC42D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

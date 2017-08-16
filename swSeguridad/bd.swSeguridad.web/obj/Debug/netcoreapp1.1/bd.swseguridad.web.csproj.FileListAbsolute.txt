@@ -13,3 +13,5 @@ D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1
 D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
 D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.dll
 D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.log.guardar.dll
+D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.log.guardar.pdb

@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
 using bd.swseguridad.entidades.Negocio;
 using bd.swseguridad.entidades.Utils;
+using bd.log.guardar.Servicios;
+using bd.log.guardar.ObjectTranfer;
+using bd.swseguridad.entidades.Enumeradores;
+using bd.log.guardar.Enumeradores;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -25,63 +29,151 @@ namespace bd.swseguridad.web.Controllers.API
         // GET: api/BasesDatos
         [HttpGet]
         [Route("ListarBasesDatos")]
-        public IEnumerable<Adscbdd> GetAdscbdd()
+        public async Task<List<Adscbdd>> GetAdscbdd()
         {
-            return db.Adscbdd;
+            try
+            {
+                return await db.Adscbdd.OrderBy(x => x.AdbdBdd).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscbdd>();
+            }
         }
 
         // GET: api/BasesDatos/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAdscbdd([FromRoute] string id)
+        public async Task<Response> GetAdscbdd([FromRoute] string id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo no válido",
+                    };
+                }
+
+                var adscbdd = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
+
+                if (adscbdd == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "No encontrado",
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Resultado = adscbdd,
+                };
             }
-
-            var adscbdd = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
-
-            if (adscbdd == null)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            return Ok(adscbdd);
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
+            }
         }
 
         // PUT: api/BasesDatos/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdscbdd([FromRoute] string id, [FromBody] Adscbdd adscbdd)
+        public async Task<Response> PutAdscbdd([FromRoute] string id, [FromBody] Adscbdd adscbdd)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != adscbdd.AdbdBdd)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(adscbdd).State = EntityState.Modified;
-
             try
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AdscbddExists(id))
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo inválido"
+                    };
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                var adscdbbActualizar =await db.Adscbdd.Where(x => x.AdbdBdd == id).FirstOrDefaultAsync();
+                if (adscdbbActualizar!=null)
+                {
+                    try
+                    {
+                       
+                        adscdbbActualizar.AdbdDescripcion = adscbdd.AdbdDescripcion;
+                        adscdbbActualizar.AdbdServidor = adscbdd.AdbdServidor;
+                        db.Adscbdd.Update(adscdbbActualizar);
+                        await db.SaveChangesAsync(); 
+
+                        return new Response
+                        {
+                            IsSuccess=true,
+                            Message="Ok",
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = "Se ha producido una exepción",
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = "Error ",
+                        };
+                    }
+                }
+
+                
+           
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Existe"
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Excepción"
+                };
+            }
         }
 
         // POST: api/BasesDatos
@@ -121,35 +213,75 @@ namespace bd.swseguridad.web.Controllers.API
             }
             catch (Exception ex)
             {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = ex.Message,
+                    Message = "Error ",
                 };
-
-                throw;
             }
         }
 
         // DELETE: api/BasesDatos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdscbdd([FromRoute] string id)
+        public async Task<Response> DeleteAdscbdd([FromRoute] string id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo no válido ",
+                    };
+                }
 
-            var adscbdd = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
-            if (adscbdd == null)
+                var respuesta = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
+                if (respuesta == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "No existe ",
+                    };
+                }
+                db.Adscbdd.Remove(respuesta);
+                await db.SaveChangesAsync();
+
+                 return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Eliminado ",
+                };
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+               await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace=ex,
+                    Message="Se ha producido una exepción",
+                    LogCategoryParametre= Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName=Convert.ToString(LogLevelParameter.ERR),
+                    UserName="",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
             }
-
-            db.Adscbdd.Remove(adscbdd);
-            await db.SaveChangesAsync();
-
-            return Ok(adscbdd);
         }
 
         private bool AdscbddExists(string id)

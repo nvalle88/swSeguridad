@@ -7042,10 +7042,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
+      "projectUniqueName": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
       "projectName": "bd.sw.externos",
-      "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
-      "outputPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\obj\\",
+      "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
+      "outputPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.sw.externos\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

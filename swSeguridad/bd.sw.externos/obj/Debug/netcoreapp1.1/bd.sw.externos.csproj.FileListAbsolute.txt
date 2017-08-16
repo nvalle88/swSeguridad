@@ -5,3 +5,10 @@ D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\b
 D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.dll
 D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.pdb
 D:\Source\Repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.csprojResolveAssemblyReference.cache
+D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\bin\Debug\netcoreapp1.1\bd.sw.externos.deps.json
+D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\bin\Debug\netcoreapp1.1\bd.sw.externos.dll
+D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\bin\Debug\netcoreapp1.1\bd.sw.externos.pdb
+D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.csprojResolveAssemblyReference.cache
+D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.AssemblyInfo.cs
+D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.dll
+D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.pdb

@@ -6,6 +6,6 @@ namespace bd.swseguridad.entidades.Enumeradores
 {
     public enum Aplicacion
     {
-        SwSeguridad,detalle,esto,aquello
+        SwSeguridad
     } 
 }

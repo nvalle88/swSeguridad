@@ -7042,10 +7042,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
+      "projectUniqueName": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
       "projectName": "bd.swseguridad.entidades",
-      "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
-      "outputPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\obj\\",
+      "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
+      "outputPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"

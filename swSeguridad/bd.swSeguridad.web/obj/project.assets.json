@@ -10839,10 +10839,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
+      "projectUniqueName": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
       "projectName": "bd.swseguridad.web",
-      "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
-      "outputPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\obj\\",
+      "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
+      "outputPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -10850,17 +10850,17 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
-              "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
+            "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
+              "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
             },
-            "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj": {
-              "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj"
+            "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj": {
+              "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj"
             },
-            "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj": {
-              "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj"
+            "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj": {
+              "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj"
             },
-            "D:\\Source\\Repos\\SalvarLogEntry\\bd.guardarlog.servicios\\bd.log.guardar.csproj": {
-              "projectPath": "D:\\Source\\Repos\\SalvarLogEntry\\bd.guardarlog.servicios\\bd.log.guardar.csproj"
+            "D:\\GitHub\\SalvarLogEntry\\bd.guardarlog.servicios\\bd.log.guardar.csproj": {
+              "projectPath": "D:\\GitHub\\SalvarLogEntry\\bd.guardarlog.servicios\\bd.log.guardar.csproj"
             }
           }
         }

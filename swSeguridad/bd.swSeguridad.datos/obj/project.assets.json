@@ -8139,10 +8139,10 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
+      "projectUniqueName": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
       "projectName": "bd.swseguridad.datos",
-      "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
-      "outputPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\obj\\",
+      "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
+      "outputPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -8150,8 +8150,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
-              "projectPath": "D:\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
+            "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
+              "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
             }
           }
         }

@@ -16,6 +16,7 @@ namespace bd.swseguridad.datos
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscmenu> Adscmenu { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscmiem> Adscmiem { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscsist> Adscsist { get; set; }
+        public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscpassw> Adscpassw { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

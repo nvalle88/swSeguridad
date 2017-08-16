@@ -99,14 +99,14 @@ namespace bd.swseguridad.web.Controllers.API
 
                 await GuardarLogService.SaveLogEntry(new LogEntryTranfer
                 {
-                    ApplicationName =Convert.ToString(Aplicacion.Seguridad),
+                    ApplicationName =Convert.ToString(Aplicacion.SwSeguridad),
                     ExceptionTrace=ex,
                     LogCategoryParametre=Convert.ToString(LogCategoryParameter.Critical),
                     LogLevelShortName=Convert.ToString(LogLevelParameter.ERR),
                     Message=ex.Message,
                     UserName=login.Usuario,
                     
-                },new Uri(""),"");
+                });
                 return new Response
                 {
                     IsSuccess=false,

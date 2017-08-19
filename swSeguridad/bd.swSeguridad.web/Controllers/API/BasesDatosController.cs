@@ -282,12 +282,7 @@ namespace bd.swseguridad.web.Controllers.API
                     Message = "Error ",
                 };
             }
-        }
-
-        private bool AdscbddExists(string id)
-        {
-            return db.Adscbdd.Any(e => e.AdbdBdd == id);
-        }
+        }       
 
         public Response Existe(Adscbdd adscbdd)
         {

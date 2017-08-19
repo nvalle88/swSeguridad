@@ -5,6 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace bd.swseguridad.web
 {
@@ -26,7 +29,17 @@ namespace bd.swseguridad.web
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+
+            services.AddMvc().AddJsonOptions(o => {
+                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                o.SerializerSettings.Converters.Add(new StringEnumConverter());
+                o.SerializerSettings.Formatting = Formatting.Indented;
+                o.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+                o.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Error;
+            });
+
+          
             services.AddDbContext<SwSeguridadDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("SeguridadConnection")));
         }

@@ -58,7 +58,7 @@ namespace bd.swseguridad.datos
 
                 entity.Property(e => e.AdexSistema)
                     .HasColumnName("ADEX_SISTEMA")
-                    .HasColumnType("varchar(8)");
+                    .HasColumnType("varchar(20)");
 
                 entity.Property(e => e.AdexAplicacion)
                     .HasColumnName("ADEX_APLICACION")
@@ -128,7 +128,7 @@ namespace bd.swseguridad.datos
 
                 entity.Property(e => e.AdmeSistema)
                     .HasColumnName("ADME_SISTEMA")
-                    .HasColumnType("varchar(8)");
+                    .HasColumnType("varchar(20)");
 
                 entity.Property(e => e.AdmeAplicacion)
                     .HasColumnName("ADME_APLICACION")
@@ -275,7 +275,7 @@ namespace bd.swseguridad.datos
 
                 entity.Property(e => e.AdstSistema)
                     .HasColumnName("ADST_SISTEMA")
-                    .HasColumnType("varchar(8)");
+                    .HasColumnType("varchar(20)");
 
                 entity.Property(e => e.AdstBdd)
                     .HasColumnName("ADST_BDD")

@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
 using bd.swseguridad.entidades.Negocio;
+using bd.log.guardar.Servicios;
+using bd.log.guardar.ObjectTranfer;
+using bd.swseguridad.entidades.Enumeradores;
+using bd.log.guardar.Enumeradores;
+using bd.swseguridad.entidades.Utils;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -14,113 +19,298 @@ namespace bd.swseguridad.web.Controllers.API
     [Route("api/Adscsists")]
     public class AdscsistsController : Controller
     {
-        private readonly SwSeguridadDbContext _context;
+        private readonly SwSeguridadDbContext db;
 
-        public AdscsistsController(SwSeguridadDbContext context)
+        public AdscsistsController(SwSeguridadDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
         // GET: api/Adscsists
         [HttpGet]
-        public IEnumerable<Adscsist> GetAdscsist()
+        [Route("ListarAdscSistema")]
+        public async Task<List<Adscsist>> GetAdscsist()
         {
-            return _context.Adscsist;
+            try
+            {
+                return await db.Adscsist.OrderBy(x => x.AdstSistema).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscsist>();
+            }
         }
 
         // GET: api/Adscsists/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAdscsist([FromRoute] string id)
+        public async Task<Response> GetAdscsist([FromRoute] string id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo no válido",
+                    };
+                }
+
+                var adscbdd = await db.Adscsist.SingleOrDefaultAsync(m => m.AdstSistema == id);
+
+                if (adscbdd == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "No encontrado",
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Resultado = adscbdd,
+                };
             }
-
-            var adscsist = await _context.Adscsist.SingleOrDefaultAsync(m => m.AdstSistema == id);
-
-            if (adscsist == null)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            return Ok(adscsist);
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
+            }
         }
 
         // PUT: api/Adscsists/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdscsist([FromRoute] string id, [FromBody] Adscsist adscsist)
+        public async Task<Response> PutAdscsist([FromRoute] string id, [FromBody] Adscsist adscsist)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != adscsist.AdstSistema)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(adscsist).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AdscsistExists(id))
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo inválido"
+                    };
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                var adscsistActualizar = await db.Adscsist.Where(x => x.AdstSistema == id).FirstOrDefaultAsync();
+                if (adscsistActualizar != null)
+                {
+                    try
+                    {
+
+                        adscsistActualizar.AdstBdd = adscsist.AdstBdd;
+                        adscsistActualizar.AdstTipo = adscsist.AdstTipo;
+                        adscsistActualizar.AdstHost = adscsist.AdstHost;
+                        adscsistActualizar.AdstDescripcion = adscsist.AdstDescripcion;
+                        db.Adscsist.Update(adscsistActualizar);
+                        await db.SaveChangesAsync();
+
+                        return new Response
+                        {
+                            IsSuccess = true,
+                            Message = "Ok",
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = "Se ha producido una exepción",
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = "Error ",
+                        };
+                    }
+                }
+
+
+
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Existe"
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Excepción"
+                };
+            }
         }
 
         // POST: api/Adscsists
         [HttpPost]
-        public async Task<IActionResult> PostAdscsist([FromBody] Adscsist adscsist)
+        [Route("InsertarAdscSist")]
+        public async Task<Response> PostAdscsist([FromBody] Adscsist adscsist)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo inválido"
+                    };
+                }
+
+                var respuesta = Existe(adscsist);
+                if (!respuesta.IsSuccess)
+                {
+                    db.Adscsist.Add(adscsist);
+                    await db.SaveChangesAsync();
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Message = "OK"
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "OK"
+                };
+
             }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            _context.Adscsist.Add(adscsist);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAdscsist", new { id = adscsist.AdstSistema }, adscsist);
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
+            }
         }
 
         // DELETE: api/Adscsists/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdscsist([FromRoute] string id)
+        public async Task<Response> DeleteAdscsist([FromRoute] string id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo no válido ",
+                    };
+                }
 
-            var adscsist = await _context.Adscsist.SingleOrDefaultAsync(m => m.AdstSistema == id);
-            if (adscsist == null)
+                var respuesta = await db.Adscsist.SingleOrDefaultAsync(m => m.AdstSistema == id);
+                if (respuesta == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "No existe ",
+                    };
+                }
+                db.Adscsist.Remove(respuesta);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Eliminado ",
+                };
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
             }
-
-            _context.Adscsist.Remove(adscsist);
-            await _context.SaveChangesAsync();
-
-            return Ok(adscsist);
         }
 
         private bool AdscsistExists(string id)
         {
-            return _context.Adscsist.Any(e => e.AdstSistema == id);
+            return db.Adscsist.Any(e => e.AdstSistema == id);
+        }
+
+        public Response Existe(Adscsist adscsist)
+        {
+            var bdd = adscsist.AdstSistema.ToUpper().TrimEnd().TrimStart();
+            var loglevelrespuesta = db.Adscsist.Where(p => p.AdstSistema.ToUpper().TrimStart().TrimEnd() == bdd).FirstOrDefault();
+            if (loglevelrespuesta != null)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Existe un sistema de igual nombre",
+                    Resultado = null,
+                };
+
+            }
+
+            return new Response
+            {
+                IsSuccess = false,
+                Resultado = loglevelrespuesta,
+            };
         }
     }
 }

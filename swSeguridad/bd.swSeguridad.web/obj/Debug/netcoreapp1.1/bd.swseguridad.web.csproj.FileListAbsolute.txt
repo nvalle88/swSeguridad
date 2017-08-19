@@ -18,10 +18,6 @@ D:\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.deps.json
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.json
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.dev.json
-D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.csprojResolveAssemblyReference.cache
-D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
-D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.dll
-D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.dll
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.log.guardar.dll
@@ -32,3 +28,7 @@ D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.sw.externos.pdb
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb
 D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
+D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.csprojResolveAssemblyReference.cache
+D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
+D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.dll
+D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.pdb

@@ -11,4 +11,3 @@ D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\bin\Debug\netcoreapp1.1\bd.sw.e
 D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.AssemblyInfo.cs
 D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.dll
 D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.pdb
-D:\GitHub\swSeguridad\swSeguridad\bd.sw.externos\obj\Debug\netcoreapp1.1\bd.sw.externos.csprojResolveAssemblyReference.cache

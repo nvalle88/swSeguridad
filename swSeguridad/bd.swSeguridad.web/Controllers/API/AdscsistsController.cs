@@ -124,7 +124,6 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     try
                     {
-
                         adscsistActualizar.AdstBdd = adscsist.AdstBdd;
                         adscsistActualizar.AdstTipo = adscsist.AdstTipo;
                         adscsistActualizar.AdstHost = adscsist.AdstHost;

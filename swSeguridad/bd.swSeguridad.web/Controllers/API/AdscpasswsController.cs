@@ -140,37 +140,71 @@ namespace bd.swseguridad.web.Controllers.API
 
         // PUT: api/Adscpassws/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdscpassw([FromRoute] string id, [FromBody] Adscpassw adscpassw)
+        public async Task<Response> PutAdscpassw([FromRoute] string id, [FromBody] Adscpassw adscpassw)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != adscpassw.AdpsLogin)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(adscpassw).State = EntityState.Modified;
-
             try
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AdscpasswExists(id))
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo inválido"
+                    };
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                var adscsistActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == id).FirstOrDefaultAsync();
+                if (adscsistActualizar != null)
+                {
+                    try
+                    {
+                        //adscsistActualizar.AdstBdd = adscsist.AdstBdd;
+                        //adscsistActualizar.AdstTipo = adscsist.AdstTipo;
+                        //adscsistActualizar.AdstHost = adscsist.AdstHost;
+                        //adscsistActualizar.AdstDescripcion = adscsist.AdstDescripcion;
+                        //db.Adscsist.Update(adscsistActualizar);
+                        await db.SaveChangesAsync();
+
+                        return new Response
+                        {
+                            IsSuccess = true,
+                            Message = "Ok",
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = "Se ha producido una exepción",
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = "Error ",
+                        };
+                    }
+                }
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Existe"
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Excepción"
+                };
+            }
         }
 
         // POST: api/Adscpassws

@@ -284,7 +284,7 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }       
 
-        public Response Existe(Adscbdd adscbdd)
+        private Response Existe(Adscbdd adscbdd)
         {
             var bdd = adscbdd.AdbdBdd.ToUpper().TrimEnd().TrimStart();
             var loglevelrespuesta = db.Adscbdd.Where(p => p.AdbdBdd.ToUpper().TrimStart().TrimEnd() == bdd).FirstOrDefault();

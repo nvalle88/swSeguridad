@@ -29,9 +29,27 @@ namespace bd.swseguridad.web.Controllers.API
 
         // GET: api/Adscpassws
         [HttpGet]
-        public IEnumerable<Adscpassw> GetAdscpassw()
+        [Route("ListarAdscPassw")]
+        public async Task<List<Adscpassw>> GetAdscpassw()
         {
-            return db.Adscpassw;
+            try
+            {
+                return await db.Adscpassw.OrderBy(x => x.AdpsLogin).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscpassw>();
+            }
         }
 
         [Route("Login")]
@@ -121,21 +139,55 @@ namespace bd.swseguridad.web.Controllers.API
 
         // GET: api/Adscpassws/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAdscpassw([FromRoute] string id)
+        public async Task<Response>GetAdscpassw([FromRoute] string id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo no válido",
+                    };
+                }
+
+                var adscbdd = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin == id);
+
+                if (adscbdd == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "No encontrado",
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Ok",
+                    Resultado = adscbdd,
+                };
             }
-
-            var adscpassw = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin == id);
-
-            if (adscpassw == null)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            return Ok(adscpassw);
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
+            }
         }
 
         // PUT: api/Adscpassws/5
@@ -153,16 +205,15 @@ namespace bd.swseguridad.web.Controllers.API
                     };
                 }
 
-                var adscsistActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == id).FirstOrDefaultAsync();
-                if (adscsistActualizar != null)
+                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == id).FirstOrDefaultAsync();
+                if (adscPsswActualizar != null)
                 {
                     try
                     {
-                        //adscsistActualizar.AdstBdd = adscsist.AdstBdd;
-                        //adscsistActualizar.AdstTipo = adscsist.AdstTipo;
-                        //adscsistActualizar.AdstHost = adscsist.AdstHost;
-                        //adscsistActualizar.AdstDescripcion = adscsist.AdstDescripcion;
-                        //db.Adscsist.Update(adscsistActualizar);
+
+                        adscPsswActualizar.AdpsPreguntaRecuperacion = adscpassw.AdpsPreguntaRecuperacion;
+                        adscPsswActualizar.AdpsRespuestaRecuperacion = adscpassw.AdpsRespuestaRecuperacion;
+                        db.Adscpassw.Update(adscPsswActualizar);
                         await db.SaveChangesAsync();
 
                         return new Response
@@ -191,6 +242,7 @@ namespace bd.swseguridad.web.Controllers.API
                         };
                     }
                 }
+
                 return new Response
                 {
                     IsSuccess = false,
@@ -209,43 +261,137 @@ namespace bd.swseguridad.web.Controllers.API
 
         // POST: api/Adscpassws
         [HttpPost]
-        public async Task<IActionResult> PostAdscpassw([FromBody] Adscpassw adscpassw)
+        [Route("InsertarAdscPassw")]
+        public async Task<Response> PostAdscpassw([FromBody] Adscpassw adscpassw)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo inválido"
+                    };
+                }
+
+                var respuesta = Existe(adscpassw);
+                if (!respuesta.IsSuccess)
+                {
+                    db.Adscpassw.Add(adscpassw);
+                    await db.SaveChangesAsync();
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Message = "OK"
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "OK"
+                };
+
             }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            db.Adscpassw.Add(adscpassw);
-            await db.SaveChangesAsync();
-
-            return CreatedAtAction("GetAdscpassw", new { id = adscpassw.AdpsLogin }, adscpassw);
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
+            }
         }
 
         // DELETE: api/Adscpassws/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdscpassw([FromRoute] string id)
+        public async Task<Response> DeleteAdscpassw([FromRoute] string id)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "Módelo no válido ",
+                    };
+                }
 
-            var adscpassw = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin == id);
-            if (adscpassw == null)
+                var respuesta = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin == id);
+                if (respuesta == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = "No existe ",
+                    };
+                }
+                db.Adscpassw.Remove(respuesta);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Eliminado ",
+                };
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = "Se ha producido una exepción",
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Error ",
+                };
             }
-
-            db.Adscpassw.Remove(adscpassw);
-            await db.SaveChangesAsync();
-
-            return Ok(adscpassw);
         }
 
         private bool AdscpasswExists(string id)
         {
             return db.Adscpassw.Any(e => e.AdpsLogin == id);
+        }
+
+        public Response Existe(Adscpassw adscpassw)
+        {
+            var bdd = adscpassw.AdpsLogin.ToUpper().TrimEnd().TrimStart();
+            var loglevelrespuesta = db.Adscpassw.Where(p => p.AdpsLogin.ToUpper().TrimStart().TrimEnd() == bdd).FirstOrDefault();
+            if (loglevelrespuesta != null)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = "Existe Un  usuario de igual nombre",
+                    Resultado = null,
+                };
+
+            }
+
+            return new Response
+            {
+                IsSuccess = false,
+                Resultado = loglevelrespuesta,
+            };
         }
     }
 }

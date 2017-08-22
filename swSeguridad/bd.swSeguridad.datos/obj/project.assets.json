@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "Libuv/1.9.1": {
@@ -2802,6 +2802,12 @@
         "framework": ".NETCoreApp,Version=v1.1",
         "dependencies": {
           "Microsoft.NETCore.App": "1.1.2"
+        },
+        "compile": {
+          "bin/placeholder/bd.swseguridad.entidades.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/bd.swseguridad.entidades.dll": {}
         }
       }
     }
@@ -8134,24 +8140,36 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\yanelys darzon\\.nuget\\packages\\": {}
+    "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
+      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
       "projectName": "bd.swseguridad.datos",
-      "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
-      "outputPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\obj\\",
+      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
+      "packagesPath": "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\obj\\",
       "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Nestor Yasmani Valle\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
-              "projectPath": "D:\\GitHub\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
+            "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
+              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
             }
           }
         }

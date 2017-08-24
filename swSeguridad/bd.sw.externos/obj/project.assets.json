@@ -7045,11 +7045,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
+      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
       "projectName": "bd.sw.externos",
-      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
+      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj",
       "packagesPath": "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\obj\\",
+      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nestor Yasmani Valle\\AppData\\Roaming\\NuGet\\NuGet.Config",

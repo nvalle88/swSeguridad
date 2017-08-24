@@ -13,6 +13,7 @@ using bd.log.guardar.Servicios;
 using bd.swseguridad.entidades.Enumeradores;
 using bd.log.guardar.ObjectTranfer;
 using bd.log.guardar.Enumeradores;
+using System.Security.Cryptography;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -259,6 +260,7 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+      
         // POST: api/Adscpassws
         [HttpPost]
         [Route("InsertarAdscPassw")]
@@ -278,6 +280,18 @@ namespace bd.swseguridad.web.Controllers.API
                 var respuesta = Existe(adscpassw);
                 if (!respuesta.IsSuccess)
                 {
+                    adscpassw.AdpsFechaCambio = DateTime.Now;
+                    adscpassw.AdpsFechaVencimiento = DateTime.Now.AddMonths(3);
+                    adscpassw.AdpsIntentos = 0;
+                    adscpassw.AdpsPasswCg = adscpassw.AdpsLogin;
+                    adscpassw.AdpsPreguntaRecuperacion = "No Iniciado";
+                    adscpassw.AdpsRespuestaRecuperacion = "No Iniciado";
+                    adscpassw.AdpsPassword = SHA512(adscpassw.AdpsLogin);
+                    float x= new float();
+                    for (int i = 0; i < 1000000000; i++)
+                    {
+                        x = x + i;
+                    }
                     db.Adscpassw.Add(adscpassw);
                     await db.SaveChangesAsync();
                     return new Response
@@ -290,7 +304,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "OK"
+                    Message = "Existe un usuario de igual nombre...Por favor intente con otro nombre de usuario"
                 };
 
             }

@@ -21,6 +21,7 @@ namespace bd.swseguridad.datos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+           
             modelBuilder.Entity<Adscbdd>(entity =>
             {
                 entity.HasKey(e => e.AdbdBdd)
@@ -252,7 +253,7 @@ namespace bd.swseguridad.datos
 
                 entity.Property(e => e.AdpsPassword)
                     .HasColumnName("ADPS_PASSWORD")
-                    .HasColumnType("varchar(32)");
+                    .HasColumnType("varchar(1000)");
 
                 entity.Property(e => e.AdpsPreguntaRecuperacion)
                     .HasColumnName("ADPS_PREGUNTA_RECUPERACION")

@@ -286,12 +286,7 @@ namespace bd.swseguridad.web.Controllers.API
                     adscpassw.AdpsPasswCg = adscpassw.AdpsLogin;
                     adscpassw.AdpsPreguntaRecuperacion = "No Iniciado";
                     adscpassw.AdpsRespuestaRecuperacion = "No Iniciado";
-                    adscpassw.AdpsPassword = SHA512(adscpassw.AdpsLogin);
-                    float x= new float();
-                    for (int i = 0; i < 1000000000; i++)
-                    {
-                        x = x + i;
-                    }
+                    adscpassw.AdpsPassword = Codificar.SHA512(adscpassw.AdpsLogin);
                     db.Adscpassw.Add(adscpassw);
                     await db.SaveChangesAsync();
                     return new Response

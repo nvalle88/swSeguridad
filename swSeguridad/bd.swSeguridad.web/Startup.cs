@@ -61,8 +61,8 @@ namespace bd.swseguridad.web
                 using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
                 .CreateScope())
                 {
-                    serviceScope.ServiceProvider.GetService<SwSeguridadDbContext>()
-                             .Database.Migrate();
+                    //serviceScope.ServiceProvider.GetService<SwSeguridadDbContext>()
+                    //         .Database.Migrate();
 
                     //serviceScope.ServiceProvider.GetService<SwCompartidoDbContext>().EnsureSeedData();
                 }

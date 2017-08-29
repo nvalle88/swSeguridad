@@ -43,7 +43,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
                     ExceptionTrace = ex,
-                    Message = "Se ha producido una exepción",
+                    Message = Mensaje.Excepcion,
                     LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
                     LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
                     UserName = "",
@@ -68,7 +68,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "No existe"
+                        Message = Mensaje.RegistroNoEncontrado
                     };
                 }
 
@@ -149,7 +149,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Módelo no válido",
+                        Message = Mensaje.ModeloInvalido,
                     };
                 }
 
@@ -160,14 +160,14 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "No encontrado",
+                        Message = Mensaje.RegistroNoEncontrado,
                     };
                 }
 
                 return new Response
                 {
                     IsSuccess = true,
-                    Message = "Ok",
+                    Message = Mensaje.Satisfactorio,
                     Resultado = adscbdd,
                 };
             }
@@ -202,7 +202,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Módelo inválido"
+                        Message = Mensaje.ModeloInvalido
                     };
                 }
 
@@ -220,7 +220,7 @@ namespace bd.swseguridad.web.Controllers.API
                         return new Response
                         {
                             IsSuccess = true,
-                            Message = "Ok",
+                            Message = Mensaje.Satisfactorio,
                         };
 
                     }
@@ -230,7 +230,7 @@ namespace bd.swseguridad.web.Controllers.API
                         {
                             ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
                             ExceptionTrace = ex,
-                            Message = "Se ha producido una exepción",
+                            Message = Mensaje.Excepcion,
                             LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
                             LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
                             UserName = "",
@@ -239,7 +239,7 @@ namespace bd.swseguridad.web.Controllers.API
                         return new Response
                         {
                             IsSuccess = false,
-                            Message = "Error ",
+                            Message = Mensaje.Error,
                         };
                     }
                 }
@@ -247,7 +247,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Existe un registro de igual nombre"
+                    Message = Mensaje.ExisteRegistro
                 };
             }
             catch (Exception)
@@ -255,7 +255,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Excepción"
+                    Message = Mensaje.Excepcion
                 };
             }
         }
@@ -273,7 +273,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Módelo inválido"
+                        Message = Mensaje.ModeloInvalido
                     };
                 }
 
@@ -284,22 +284,22 @@ namespace bd.swseguridad.web.Controllers.API
                     adscpassw.AdpsFechaVencimiento = DateTime.Now.AddMonths(3);
                     adscpassw.AdpsIntentos = 0;
                     adscpassw.AdpsPasswCg = adscpassw.AdpsLogin;
-                    adscpassw.AdpsPreguntaRecuperacion = "No Iniciado";
-                    adscpassw.AdpsRespuestaRecuperacion = "No Iniciado";
+                    adscpassw.AdpsPreguntaRecuperacion = Mensaje.UsuarioSinConfirmar;
+                    adscpassw.AdpsRespuestaRecuperacion = Mensaje.UsuarioSinConfirmar;
                     adscpassw.AdpsPassword = Codificar.SHA512(adscpassw.AdpsLogin);
                     db.Adscpassw.Add(adscpassw);
                     await db.SaveChangesAsync();
                     return new Response
                     {
                         IsSuccess = true,
-                        Message = "OK"
+                        Message = Mensaje.Satisfactorio
                     };
                 }
 
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Existe un usuario de igual nombre...Por favor intente con otro nombre de usuario"
+                    Message = Mensaje.ExisteRegistro
                 };
 
             }
@@ -309,7 +309,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
                     ExceptionTrace = ex,
-                    Message = "Se ha producido una exepción",
+                    Message = Mensaje.Excepcion,
                     LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
                     LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
                     UserName = "",
@@ -318,7 +318,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Error ",
+                    Message = Mensaje.Error,
                 };
             }
         }
@@ -334,7 +334,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Módelo no válido ",
+                        Message = Mensaje.ModeloInvalido,
                     };
                 }
 
@@ -344,7 +344,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "No existe ",
+                        Message = Mensaje.RegistroNoEncontrado,
                     };
                 }
                 db.Adscpassw.Remove(respuesta);
@@ -353,7 +353,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = true,
-                    Message = "Eliminado ",
+                    Message = Mensaje.Satisfactorio,
                 };
             }
             catch (Exception ex)
@@ -362,7 +362,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
                     ExceptionTrace = ex,
-                    Message = "Se ha producido una exepción",
+                    Message = Mensaje.Excepcion,
                     LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
                     LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
                     UserName = "",
@@ -371,14 +371,9 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Error ",
+                    Message = Mensaje.Error,
                 };
             }
-        }
-
-        private bool AdscpasswExists(string id)
-        {
-            return db.Adscpassw.Any(e => e.AdpsLogin == id);
         }
 
         public Response Existe(Adscpassw adscpassw)
@@ -390,7 +385,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = true,
-                    Message = "Existe Un  usuario de igual nombre",
+                    Message = Mensaje.Excepcion,
                     Resultado = null,
                 };
 

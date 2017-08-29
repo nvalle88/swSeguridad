@@ -247,7 +247,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Existe"
+                    Message = "Existe un registro de igual nombre"
                 };
             }
             catch (Exception)

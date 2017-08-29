@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
 using bd.swseguridad.entidades.Negocio;
+using bd.log.guardar.Servicios;
+using bd.log.guardar.ObjectTranfer;
+using bd.swseguridad.entidades.Enumeradores;
+using bd.swseguridad.entidades.Utils;
+using bd.log.guardar.Enumeradores;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -14,127 +19,289 @@ namespace bd.swseguridad.web.Controllers.API
     [Route("api/Adscgrps")]
     public class AdscgrpsController : Controller
     {
-        private readonly SwSeguridadDbContext _context;
+        private readonly SwSeguridadDbContext db;
 
-        public AdscgrpsController(SwSeguridadDbContext context)
+        public AdscgrpsController(SwSeguridadDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
         // GET: api/Adscgrps
         [HttpGet]
-        public IEnumerable<Adscgrp> GetAdscgrp()
+        [Route("ListarAdscgrp")]
+        public async Task<List<Adscgrp>> GetAdscgrp()
         {
-            return _context.Adscgrp;
+            try
+            {
+                return await db.Adscgrp.OrderBy(x => x.AdgrGrupo).ThenBy(x=>x.AdgrNombre).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscgrp>();
+            }
         }
 
         // GET: api/Adscgrps/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAdscgrp([FromRoute] string id)
+        [HttpPost]
+        [Route("SeleccionarAdscgrp")]
+        public async Task<Response> GetAdscgrp([FromBody] Adscgrp adscgrp)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido,
+                    };
+                }
+
+                var adscgrpSeleccionado= await db.Adscgrp.SingleOrDefaultAsync(m => m.AdgrGrupo == adscgrp.AdgrGrupo && m.AdgrBdd==adscgrp.AdgrBdd);
+
+                if (adscgrpSeleccionado == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado,
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.Satisfactorio,
+                    Resultado = adscgrpSeleccionado,
+                };
             }
-
-            var adscgrp = await _context.Adscgrp.SingleOrDefaultAsync(m => m.AdgrBdd == id);
-
-            if (adscgrp == null)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            return Ok(adscgrp);
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
+            }
         }
 
         // PUT: api/Adscgrps/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdscgrp([FromRoute] string id, [FromBody] Adscgrp adscgrp)
+        public async Task<Response> PutAdscgrp([FromRoute] string id, [FromBody] Adscgrp adscgrp)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != adscgrp.AdgrBdd)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(adscgrp).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AdscgrpExists(id))
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                var adscgrpSeleccionado = await db.Adscgrp.SingleOrDefaultAsync(m => m.AdgrGrupo == adscgrp.AdgrGrupo && m.AdgrBdd == adscgrp.AdgrBdd);
+                if (adscgrpSeleccionado != null)
+                {
+                    try
+                    {
+                        adscgrpSeleccionado.AdgrNombre = adscgrp.AdgrNombre;
+                        adscgrpSeleccionado.AdgrDescripcion = adscgrp.AdgrDescripcion;
+                        db.Adscgrp.Update(adscgrpSeleccionado);
+                        await db.SaveChangesAsync();
+
+                        return new Response
+                        {
+                            IsSuccess = true,
+                            Message = Mensaje.Satisfactorio,
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = Mensaje.Excepcion,
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = Mensaje.Error,
+                        };
+                    }
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Excepcion
+                };
+            }
         }
 
         // POST: api/Adscgrps
         [HttpPost]
-        public async Task<IActionResult> PostAdscgrp([FromBody] Adscgrp adscgrp)
+        public async Task<Response> PostAdscgrp([FromBody] Adscgrp adscgrp)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Adscgrp.Add(adscgrp);
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AdscgrpExists(adscgrp.AdgrBdd))
+                if (!ModelState.IsValid)
                 {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetAdscgrp", new { id = adscgrp.AdgrBdd }, adscgrp);
+                var respuesta = Existe(adscgrp);
+                if (!respuesta.IsSuccess)
+                {
+                    db.Adscgrp.Add(adscgrp);
+                    await db.SaveChangesAsync();
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Message = Mensaje.Satisfactorio
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
+            }
         }
 
         // DELETE: api/Adscgrps/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdscgrp([FromRoute] string id)
+        [HttpPost]
+        [Route("EliminarAdscgrp")]
+        public async Task<Response> DeleteAdscgrp([FromBody]Adscgrp adscgrp)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido,
+                    };
+                }
 
-            var adscgrp = await _context.Adscgrp.SingleOrDefaultAsync(m => m.AdgrBdd == id);
-            if (adscgrp == null)
+                var adscgrpSeleccionado = await db.Adscgrp.SingleOrDefaultAsync(m => m.AdgrGrupo == adscgrp.AdgrGrupo && m.AdgrBdd == adscgrp.AdgrBdd);
+                if (adscgrpSeleccionado == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado,
+                    };
+                }
+                db.Adscgrp.Remove(adscgrpSeleccionado);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.Satisfactorio,
+                };
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
             }
-
-            _context.Adscgrp.Remove(adscgrp);
-            await _context.SaveChangesAsync();
-
-            return Ok(adscgrp);
         }
 
-        private bool AdscgrpExists(string id)
+        public Response Existe(Adscgrp adscgrp)
         {
-            return _context.Adscgrp.Any(e => e.AdgrBdd == id);
+            var grupo = adscgrp.AdgrGrupo.ToUpper().TrimEnd().TrimStart();
+            var bdd = adscgrp.AdgrBdd.ToUpper().TrimEnd().TrimStart();
+            var loglevelrespuesta = db.Adscgrp.Where(p => p.AdgrBdd.ToUpper().TrimStart().TrimEnd() == bdd && p.AdgrGrupo.ToUpper().TrimStart().TrimEnd()==grupo).FirstOrDefault();
+            if (loglevelrespuesta != null)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.ExisteRegistro,
+                    Resultado = null,
+                };
+
+            }
+
+            return new Response
+            {
+                IsSuccess = false,
+                Resultado = loglevelrespuesta,
+            };
         }
     }
 }

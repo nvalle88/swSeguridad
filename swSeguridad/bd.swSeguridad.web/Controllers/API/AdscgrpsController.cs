@@ -106,8 +106,9 @@ namespace bd.swseguridad.web.Controllers.API
         }
 
         // PUT: api/Adscgrps/5
-        [HttpPut("{id}")]
-        public async Task<Response> PutAdscgrp([FromRoute] string id, [FromBody] Adscgrp adscgrp)
+        [HttpPut]
+        [Route("EditarAdscgrp")]
+        public async Task<Response> PutAdscgrp( [FromBody] Adscgrp adscgrp)
         {
             try
             {
@@ -175,6 +176,7 @@ namespace bd.swseguridad.web.Controllers.API
 
         // POST: api/Adscgrps
         [HttpPost]
+        [Route("InsertarAdscgrp")]
         public async Task<Response> PostAdscgrp([FromBody] Adscgrp adscgrp)
         {
             try

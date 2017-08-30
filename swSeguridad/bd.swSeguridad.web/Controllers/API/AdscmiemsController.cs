@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
 using bd.swseguridad.entidades.Negocio;
+using bd.log.guardar.Servicios;
+using bd.log.guardar.ObjectTranfer;
+using bd.swseguridad.entidades.Enumeradores;
+using bd.swseguridad.entidades.Utils;
+using bd.log.guardar.Enumeradores;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -14,127 +19,304 @@ namespace bd.swseguridad.web.Controllers.API
     [Route("api/Adscmiems")]
     public class AdscmiemsController : Controller
     {
-        private readonly SwSeguridadDbContext _context;
+        private readonly SwSeguridadDbContext db;
 
-        public AdscmiemsController(SwSeguridadDbContext context)
+        public AdscmiemsController(SwSeguridadDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
         // GET: api/Adscmiems
         [HttpGet]
-        public IEnumerable<Adscmiem> GetAdscmiem()
+        [Route("ListarAdscmiem")]
+        public async Task<List<Adscmiem>>  GetAdscmiem()
         {
-            return _context.Adscmiem;
-        }
-
-        // GET: api/Adscmiems/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAdscmiem([FromRoute] string id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var adscmiem = await _context.Adscmiem.SingleOrDefaultAsync(m => m.AdmiEmpleado == id);
-
-            if (adscmiem == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(adscmiem);
-        }
-
-        // PUT: api/Adscmiems/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdscmiem([FromRoute] string id, [FromBody] Adscmiem adscmiem)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != adscmiem.AdmiEmpleado)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(adscmiem).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                return await db.Adscmiem.OrderBy(x => x.AdmiGrupo).ThenBy(x => x.AdmiEmpleado).ToListAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!AdscmiemExists(id))
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            return NoContent();
+                });
+                return new List<Adscmiem>();
+            }
         }
 
-        // POST: api/Adscmiems
+
         [HttpPost]
-        public async Task<IActionResult> PostAdscmiem([FromBody] Adscmiem adscmiem)
+        [Route("SeleccionarAdscmiem")]
+        public async Task<Response> GetAdscmiem([FromBody] Adscmiem adscmiem)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Adscmiem.Add(adscmiem);
             try
             {
-                await _context.SaveChangesAsync();
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido,
+                    };
+                }
+
+                var adscmienmSeleccionado = await db.Adscmiem.SingleOrDefaultAsync(m => m.AdmiGrupo == adscmiem.AdmiGrupo 
+                                                                                   && m.AdmiEmpleado == adscmiem.AdmiEmpleado
+                                                                                   && m.AdmiBdd == adscmiem.AdmiBdd);
+
+                if (adscmienmSeleccionado == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado,
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.Satisfactorio,
+                    Resultado = adscmienmSeleccionado,
+                };
             }
-            catch (DbUpdateException)
+            catch (Exception ex)
             {
-                if (AdscmiemExists(adscmiem.AdmiEmpleado))
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
                 {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
                 {
-                    throw;
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
+            }
+        }
+
+
+        [HttpPut]
+        [Route("EditarAdscmiem")]
+        public async Task<Response> PutAdscmiem([FromBody] Adscmiem adscmiem)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
                 }
+
+                var adscmienmSeleccionado = await db.Adscmiem.SingleOrDefaultAsync(m => m.AdmiGrupo == adscmiem.AdmiGrupo
+                                                                                 && m.AdmiEmpleado == adscmiem.AdmiEmpleado
+                                                                                 && m.AdmiBdd == adscmiem.AdmiBdd);
+                if (adscmienmSeleccionado != null)
+                {
+                    try
+                    {
+                        adscmienmSeleccionado.AdmiTotal = adscmiem.AdmiTotal;
+                        adscmienmSeleccionado.AdmiCodigoEmpleado = adscmiem.AdmiCodigoEmpleado;
+                        db.Adscmiem.Update(adscmienmSeleccionado);
+                        await db.SaveChangesAsync();
+
+                        return new Response
+                        {
+                            IsSuccess = true,
+                            Message = Mensaje.Satisfactorio,
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = Mensaje.Excepcion,
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = Mensaje.Error,
+                        };
+                    }
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Excepcion
+                };
+            }
+        }
+
+
+        [HttpPost]
+        [Route("InsertarAdscmiem")]
+        public async Task<Response> PostAdscmiem([FromBody] Adscmiem adscmiem)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
+                }
+
+                var respuesta = Existe(adscmiem);
+                if (!respuesta.IsSuccess)
+                {
+                    db.Adscmiem.Add(adscmiem);
+                    await db.SaveChangesAsync();
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Message = Mensaje.Satisfactorio
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
+            }
+        }
+
+
+        [HttpPost]
+        [Route("EliminarAdscmiem")]
+        public async Task<Response> DeleteAdscmiem([FromBody]Adscmiem adscmiem)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido,
+                    };
+                }
+
+                var adscmienmSeleccionado = await db.Adscmiem.SingleOrDefaultAsync(m => m.AdmiGrupo == adscmiem.AdmiGrupo
+                                                                                  && m.AdmiEmpleado == adscmiem.AdmiEmpleado
+                                                                                  && m.AdmiBdd == adscmiem.AdmiBdd);
+                if (adscmienmSeleccionado == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado,
+                    };
+                }
+                db.Adscmiem.Remove(adscmienmSeleccionado);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.Satisfactorio,
+                };
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
+            }
+        }
+
+        public Response Existe(Adscmiem adscmiem)
+        {
+            var grupo = adscmiem.AdmiGrupo.ToUpper().TrimEnd().TrimStart();
+            var bdd = adscmiem.AdmiBdd.ToUpper().TrimEnd().TrimStart();
+            var empleado = adscmiem.AdmiEmpleado.ToUpper().TrimEnd().TrimStart();
+            var loglevelrespuesta = db.Adscmiem.Where(p => p.AdmiBdd.ToUpper().TrimStart().TrimEnd() == bdd 
+                                                        && p.AdmiGrupo.ToUpper().TrimStart().TrimEnd() == grupo
+                                                        && p.AdmiEmpleado.ToUpper().TrimStart().TrimEnd()==empleado).FirstOrDefault();
+            if (loglevelrespuesta != null)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.ExisteRegistro,
+                    Resultado = null,
+                };
+
             }
 
-            return CreatedAtAction("GetAdscmiem", new { id = adscmiem.AdmiEmpleado }, adscmiem);
+            return new Response
+            {
+                IsSuccess = false,
+                Resultado = loglevelrespuesta,
+            };
         }
+
 
         // DELETE: api/Adscmiems/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdscmiem([FromRoute] string id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var adscmiem = await _context.Adscmiem.SingleOrDefaultAsync(m => m.AdmiEmpleado == id);
-            if (adscmiem == null)
-            {
-                return NotFound();
-            }
-
-            _context.Adscmiem.Remove(adscmiem);
-            await _context.SaveChangesAsync();
-
-            return Ok(adscmiem);
-        }
-
-        private bool AdscmiemExists(string id)
-        {
-            return _context.Adscmiem.Any(e => e.AdmiEmpleado == id);
-        }
+      
     }
 }

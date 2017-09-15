@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 Este archivo se usa en el proceso de publicación y empaquetado del proyecto web. Para personalizar el comportamiento de este proceso,
 edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 para obtener más información. 
@@ -6,11 +6,11 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\tmp\LogEntryProyect</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\inetpub\SwSeguridad</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
-    <File Include="Controllers/API/PaisesController.cs">
-      <publishTime>08/02/2017 12:01:39</publishTime>
-    </File>
+    <DestinationConnectionStrings Include="SeguridadConnection">
+      <Value>Server=DESKTOP-95R0B9N\MSSQLSERVER1;Database=ds.seguridad.db;Trusted_Connection=True;MultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
   </ItemGroup>
 </Project>

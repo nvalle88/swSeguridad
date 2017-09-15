@@ -51,6 +51,7 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+
         // GET: api/BasesDatos/5
         [HttpGet("{id}")]
         public async Task<Response> GetAdscbdd([FromRoute] string id)
@@ -231,8 +232,9 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
-        // DELETE: api/BasesDatos/5
+        // DELETE: api/BasesDatos/acccion/5
         [HttpDelete("{id}")]
+       
         public async Task<Response> DeleteAdscbdd([FromRoute] string id)
         {
             try

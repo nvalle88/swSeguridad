@@ -10,10 +10,10 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdexSistema { get; set; }
         public string AdexAplicacion { get; set; }
         public string AdexSql { get; set; }
-        public int? Ins { get; set; }
-        public int? Sel { get; set; }
-        public int? Upd { get; set; }
-        public int? Del { get; set; }
+        public bool? Ins { get; set; }
+        public bool? Sel { get; set; }
+        public bool? Upd { get; set; }
+        public bool? Del { get; set; }
 
         public virtual Adscgrp Adex { get; set; }
         public virtual Adscmenu AdexNavigation { get; set; }

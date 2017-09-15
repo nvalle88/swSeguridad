@@ -8,10 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
 using bd.swseguridad.entidades.Negocio;
 using bd.log.guardar.Servicios;
+
 using bd.log.guardar.ObjectTranfer;
 using bd.swseguridad.entidades.Enumeradores;
 using bd.swseguridad.entidades.Utils;
 using bd.log.guardar.Enumeradores;
+using Newtonsoft.Json.Linq;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -50,6 +52,68 @@ namespace bd.swseguridad.web.Controllers.API
                 return new List<Adscgrp>();
             }
         }
+
+        [HttpPost]
+        [Route("ListarBddPorGrupo")]
+        public async Task<List<Adscbdd>> GetAdscbddPorGrp([FromBody] Adscgrp adscgrp)
+        {
+          
+            try
+            {
+               var lista= await db.Adscgrp.Where(x=>x.AdgrGrupo==adscgrp.AdgrGrupo).Include(x=>x.AdgrBddNavigation).ToListAsync();
+                var listaBdd = new List<Adscbdd>();
+                foreach (var item in lista)
+                {
+                    listaBdd.Add(item.AdgrBddNavigation);
+                }
+                return listaBdd;
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscbdd>();
+            }
+        }
+
+
+        [HttpPost]
+        [Route("ListarGrupoPorBdd")]
+        public async Task<List<Adscgrp>> GetGprPorBdd([FromBody] Adscgrp adscgrp)
+        {
+
+            try
+            {
+                var lista = await db.Adscgrp.Where(x => x.AdgrBdd == adscgrp.AdgrBdd).ToListAsync();
+                return lista;
+               
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscgrp>();
+            }
+        }
+
+
+
 
         // GET: api/Adscgrps/5
         [HttpPost]

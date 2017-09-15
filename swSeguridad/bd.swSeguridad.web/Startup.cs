@@ -30,16 +30,10 @@ namespace bd.swseguridad.web
         {
             // Add framework services.
 
-            services.AddMvc().AddJsonOptions(o => {
-                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                o.SerializerSettings.Converters.Add(new StringEnumConverter());
-                o.SerializerSettings.Formatting = Formatting.Indented;
-                o.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-                o.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
-                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Error;
-            });
+            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-          
+
             services.AddDbContext<SwSeguridadDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("SeguridadConnection")));
         }

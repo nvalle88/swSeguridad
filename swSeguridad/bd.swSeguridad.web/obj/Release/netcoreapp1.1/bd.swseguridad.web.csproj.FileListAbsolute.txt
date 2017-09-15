@@ -1,0 +1,16 @@
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.web.deps.json
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.json
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.dev.json
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.web.dll
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.web.pdb
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.sw.externos.dll
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.datos.dll
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.entidades.dll
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.sw.externos.pdb
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.datos.pdb
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.entidades.pdb
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.csprojResolveAssemblyReference.cache
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.csproj.CoreCompileInputs.cache
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.dll
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.pdb

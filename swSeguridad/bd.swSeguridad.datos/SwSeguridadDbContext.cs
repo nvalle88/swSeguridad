@@ -8,7 +8,7 @@ namespace bd.swseguridad.datos
     {
 
         public SwSeguridadDbContext(DbContextOptions<SwSeguridadDbContext> options)
-            : base(options){ }
+            : base(options) { }
 
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscbdd> Adscbdd { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscexe> Adscexe { get; set; }
@@ -21,7 +21,7 @@ namespace bd.swseguridad.datos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
             modelBuilder.Entity<Adscbdd>(entity =>
             {
                 entity.HasKey(e => e.AdbdBdd)
@@ -135,6 +135,14 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADME_APLICACION")
                     .HasColumnType("varchar(30)");
 
+                entity.Property(e => e.AdmeAccionControlador)
+                    .HasColumnName("ADME_ACCION_CONTROLADOR")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdmeControlador)
+                    .HasColumnName("ADME_CONTROLADOR")
+                    .HasColumnType("varchar(50)");
+
                 entity.Property(e => e.AdmeDescripcion)
                     .HasColumnName("ADME_DESCRIPCION")
                     .HasColumnType("varchar(128)");
@@ -168,6 +176,10 @@ namespace bd.swseguridad.datos
                 entity.Property(e => e.AdmeUrl)
                     .HasColumnName("ADME_URL")
                     .HasColumnType("varchar(150)");
+
+                entity.Property(e => e.AdmeEstado)
+                   .HasColumnName("ADME_ESTADO")
+                   .HasColumnType("varchar(50)");
 
                 entity.HasOne(d => d.AdmeSistemaNavigation)
                     .WithMany(p => p.Adscmenu)
@@ -306,7 +318,7 @@ namespace bd.swseguridad.datos
     }
 
 
-    
+
 
 }
 

@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
+      "bd.log.guardar/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.1.2",
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/netcoreapp1.1/bd.log.guardar.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp1.1/bd.log.guardar.dll": {}
+        }
+      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -4140,33 +4153,6 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "bd.log.guardar/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v1.1",
-        "dependencies": {
-          "Microsoft.NETCore.App": "1.1.2",
-          "Newtonsoft.Json": "10.0.3"
-        },
-        "compile": {
-          "bin/placeholder/bd.log.guardar.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/bd.log.guardar.dll": {}
-        }
-      },
-      "bd.sw.externos/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v1.1",
-        "dependencies": {
-          "Microsoft.NETCore.App": "1.1.2"
-        },
-        "compile": {
-          "bin/placeholder/bd.sw.externos.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/bd.sw.externos.dll": {}
-        }
-      },
       "bd.swseguridad.datos/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.1",
@@ -4199,6 +4185,16 @@
     }
   },
   "libraries": {
+    "bd.log.guardar/1.0.0": {
+      "sha512": "geBS273vn3bn/Hv0XgMnewi2PFnk5DjuQG+/gBtgp2QK0uHIeY1uN8bNXo3Lfmz9COgHh91ccsiSmTblFajF6g==",
+      "type": "package",
+      "path": "bd.log.guardar/1.0.0",
+      "files": [
+        "bd.log.guardar.1.0.0.nupkg.sha512",
+        "bd.log.guardar.nuspec",
+        "lib/netcoreapp1.1/bd.log.guardar.dll"
+      ]
+    },
     "Libuv/1.9.1": {
       "sha512": "uqX2Frwf9PW8MaY7PRNY6HM5BpW1D8oj1EdqzrmbEFD5nH63Yat3aEjN/tws6Tw6Fk7LwmLBvtUh32tTeTaHiA==",
       "type": "package",
@@ -10816,16 +10812,6 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "bd.log.guardar/1.0.0": {
-      "type": "project",
-      "path": "../../../SalvarLogEntry/bd.guardarlog.servicios/bd.log.guardar.csproj",
-      "msbuildProject": "../../../SalvarLogEntry/bd.guardarlog.servicios/bd.log.guardar.csproj"
-    },
-    "bd.sw.externos/1.0.0": {
-      "type": "project",
-      "path": "../bd.sw.externos/bd.sw.externos.csproj",
-      "msbuildProject": "../bd.sw.externos/bd.sw.externos.csproj"
-    },
     "bd.swseguridad.datos/1.0.0": {
       "type": "project",
       "path": "../bd.swSeguridad.datos/bd.swseguridad.datos.csproj",
@@ -10852,7 +10838,6 @@
       "Microsoft.VisualStudio.Web.BrowserLink >= 1.1.2",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 1.1.1",
       "bd.log.guardar >= 1.0.0",
-      "bd.sw.externos >= 1.0.0",
       "bd.swseguridad.datos >= 1.0.0",
       "bd.swseguridad.entidades >= 1.0.0"
     ]
@@ -10880,6 +10865,7 @@
         "netcoreapp1.1"
       ],
       "sources": {
+        "C:\\Paquetes Nuguet Locales": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
@@ -10889,14 +10875,8 @@
             "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
               "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
             },
-            "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj": {
-              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.sw.externos\\bd.sw.externos.csproj"
-            },
             "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj": {
               "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj"
-            },
-            "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\SalvarLogEntry\\bd.guardarlog.servicios\\bd.log.guardar.csproj": {
-              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\SalvarLogEntry\\bd.guardarlog.servicios\\bd.log.guardar.csproj"
             }
           }
         }
@@ -10949,6 +10929,10 @@
           "Microsoft.ApplicationInsights.AspNetCore": {
             "target": "Package",
             "version": "2.0.0"
+          },
+          "bd.log.guardar": {
+            "target": "Package",
+            "version": "1.0.0"
           },
           "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",

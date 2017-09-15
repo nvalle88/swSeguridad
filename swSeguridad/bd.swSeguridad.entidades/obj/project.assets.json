@@ -7059,6 +7059,7 @@
         "netcoreapp1.1"
       ],
       "sources": {
+        "C:\\Paquetes Nuguet Locales": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },

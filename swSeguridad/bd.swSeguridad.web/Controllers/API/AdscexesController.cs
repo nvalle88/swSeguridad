@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bd.swseguridad.datos;
 using bd.swseguridad.entidades.Negocio;
+using bd.log.guardar.Servicios;
+using bd.log.guardar.ObjectTranfer;
+using bd.swseguridad.entidades.Enumeradores;
+using bd.swseguridad.entidades.Utils;
+using bd.log.guardar.Enumeradores;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -14,127 +19,304 @@ namespace bd.swseguridad.web.Controllers.API
     [Route("api/Adscexes")]
     public class AdscexesController : Controller
     {
-        private readonly SwSeguridadDbContext _context;
+        private readonly SwSeguridadDbContext db;
 
-        public AdscexesController(SwSeguridadDbContext context)
+        public AdscexesController(SwSeguridadDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
         // GET: api/Adscexes
         [HttpGet]
-        public IEnumerable<Adscexe> GetAdscexe()
+        [Route("ListarAdscexe")]
+        public async Task<List<Adscexe>> GetAdscexe()
         {
-            return _context.Adscexe;
-        }
-
-        // GET: api/Adscexes/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetAdscexe([FromRoute] string id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var adscexe = await _context.Adscexe.SingleOrDefaultAsync(m => m.AdexBdd == id);
-
-            if (adscexe == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(adscexe);
-        }
-
-        // PUT: api/Adscexes/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdscexe([FromRoute] string id, [FromBody] Adscexe adscexe)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != adscexe.AdexBdd)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(adscexe).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                return await db.Adscexe.OrderBy(x => x.AdexGrupo).ThenBy(x => x.AdexAplicacion).ToListAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!AdscexeExists(id))
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
 
-            return NoContent();
+                });
+                return new List<Adscexe>();
+            }
         }
 
-        // POST: api/Adscexes
         [HttpPost]
-        public async Task<IActionResult> PostAdscexe([FromBody] Adscexe adscexe)
+        [Route("SeleccionarAdscexe")]
+        public async Task<Response> GetAdscMenu([FromBody] Adscexe adscexe)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Adscexe.Add(adscexe);
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (AdscexeExists(adscexe.AdexBdd))
+                if (!ModelState.IsValid)
                 {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido,
+                    };
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return CreatedAtAction("GetAdscexe", new { id = adscexe.AdexBdd }, adscexe);
+                var adscexeSeleccionado = SeleccionarAdscExe(adscexe);
+                if (adscexeSeleccionado == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado,
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.Satisfactorio,
+                    Resultado = adscexeSeleccionado,
+                };
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
+            }
+        }
+        [HttpPut]
+        [Route("EditarAdscexe")]
+        public async Task<Response> PutAdscmenu([FromBody] Adscexe adscexe)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
+                }
+               var adscexeSeleccionado= SeleccionarAdscExe(adscexe);
+
+                if (adscexeSeleccionado != null)
+                {
+                    try
+                    {
+                        adscexeSeleccionado.AdexBdd = adscexe.AdexBdd;
+                        adscexeSeleccionado.AdexAplicacion = adscexe.AdexAplicacion;
+                        adscexeSeleccionado.AdexGrupo = adscexe.AdexGrupo;
+                        adscexeSeleccionado.AdexSistema = adscexe.AdexSistema;
+                        adscexeSeleccionado.AdexSql = adscexe.AdexSql;
+                        adscexeSeleccionado.Del = adscexe.Del;
+                        adscexeSeleccionado.Ins = adscexe.Ins;
+                        adscexeSeleccionado.Sel = adscexe.Sel;
+                        adscexeSeleccionado.Upd = adscexe.Upd;
+                        db.Adscexe.Update(adscexeSeleccionado);
+                        await db.SaveChangesAsync();
+
+                        return new Response
+                        {
+                            IsSuccess = true,
+                            Message = Mensaje.Satisfactorio,
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = Mensaje.Excepcion,
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = Mensaje.Error,
+                        };
+                    }
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Excepcion
+                };
+            }
         }
 
-        // DELETE: api/Adscexes/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdscexe([FromRoute] string id)
+        // POST: api/Adscmenus
+        [HttpPost]
+        [Route("InsertarAdscexe")]
+        public async Task<Response> PostAdscgrp([FromBody] Adscexe adscexe)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
+                }
 
-            var adscexe = await _context.Adscexe.SingleOrDefaultAsync(m => m.AdexBdd == id);
-            if (adscexe == null)
+                var respuesta = Existe(adscexe);
+                if (!respuesta.IsSuccess)
+                {
+                    db.Adscexe.Add(adscexe);
+                    await db.SaveChangesAsync();
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Message = Mensaje.Satisfactorio
+                    };
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
             }
-
-            _context.Adscexe.Remove(adscexe);
-            await _context.SaveChangesAsync();
-
-            return Ok(adscexe);
         }
 
-        private bool AdscexeExists(string id)
+        // DELETE: api/Adscmenus/5
+        [HttpPost]
+        [Route("EliminarAdscexe")]
+        public async Task<Response> DeleteAdscgrp([FromBody]Adscexe adscexe)
         {
-            return _context.Adscexe.Any(e => e.AdexBdd == id);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido,
+                    };
+                }
+                var respuesta = SeleccionarAdscExe(adscexe);
+
+                if (respuesta == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado,
+                    };
+                }
+                db.Adscexe.Remove(respuesta);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.Satisfactorio,
+                };
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Error,
+                };
+            }
+        }
+
+        public Adscexe SeleccionarAdscExe(Adscexe adscexe)
+        {
+            var sistema = adscexe.AdexSistema.ToUpper().TrimEnd().TrimStart();
+            var baseDatos = adscexe.AdexBdd.ToUpper().TrimEnd().TrimStart();
+            var grupo = adscexe.AdexGrupo.ToUpper().TrimEnd().TrimStart();
+            var aplicacion = adscexe.AdexAplicacion.ToUpper().TrimEnd().TrimStart();
+            var respuesta = db.Adscexe.Where(p => p.AdexSistema.ToUpper().TrimStart().TrimEnd() == sistema &&
+                                             p.AdexAplicacion.ToUpper().TrimStart().TrimEnd() == aplicacion &&
+                                             p.AdexBdd == baseDatos && p.AdexGrupo == grupo)
+                                             .FirstOrDefault();
+            return respuesta;
+        }
+
+        public Response Existe(Adscexe adscexe)
+        {
+            var respuesta = SeleccionarAdscExe(adscexe);
+
+            if (respuesta != null)
+            {
+                return new Response
+                {
+                    IsSuccess = true,
+                    Message = Mensaje.ExisteRegistro,
+                    Resultado = null,
+                };
+            }
+            return new Response
+            {
+                IsSuccess = false,
+                Resultado = respuesta,
+            };
         }
     }
 }

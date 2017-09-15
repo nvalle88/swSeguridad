@@ -1,0 +1,8 @@
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\bin\Release\netcoreapp1.1\bd.sw.externos.deps.json
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\bin\Release\netcoreapp1.1\bd.sw.externos.dll
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\bin\Release\netcoreapp1.1\bd.sw.externos.pdb
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Release\netcoreapp1.1\bd.sw.externos.csprojResolveAssemblyReference.cache
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Release\netcoreapp1.1\bd.sw.externos.csproj.CoreCompileInputs.cache
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Release\netcoreapp1.1\bd.sw.externos.AssemblyInfo.cs
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Release\netcoreapp1.1\bd.sw.externos.dll
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.sw.externos\obj\Release\netcoreapp1.1\bd.sw.externos.pdb

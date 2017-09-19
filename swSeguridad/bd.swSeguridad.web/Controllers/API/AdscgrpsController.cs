@@ -28,6 +28,30 @@ namespace bd.swseguridad.web.Controllers.API
             this.db = db;
         }
 
+        
+        [HttpGet]
+        [Route("ListarAdscgrpDistinct")]
+        public async Task<List<Adscgrp>> GetAdscgrpDistinct()
+        {
+            try
+            {
+                return await db.Adscgrp.GroupBy(x => x.AdgrBdd).Select(group => group.First()).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscgrp>();
+            }
+        }
         // GET: api/Adscgrps
         [HttpGet]
         [Route("ListarAdscgrp")]

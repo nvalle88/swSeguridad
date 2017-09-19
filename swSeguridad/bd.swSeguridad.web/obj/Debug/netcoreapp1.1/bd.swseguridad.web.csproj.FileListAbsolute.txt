@@ -37,10 +37,8 @@ C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSegurida
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.dev.json
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
-C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.sw.externos.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
-C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.sw.externos.pdb
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.csprojResolveAssemblyReference.cache

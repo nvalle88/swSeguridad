@@ -36,7 +36,6 @@
           "Microsoft.VisualStudio.Web.BrowserLink": "1.1.2",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "1.1.1",
           "bd.log.guardar": "1.0.0",
-          "bd.sw.externos": "1.0.0",
           "bd.swseguridad.datos": "1.0.0",
           "bd.swseguridad.entidades": "1.0.0"
         },
@@ -1819,17 +1818,6 @@
         },
         "compile": {
           "ref/netstandard1.3/System.Xml.XmlDocument.dll": {}
-        }
-      },
-      "bd.sw.externos/1.0.0": {
-        "dependencies": {
-          "Microsoft.NETCore.App": "1.1.2"
-        },
-        "runtime": {
-          "bd.sw.externos.dll": {}
-        },
-        "compile": {
-          "bd.sw.externos.dll": {}
         }
       },
       "bd.swseguridad.datos/1.0.0": {
@@ -4321,11 +4309,6 @@
       "sha512": "sha512-lJ8AxvkX7GQxpC6GFCeBj8ThYVyQczx2+f/cWHJU8tjS7YfI6Cv6bon70jVEgs2CiFbmmM8b9j1oZVx0dSI2Ww==",
       "path": "system.xml.xmldocument/4.3.0",
       "hashPath": "system.xml.xmldocument.4.3.0.nupkg.sha512"
-    },
-    "bd.sw.externos/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     },
     "bd.swseguridad.datos/1.0.0": {
       "type": "project",

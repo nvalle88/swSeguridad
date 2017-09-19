@@ -27,6 +27,34 @@ namespace bd.swseguridad.web.Controllers.API
             this.db = db;
         }
 
+
+
+        [HttpGet]
+        [Route("ListarMenuDistinct")]
+        public async Task<List<Adscmenu>> GetMenusDistinct()
+        {
+            try
+            {
+                return await db.Adscmenu.GroupBy(x => x.AdmeSistema).Select(group => group.First()).ToListAsync(); ;
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscmenu>();
+            }
+        }
+
+
+
         // GET: api/Adscmenus
         [HttpGet]
         [Route("ListarMenu")]
@@ -136,6 +164,8 @@ namespace bd.swseguridad.web.Controllers.API
                         adscmenuSeleccionado.AdmeTipo = adscmenu.AdmeTipo;
                         adscmenuSeleccionado.AdmeTipoObjeto = adscmenu.AdmeTipo;
                         adscmenuSeleccionado.AdmeUrl = adscmenu.AdmeUrl;
+                        adscmenuSeleccionado.AdmeControlador = adscmenu.AdmeControlador;
+                        adscmenuSeleccionado.AdmeAccionControlador = adscmenu.AdmeAccionControlador;
                         db.Adscmenu.Update(adscmenuSeleccionado);
                         await db.SaveChangesAsync();
 

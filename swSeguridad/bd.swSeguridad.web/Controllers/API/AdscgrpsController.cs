@@ -14,6 +14,7 @@ using bd.swseguridad.entidades.Enumeradores;
 using bd.swseguridad.entidades.Utils;
 using bd.log.guardar.Enumeradores;
 using Newtonsoft.Json.Linq;
+using bd.swseguridad.entidades.ObjectTranfer;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -76,6 +77,34 @@ namespace bd.swseguridad.web.Controllers.API
                 return new List<Adscgrp>();
             }
         }
+
+
+        [HttpPost]
+        [Route("MiembrosGrupo")]
+        public async Task<List<Adscmiem>> MiembrosGrupo([FromBody] Adscgrp adscgrp)
+        {
+
+            try
+            {
+                return await db.Adscmiem.Where(x => x.AdmiBdd == adscgrp.AdgrBdd && x.AdmiGrupo==adscgrp.AdgrGrupo).ToListAsync();
+                
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscmiem>();
+            }
+        }
+
 
         [HttpPost]
         [Route("ListarBddPorGrupo")]

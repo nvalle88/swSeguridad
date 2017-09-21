@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Constantes\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 

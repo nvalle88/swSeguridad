@@ -15,6 +15,7 @@ using bd.swseguridad.entidades.Utils;
 using bd.log.guardar.Enumeradores;
 using Newtonsoft.Json.Linq;
 using bd.swseguridad.entidades.ObjectTranfer;
+using bd.swseguridad.entidades.Constantes;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -75,6 +76,44 @@ namespace bd.swseguridad.web.Controllers.API
 
                 });
                 return new List<Adscgrp>();
+            }
+        }
+
+
+
+        [HttpPost]
+        [Route("MenusGrupo")]
+        public async Task<List<Adscmenu>> MenusGrupo([FromBody] Adscgrp adscgrp)
+        {
+
+            try
+            {
+                var adscexe = await db.Adscexe.Where(x => x.AdexBdd == adscgrp.AdgrBdd && x.AdexGrupo == adscgrp.AdgrGrupo).ToListAsync();
+
+                var listamenus = new List<Adscmenu>();
+                foreach (var item in adscexe)
+                {
+                    var elementos = await db.Adscmenu.Where(x => x.AdmeSistema == item.AdexSistema && x.AdmeAplicacion == item.AdexAplicacion).FirstOrDefaultAsync();
+
+                    listamenus.Add(elementos);
+                }
+                return listamenus;
+
+
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new List<Adscmenu>();
             }
         }
 
@@ -382,6 +421,16 @@ namespace bd.swseguridad.web.Controllers.API
             }
             catch (Exception ex)
             {
+                if (ex.InnerException.Message.Contains(Constantes.Referencia))
+                {
+                    return new Response
+                    {
+                        IsSuccess =false,
+                        Message=Mensaje.BorradoNoSatisfactorio,
+                    };
+
+                }
+
                 await GuardarLogService.SaveLogEntry(new LogEntryTranfer
                 {
                     ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),

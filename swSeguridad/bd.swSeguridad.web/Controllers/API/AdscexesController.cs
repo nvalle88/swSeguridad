@@ -12,6 +12,7 @@ using bd.log.guardar.ObjectTranfer;
 using bd.swseguridad.entidades.Enumeradores;
 using bd.swseguridad.entidades.Utils;
 using bd.log.guardar.Enumeradores;
+using bd.swseguridad.entidades.Constantes;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -268,6 +269,16 @@ namespace bd.swseguridad.web.Controllers.API
             }
             catch (Exception ex)
             {
+
+                if (ex.InnerException.Message.Contains(Constantes.Referencia))
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.BorradoNoSatisfactorio,
+                    };
+
+                }
                 await GuardarLogService.SaveLogEntry(new LogEntryTranfer
                 {
                     ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),

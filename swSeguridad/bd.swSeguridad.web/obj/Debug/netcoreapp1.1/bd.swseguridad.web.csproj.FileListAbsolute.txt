@@ -46,3 +46,4 @@ C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSegurida
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
+C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfoInputs.cache

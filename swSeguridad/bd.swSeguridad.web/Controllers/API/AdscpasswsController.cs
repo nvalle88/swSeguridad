@@ -53,10 +53,123 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+        [HttpPost]
+        [Route("TienePermiso")]
+        public async Task<Response> TienePermiso([FromBody]PermisoUsuario permiso)
+        {
+            try
+            {
+                var path =NormalizarPathContexto(permiso.Contexto);
+
+                var token =await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin==permiso.Usuario).FirstOrDefaultAsync();
+
+                
+
+                if (token!=null)
+                {
+                    var grupos = await db.Adscmiem.Where(m => m.AdmiEmpleado == permiso.Usuario).ToListAsync();
+                    foreach (var item in grupos)
+                    {
+                        var a = await db.Adscexe.Where(x => x.AdexGrupo == item.AdmiGrupo).ToListAsync();
+
+                        foreach (var s in a)
+                        {
+                            var ds = await db.Adscmenu.Where(x => x.AdmeSistema == s.AdexSistema && x.AdmeAplicacion == s.AdexAplicacion).FirstOrDefaultAsync();
+                            if (path.ToUpper()==ds.AdmeControlador.ToUpper())
+                            {
+                                return new Response { IsSuccess = true };
+                            }
+
+                        }
+                    } 
+                }
+
+                return new Response { IsSuccess = false };
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+          
+        }
+
+        private string NormalizarPathContexto(string cadena)
+        {
+            var contador = 0;
+            var ultimoencontrado = 0;
+            for (int i = 0; i < cadena.Length; i++)
+            {
+                if (cadena[i].ToString()==("/"))
+                {
+                    contador = contador + 1;
+                    ultimoencontrado = i;
+                }
+            }
+            if (contador>=3)
+            {
+                var recortar = cadena.Length -ultimoencontrado ;
+                cadena= cadena.Remove(ultimoencontrado, recortar);
+            }
+            return cadena;
+        }
+        [HttpPost]
+        [Route("SalvarToken")]
+        public async Task<Response> SalvarToken([FromBody]  PermisoUsuario permisoUsuario)
+        {
+            try
+            {
+                var usuario = db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefault();
+
+                if (usuario == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado
+                    };
+                }
+
+                usuario.AdpsToken = permisoUsuario.Token;
+                db.Adscpassw.Update(usuario);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+
+               
+            }
+            catch (Exception ex)
+            {
+
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    Message = ex.Message,
+                    UserName = permisoUsuario.Usuario,
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+
+                };
+                throw;
+            }
+        }
+
+        [HttpPost]
         [Route("Login")]
         public async Task<Response> Login([FromBody] Login login)
         {
-
             try
             {
 
@@ -90,9 +203,9 @@ namespace bd.swseguridad.web.Controllers.API
                     }; 
                 }
 
-               
-                
-                var existeLogin = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario && x.AdpsPassword == login.Contrasena).FirstOrDefault();
+               var salida= CodificarHelper.SHA512(new Codificar { Entrada = login.Contrasena }).Salida;
+
+                var existeLogin = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario && x.AdpsPasswPoint == salida).FirstOrDefault();
                 if (existeLogin == null)
                 {
                     usuario.AdpsIntentos = usuario.AdpsIntentos +1;
@@ -286,7 +399,10 @@ namespace bd.swseguridad.web.Controllers.API
                     adscpassw.AdpsPasswCg = adscpassw.AdpsLogin;
                     adscpassw.AdpsPreguntaRecuperacion = Mensaje.UsuarioSinConfirmar;
                     adscpassw.AdpsRespuestaRecuperacion = Mensaje.UsuarioSinConfirmar;
-                    adscpassw.AdpsPassword = Codificar.SHA512(adscpassw.AdpsLogin);
+
+                   
+                    
+                    adscpassw.AdpsPasswPoint = CodificarHelper.SHA512(new Codificar {Entrada=adscpassw.AdpsLogin }).Salida; 
                     db.Adscpassw.Add(adscpassw);
                     await db.SaveChangesAsync();
                     return new Response

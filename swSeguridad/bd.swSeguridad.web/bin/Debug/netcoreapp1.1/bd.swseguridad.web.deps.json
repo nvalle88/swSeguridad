@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "745cd389c3f776fef5b2c052924156af60f4e746"
+    "signature": "75b1cd3f69084f5fdf7a00255a7dbbd6c2763da4"
   },
   "compilationOptions": {
     "defines": [
@@ -137,6 +137,37 @@
           "lib/netstandard1.3/Microsoft.AspNetCore.Antiforgery.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Authentication/1.1.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.DataProtection": "1.1.2",
+          "Microsoft.AspNetCore.Http": "1.1.2",
+          "Microsoft.AspNetCore.Http.Extensions": "1.1.2",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.2",
+          "Microsoft.Extensions.Options": "1.1.2",
+          "Microsoft.Extensions.WebEncoders": "1.1.2",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Authentication.Cookies/1.1.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication": "1.1.2",
+          "Microsoft.Extensions.Options": "1.1.2",
+          "Microsoft.Extensions.WebEncoders": "1.1.2",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Cookies.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Authentication.Cookies.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Authorization/1.1.2": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "1.1.2",
@@ -175,6 +206,18 @@
         },
         "compile": {
           "lib/netstandard1.3/Microsoft.AspNetCore.Cryptography.Internal.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Cryptography.KeyDerivation/1.1.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Cryptography.Internal": "1.1.2",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {}
         }
       },
       "Microsoft.AspNetCore.DataProtection/1.1.2": {
@@ -385,6 +428,20 @@
         },
         "compile": {
           "lib/netstandard1.3/Microsoft.AspNetCore.HttpOverrides.dll": {}
+        }
+      },
+      "Microsoft.AspNetCore.Identity/1.1.2": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Authentication.Cookies": "1.1.2",
+          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.1.2",
+          "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.2",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Identity.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.AspNetCore.Identity.dll": {}
         }
       },
       "Microsoft.AspNetCore.JsonPatch/1.1.2": {
@@ -1435,6 +1492,38 @@
           "lib/netstandard1.3/Newtonsoft.Json.dll": {}
         }
       },
+      "Novell.Directory.Ldap.NETStandard/2.3.8": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "1.1.2",
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.2",
+          "Microsoft.Extensions.Logging.Debug": "1.1.2",
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Console": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Net.NameResolution": "4.3.0",
+          "System.Net.Requests": "4.3.0",
+          "System.Net.Security": "4.3.1",
+          "System.Net.Sockets": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Reflection.Primitives": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Security.Cryptography.Algorithms": "4.3.0",
+          "System.Security.Cryptography.X509Certificates": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Thread": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Novell.Directory.Ldap.NETStandard.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Novell.Directory.Ldap.NETStandard.dll": {}
+        }
+      },
       "NuGet.Frameworks/3.5.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1"
@@ -1836,7 +1925,10 @@
       },
       "bd.swseguridad.entidades/1.0.0": {
         "dependencies": {
-          "Microsoft.NETCore.App": "1.1.2"
+          "Microsoft.AspNetCore": "1.1.2",
+          "Microsoft.AspNetCore.Identity": "1.1.2",
+          "Microsoft.NETCore.App": "1.1.2",
+          "Novell.Directory.Ldap.NETStandard": "2.3.8"
         },
         "runtime": {
           "bd.swseguridad.entidades.dll": {}
@@ -3526,6 +3618,20 @@
       "path": "microsoft.aspnetcore.antiforgery/1.1.2",
       "hashPath": "microsoft.aspnetcore.antiforgery.1.1.2.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Authentication/1.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-nG9AcO8Do23L/KcQayxx0r11wEPjB303TCV/0pqE8j3q1eMcamThFDQ3RtD/qXwk0rmMbyP3zGgZ+5I8TSLvCQ==",
+      "path": "microsoft.aspnetcore.authentication/1.1.2",
+      "hashPath": "microsoft.aspnetcore.authentication.1.1.2.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Authentication.Cookies/1.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-oqcuY3+r/vuanOnM1LulYMq3HJk7AGIxYYcmC6qRfLt2aEUQLzpwsgA3wYj456XbzNSXf51hu0m+fjj/V2LsVQ==",
+      "path": "microsoft.aspnetcore.authentication.cookies/1.1.2",
+      "hashPath": "microsoft.aspnetcore.authentication.cookies.1.1.2.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.Authorization/1.1.2": {
       "type": "package",
       "serviceable": true,
@@ -3546,6 +3652,13 @@
       "sha512": "sha512-DeDm7XO+/QVlxp+tefXbt2Mm10mw3BpUWvN9YVgl1Ykg08nBox95ZQ9EKLt/CpaANFGp//nJqpc93NTMKlwNnQ==",
       "path": "microsoft.aspnetcore.cryptography.internal/1.1.2",
       "hashPath": "microsoft.aspnetcore.cryptography.internal.1.1.2.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Cryptography.KeyDerivation/1.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LG4cN68fvL151M/+sVfOl3DkLe8a/GPSHnQtde/8hth7Najpb64ZQE3q0WRvhflc8GzStdNWmxb8Sx3j3PWliQ==",
+      "path": "microsoft.aspnetcore.cryptography.keyderivation/1.1.2",
+      "hashPath": "microsoft.aspnetcore.cryptography.keyderivation.1.1.2.nupkg.sha512"
     },
     "Microsoft.AspNetCore.DataProtection/1.1.2": {
       "type": "package",
@@ -3637,6 +3750,13 @@
       "sha512": "sha512-mChMmo5ynjaChOkFF70u4WWDGnNFpOe7nlqsTBWkfGSXYPSSdUF1u2T0JD02w7Z7F1upSCcthoa5CbYVEwL4/w==",
       "path": "microsoft.aspnetcore.httpoverrides/1.1.2",
       "hashPath": "microsoft.aspnetcore.httpoverrides.1.1.2.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Identity/1.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OwKAA/0j+T5zOC1NkQLq1aqIh+K7AfYRktwqZ1UxVYoAd5wqvR2YQ8PXskAL7gG7+02UoOVlMAQrbBTg0efg6A==",
+      "path": "microsoft.aspnetcore.identity/1.1.2",
+      "hashPath": "microsoft.aspnetcore.identity.1.1.2.nupkg.sha512"
     },
     "Microsoft.AspNetCore.JsonPatch/1.1.2": {
       "type": "package",
@@ -4155,6 +4275,13 @@
       "sha512": "sha512-wBM7i7i3U2WX0ecor4zdVGvgrwFUjuigBoHKiL+nH39fCOpCPjBY3RDqJM32edvdyTAVdjzlccHsg41+/+zpSA==",
       "path": "newtonsoft.json/10.0.3",
       "hashPath": "newtonsoft.json.10.0.3.nupkg.sha512"
+    },
+    "Novell.Directory.Ldap.NETStandard/2.3.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ulodHlQ4W1zt4K+ml4v6iORaMANDjgZOaWkm4sn+NNWSsUbEnuIT/Gp0G2v+ozVlmtwdL4ocEd2raXAwzsOvWA==",
+      "path": "novell.directory.ldap.netstandard/2.3.8",
+      "hashPath": "novell.directory.ldap.netstandard.2.3.8.nupkg.sha512"
     },
     "NuGet.Frameworks/3.5.0": {
       "type": "package",

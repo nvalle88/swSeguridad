@@ -18,5 +18,7 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdpsPreguntaRecuperacion { get; set; }
         public string AdpsRespuestaRecuperacion { get; set; }
         public string AdpsCodigoEmpleado { get; set; }
+        public string AdpsPasswPoint { get; set; }
+        public string AdpsToken { get; set; }
     }
 }

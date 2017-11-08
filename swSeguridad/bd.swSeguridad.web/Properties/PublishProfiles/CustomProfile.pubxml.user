@@ -8,9 +8,4 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>C:\inetpub\SwSeguridad</_PublishTargetUrl>
   </PropertyGroup>
-  <ItemGroup>
-    <DestinationConnectionStrings Include="SeguridadConnection">
-      <Value>Server=DESKTOP-95R0B9N\MSSQLSERVER1;Database=ds.seguridad.db;Trusted_Connection=True;MultipleActiveResultSets=true</Value>
-    </DestinationConnectionStrings>
-  </ItemGroup>
 </Project>

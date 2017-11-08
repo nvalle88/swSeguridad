@@ -8,3 +8,4 @@ C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSegurida
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Release\netcoreapp1.1\bd.swseguridad.datos.AssemblyInfo.cs
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Release\netcoreapp1.1\bd.swseguridad.datos.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Release\netcoreapp1.1\bd.swseguridad.datos.pdb
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Release\netcoreapp1.1\bd.swseguridad.datos.AssemblyInfoInputs.cache

@@ -249,6 +249,14 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADPS_ID_CONTACTO")
                     .HasColumnType("varchar(50)");
 
+                entity.Property(e => e.AdpsPasswPoint)
+                    .HasColumnName("ADPS_PASSW_POINT")
+                    .HasColumnType("varchar(250)");
+
+                entity.Property(e => e.AdpsToken)
+                    .HasColumnName("ADPS_TOKEN")
+                    .HasColumnType("varchar(500)");
+
                 entity.Property(e => e.AdpsIdEntidad)
                     .HasColumnName("ADPS_ID_ENTIDAD")
                     .HasColumnType("varchar(50)");

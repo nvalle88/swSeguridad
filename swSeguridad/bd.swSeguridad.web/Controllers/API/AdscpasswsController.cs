@@ -62,7 +62,6 @@ namespace bd.swseguridad.web.Controllers.API
                 var path =NormalizarPathContexto(permiso.Contexto);
 
                 var token =await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin==permiso.Usuario).FirstOrDefaultAsync();
-
                 
 
                 if (token!=null)

@@ -79,8 +79,6 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
-
-
         [HttpPost]
         [Route("MenusGrupo")]
         public async Task<List<Adscmenu>> MenusGrupo([FromBody] Adscgrp adscgrp)

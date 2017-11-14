@@ -62,7 +62,6 @@ namespace bd.swseguridad.web.Controllers.API
                 var path =NormalizarPathContexto(permiso.Contexto);
 
                 var token =await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin==permiso.Usuario).FirstOrDefaultAsync();
-                
 
                 if (token!=null)
                 {
@@ -70,7 +69,6 @@ namespace bd.swseguridad.web.Controllers.API
                     foreach (var item in grupos)
                     {
                         var a = await db.Adscexe.Where(x => x.AdexGrupo == item.AdmiGrupo).ToListAsync();
-
                         foreach (var s in a)
                         {
                             var ds = await db.Adscmenu.Where(x => x.AdmeSistema == s.AdexSistema && x.AdmeAplicacion == s.AdexAplicacion).FirstOrDefaultAsync();
@@ -171,7 +169,9 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-
+                //Verificar tipo de usuario Interno u otro...
+                //Interno LDAP externo u otros contra la BDD
+                
 
                 var usuario = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario).FirstOrDefault();
 

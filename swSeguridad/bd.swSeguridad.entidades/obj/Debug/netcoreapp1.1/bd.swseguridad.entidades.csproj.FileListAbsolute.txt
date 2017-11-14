@@ -15,9 +15,9 @@ D:\GitHub\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.deps.json
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.csprojResolveAssemblyReference.cache
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.csproj.CoreCompileInputs.cache
+C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.AssemblyInfoInputs.cache
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.AssemblyInfo.cs
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
-C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.csprojResolveAssemblyReference.cache
-C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Debug\netcoreapp1.1\bd.swseguridad.entidades.AssemblyInfoInputs.cache

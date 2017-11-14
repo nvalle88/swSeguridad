@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
-      "bd.log.guardar/1.0.0": {
+      "bd.log.guardar/1.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.App": "1.1.2",
@@ -4254,6 +4254,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "1.1.2",
           "Microsoft.EntityFrameworkCore.Tools": "1.1.1",
           "Microsoft.NETCore.App": "1.1.2",
+          "bd.log.guardar": "1.0.1",
           "bd.swseguridad.entidades": "1.0.0"
         },
         "compile": {
@@ -4270,7 +4271,8 @@
           "Microsoft.AspNetCore": "1.1.2",
           "Microsoft.AspNetCore.Identity": "1.1.2",
           "Microsoft.NETCore.App": "1.1.2",
-          "Novell.Directory.Ldap.NETStandard": "2.3.8"
+          "Novell.Directory.Ldap.NETStandard": "2.3.8",
+          "bd.log.guardar": "1.0.1"
         },
         "compile": {
           "bin/placeholder/bd.swseguridad.entidades.dll": {}
@@ -4282,12 +4284,12 @@
     }
   },
   "libraries": {
-    "bd.log.guardar/1.0.0": {
-      "sha512": "geBS273vn3bn/Hv0XgMnewi2PFnk5DjuQG+/gBtgp2QK0uHIeY1uN8bNXo3Lfmz9COgHh91ccsiSmTblFajF6g==",
+    "bd.log.guardar/1.0.1": {
+      "sha512": "5bDDWMelf4e2rqC867Abp0VQZklR/ehvIODAYh53gx7Y9l3EYXFnCiMquJTy3ct6J2qTG1XzYeUD23Omv2gjnw==",
       "type": "package",
-      "path": "bd.log.guardar/1.0.0",
+      "path": "bd.log.guardar/1.0.1",
       "files": [
-        "bd.log.guardar.1.0.0.nupkg.sha512",
+        "bd.log.guardar.1.0.1.nupkg.sha512",
         "bd.log.guardar.nuspec",
         "lib/netcoreapp1.1/bd.log.guardar.dll"
       ]
@@ -10997,7 +10999,7 @@
       "Microsoft.NETCore.App >= 1.1.2",
       "Microsoft.VisualStudio.Web.BrowserLink >= 1.1.2",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 1.1.1",
-      "bd.log.guardar >= 1.0.0",
+      "bd.log.guardar >= 1.0.1",
       "bd.swseguridad.datos >= 1.0.0",
       "bd.swseguridad.entidades >= 1.0.0"
     ]
@@ -11098,7 +11100,7 @@
           },
           "bd.log.guardar": {
             "target": "Package",
-            "version": "1.0.0"
+            "version": "1.0.1"
           },
           "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",

@@ -35,5 +35,6 @@ namespace bd.swseguridad.web.Controllers.API
                 return resultado;
             }; 
         }
+
     }
 }

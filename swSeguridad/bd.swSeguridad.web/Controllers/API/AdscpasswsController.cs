@@ -14,6 +14,9 @@ using bd.swseguridad.entidades.Enumeradores;
 using bd.log.guardar.ObjectTranfer;
 using bd.log.guardar.Enumeradores;
 using System.Security.Cryptography;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -93,6 +96,65 @@ namespace bd.swseguridad.web.Controllers.API
           
         }
 
+
+
+        [HttpPost]
+        [Route("TienePermisoSwExterno")]
+        public async Task<Response> TienePermisoSwExterno([FromBody]PermisoUsuario permiso, string url)
+        {
+            try
+            {
+                var token = await db.Adsctoken.Where(x => x.AdtoToken == permiso.Token && x.AdpsLogin == permiso.Usuario).FirstOrDefaultAsync();
+                if (token != null)
+                { 
+                    var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin == permiso.Usuario).FirstOrDefaultAsync();
+                    if (servicio != null)
+                    {   
+                        return new Response {IsSuccess=true};
+                    }
+                }
+                return new Response { IsSuccess = false };
+
+            }
+            catch (Exception ex)
+            {
+                return new Response { IsSuccess = false };
+            }
+            
+        }
+
+        [HttpPost]
+        [Route("ConsumirSwExterno")]
+        public async Task<JsonResult> ConsumirSWExterno<T>(object objeto, string url)
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {           
+                    if (objeto == null)
+                    {
+                        var respuestaGet = await client.GetAsync(new Uri(url));
+                        var resultadoGet = await respuestaGet.Content.ReadAsStringAsync();
+                        var lista = JsonConvert.DeserializeObject<List<T>>(resultadoGet);
+                        return Json(lista);
+                    }
+                    
+                        var request = JsonConvert.SerializeObject(objeto);
+                        var content = new StringContent(request, Encoding.UTF8, "application/json");
+                        var respuestaPost = await client.PostAsync(new Uri(url), content);
+                        var resultadoPost = await respuestaPost.Content.ReadAsStringAsync();
+                        var respuesta = JsonConvert.DeserializeObject<List<T>>(resultadoPost);
+                        return Json(respuesta);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Json(false);
+            }
+            return Json(true);
+        }
+
         private string NormalizarPathContexto(string cadena)
         {
             var contador = 0;
@@ -112,6 +174,68 @@ namespace bd.swseguridad.web.Controllers.API
             }
             return cadena;
         }
+
+
+        [HttpPost]
+        [Route("SalvarTokenSwExternos")]
+        public async Task<Response> SalvarTokenSwExternos([FromBody]  PermisoUsuarioSwExternos permisoUsuario)
+        {
+            try
+            {
+                var usuario = db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefault();
+
+                if (usuario == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado
+                    };
+                }
+
+
+                var adsctoken = new Adsctoken
+                {
+                    AdpsLogin=permisoUsuario.Usuario,
+                    AdstSistema=permisoUsuario.Aplicacion,
+                    AdtoToken=permisoUsuario.Token,
+                };
+
+                db.Adsctoken.Add(adsctoken);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+
+
+            }
+            catch (Exception ex)
+            {
+
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    Message = ex.Message,
+                    UserName = permisoUsuario.Usuario,
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+
+                };
+                throw;
+            }
+        }
+
+
+
         [HttpPost]
         [Route("SalvarToken")]
         public async Task<Response> SalvarToken([FromBody]  PermisoUsuario permisoUsuario)

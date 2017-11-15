@@ -27,3 +27,12 @@ C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSegurida
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.AssemblyInfo.cs
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.deps.json
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.csprojResolveAssemblyReference.cache
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.AssemblyInfo.cs
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.datos\obj\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb

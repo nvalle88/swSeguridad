@@ -17,7 +17,9 @@ namespace bd.swseguridad.datos
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscmiem> Adscmiem { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscsist> Adscsist { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscpassw> Adscpassw { get; set; }
-
+        public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscswepwd> Adscswepwd { get; set; }
+        public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscswext> Adscswext { get; set; }
+        public virtual DbSet<bd.swseguridad.entidades.Negocio.Adsctoken> Adsctoken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -249,14 +251,6 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADPS_ID_CONTACTO")
                     .HasColumnType("varchar(50)");
 
-                entity.Property(e => e.AdpsPasswPoint)
-                    .HasColumnName("ADPS_PASSW_POINT")
-                    .HasColumnType("varchar(250)");
-
-                entity.Property(e => e.AdpsToken)
-                    .HasColumnName("ADPS_TOKEN")
-                    .HasColumnType("varchar(500)");
-
                 entity.Property(e => e.AdpsIdEntidad)
                     .HasColumnName("ADPS_ID_ENTIDAD")
                     .HasColumnType("varchar(50)");
@@ -269,7 +263,11 @@ namespace bd.swseguridad.datos
 
                 entity.Property(e => e.AdpsPasswCg)
                     .HasColumnName("ADPS_PASSW_CG")
-                    .HasColumnType("varchar(100)");
+                    .HasColumnType("varchar(1000)");
+
+                entity.Property(e => e.AdpsPasswPoint)
+                    .HasColumnName("ADPS_PASSW_POINT")
+                    .HasColumnType("varchar(250)");
 
                 entity.Property(e => e.AdpsPassword)
                     .HasColumnName("ADPS_PASSWORD")
@@ -286,7 +284,12 @@ namespace bd.swseguridad.datos
                 entity.Property(e => e.AdpsTipoUso)
                     .HasColumnName("ADPS_TIPO_USO")
                     .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdpsToken)
+                    .HasColumnName("ADPS_TOKEN")
+                    .HasColumnType("varchar(500)");
             });
+
             modelBuilder.Entity<Adscsist>(entity =>
             {
                 entity.HasKey(e => e.AdstSistema)
@@ -319,6 +322,93 @@ namespace bd.swseguridad.datos
                     .HasForeignKey(d => d.AdstBdd)
                     .HasConstraintName("FK_ADSCSIST_ADSCBDD");
             });
+
+            modelBuilder.Entity<Adsctoken>(entity =>
+            {
+                entity.HasKey(e => new { e.AdstSistema, e.AdpsLogin, e.AdtoToken })
+                    .HasName("PK_ADSCTOKEN");
+
+                entity.ToTable("ADSCTOKEN");
+
+                entity.Property(e => e.AdstSistema)
+                    .HasColumnName("ADST_SISTEMA")
+                    .HasColumnType("varchar(20)");
+
+                entity.Property(e => e.AdpsLogin)
+                    .HasColumnName("ADPS_LOGIN")
+                    .HasColumnType("varchar(32)");
+
+                entity.Property(e => e.AdtoToken)
+                    .HasColumnName("ADTO_TOKEN")
+                    .HasColumnType("varchar(500)");
+
+                entity.HasOne(d => d.AdpsLoginNavigation)
+                    .WithMany(p => p.Adsctoken)
+                    .HasForeignKey(d => d.AdpsLogin)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_ADSCTOKEN_ADSCPASSW");
+
+                entity.HasOne(d => d.AdstSistemaNavigation)
+                    .WithMany(p => p.Adsctoken)
+                    .HasForeignKey(d => d.AdstSistema)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_ADSCTOKEN_ADSCSIST");
+            });
+
+
+            modelBuilder.Entity<Adscswepwd>(entity =>
+            {
+                entity.HasKey(e => new { e.AdpsLogin, e.AdseSw })
+                    .HasName("PK_ADSCSWEPWD");
+
+                entity.ToTable("ADSCSWEPWD");
+
+                entity.Property(e => e.AdpsLogin)
+                    .HasColumnName("ADPS_LOGIN")
+                    .HasColumnType("varchar(32)");
+
+                entity.Property(e => e.AdseSw)
+                    .HasColumnName("ADSE_SW")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdspObs)
+                    .HasColumnName("ADSP_OBS")
+                    .HasColumnType("varchar(200)");
+
+                entity.HasOne(d => d.AdpsLoginNavigation)
+                    .WithMany(p => p.Adscswepwd)
+                    .HasForeignKey(d => d.AdpsLogin)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_ADSCSWEPWD_ADSCPASSW");
+
+                entity.HasOne(d => d.AdseSwNavigation)
+                    .WithMany(p => p.Adscswepwd)
+                    .HasForeignKey(d => d.AdseSw)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .HasConstraintName("FK_ADSCSWEPWD_ADSCSWEXT");
+            });
+
+            modelBuilder.Entity<Adscswext>(entity =>
+            {
+                entity.HasKey(e => e.AdseSw)
+                    .HasName("PK_ADSCSWEXT_1");
+
+                entity.ToTable("ADSCSWEXT");
+
+                entity.Property(e => e.AdseSw)
+                    .HasColumnName("ADSE_SW")
+                    .HasColumnType("varchar(50)");
+
+                entity.Property(e => e.AdseDesc)
+                    .HasColumnName("ADSE_DESC")
+                    .HasColumnType("varchar(100)");
+
+                entity.Property(e => e.AdseUri)
+                    .HasColumnName("ADSE_URI")
+                    .HasColumnType("varchar(200)");
+            });
+
+
         }
 
 

@@ -20,5 +20,10 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdpsCodigoEmpleado { get; set; }
         public string AdpsPasswPoint { get; set; }
         public string AdpsToken { get; set; }
+
+
+
+        public virtual ICollection<Adscswepwd> Adscswepwd { get; set; }
+        public virtual ICollection<Adsctoken> Adsctoken { get; set; }
     }
 }

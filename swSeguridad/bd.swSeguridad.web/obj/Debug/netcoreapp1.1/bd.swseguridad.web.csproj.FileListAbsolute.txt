@@ -47,3 +47,16 @@ C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSegurida
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.deps.json
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.json
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.runtimeconfig.dev.json
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.dll
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.web.pdb
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.dll
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.dll
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.datos.pdb
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Debug\netcoreapp1.1\bd.swseguridad.entidades.pdb
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.csprojResolveAssemblyReference.cache
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.dll
+C:\Users\NESTOR_DS\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Debug\netcoreapp1.1\bd.swseguridad.web.pdb

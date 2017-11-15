@@ -17,6 +17,7 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdstBdd { get; set; }
 
         public virtual ICollection<Adscmenu> Adscmenu { get; set; }
+        public virtual ICollection<Adsctoken> Adsctoken { get; set; }
         public virtual Adscbdd AdstBddNavigation { get; set; }
     }
 }

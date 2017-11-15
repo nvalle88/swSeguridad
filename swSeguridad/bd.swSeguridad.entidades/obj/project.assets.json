@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "bd.log.guardar/1.0.1": {
@@ -8935,42 +8935,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\": {}
+    "C:\\Users\\NESTOR_DS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
+      "projectUniqueName": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
       "projectName": "bd.swseguridad.entidades",
-      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
-      "packagesPath": "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\obj\\",
+      "projectPath": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj",
+      "outputPath": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\obj\\",
       "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\Nestor Yasmani Valle\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-      ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
-      "sources": {
-        "C:\\Paquetes Nuguet Locales": {},
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {},
-        "https://api.nuget.org/v3/index.json": {}
-      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {}
         }
-      },
-      "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
       }
     },
     "frameworks": {

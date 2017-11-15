@@ -100,7 +100,7 @@ namespace bd.swseguridad.web.Controllers.API
 
         [HttpPost]
         [Route("TienePermisoSwExterno")]
-        public async Task<Response> TienePermisoSwExterno([FromBody]PermisoUsuario permiso, string url)
+        public async Task<Response> TienePermisoSwExterno([FromBody] PermisoUsuarioSwExternos permiso)
         {
             try
             {

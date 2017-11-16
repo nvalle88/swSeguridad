@@ -139,15 +139,16 @@ namespace bd.swseguridad.web.Controllers.API
                         {
                             var respuestaGet = await client.GetAsync(new Uri(uriServicio));
                             var resultadoGet = await respuestaGet.Content.ReadAsStringAsync();
-                            var a = JsonConvert.DeserializeObject(resultadoGet);
-                            return Json(a);
+                            var respuesta = JsonConvert.DeserializeObject(resultadoGet);
+                            return Json(respuesta);
                         }
 
                         var request = JsonConvert.SerializeObject(objeto.parametros);
                         var content = new StringContent(request, Encoding.UTF8, "application/json");
                         var respuestaPost = await client.PostAsync(new Uri(uriServicio), content);
                         var resultadoPost = await respuestaPost.Content.ReadAsStringAsync();
-                        return Json(resultadoPost); 
+                        var resultadoPostD= JsonConvert.DeserializeObject(resultadoPost);
+                        return Json(resultadoPostD); 
                     }
                     
                 }

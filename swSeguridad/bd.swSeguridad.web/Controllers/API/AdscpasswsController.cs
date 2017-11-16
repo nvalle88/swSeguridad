@@ -104,10 +104,10 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-                var token = await db.Adsctoken.Where(x => x.AdtoToken == permiso.Token && x.AdpsLogin == permiso.Usuario).FirstOrDefaultAsync();
+                var token = await db.Adsctoken.Where(x => x.AdtoToken == permiso.Token && x.AdpsLogin == permiso.Usuario && x.AdstSistema==permiso.Aplicacion).FirstOrDefaultAsync();
                 if (token != null)
                 { 
-                    var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin == permiso.Usuario).FirstOrDefaultAsync();
+                    var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin == permiso.Usuario && x.AdseSw==permiso.NombreServicio).FirstOrDefaultAsync();
                     if (servicio != null)
                     {   
                         return new Response {IsSuccess=true};
@@ -125,26 +125,31 @@ namespace bd.swseguridad.web.Controllers.API
 
         [HttpPost]
         [Route("ConsumirSwExterno")]
-        public async Task<JsonResult> ConsumirSWExterno<T>(object objeto, string url)
+        public async Task<JsonResult> ConsumirSWExterno([FromBody] PermisoUsuarioSwExternos objeto)
         {
             try
             {
                 using (HttpClient client = new HttpClient())
-                {           
-                    if (objeto == null)
+                {
+                    if (objeto!=null)
                     {
-                        var respuestaGet = await client.GetAsync(new Uri(url));
-                        var resultadoGet = await respuestaGet.Content.ReadAsStringAsync();
-                        var lista = JsonConvert.DeserializeObject<List<T>>(resultadoGet);
-                        return Json(lista);
+                        var uriServicio = db.Adscswext.Where(x => x.AdseSw == objeto.NombreServicio).FirstOrDefaultAsync().Result.AdseUri;
+
+                        if (objeto.parametros == null)
+                        {
+                            var respuestaGet = await client.GetAsync(new Uri(uriServicio));
+                            var resultadoGet = await respuestaGet.Content.ReadAsStringAsync();
+                            var a = JsonConvert.DeserializeObject(resultadoGet);
+                            return Json(a);
+                        }
+
+                        var request = JsonConvert.SerializeObject(objeto.parametros);
+                        var content = new StringContent(request, Encoding.UTF8, "application/json");
+                        var respuestaPost = await client.PostAsync(new Uri(uriServicio), content);
+                        var resultadoPost = await respuestaPost.Content.ReadAsStringAsync();
+                        return Json(resultadoPost); 
                     }
                     
-                        var request = JsonConvert.SerializeObject(objeto);
-                        var content = new StringContent(request, Encoding.UTF8, "application/json");
-                        var respuestaPost = await client.PostAsync(new Uri(url), content);
-                        var resultadoPost = await respuestaPost.Content.ReadAsStringAsync();
-                        var respuesta = JsonConvert.DeserializeObject<List<T>>(resultadoPost);
-                        return Json(respuesta);
                 }
                 
             }
@@ -152,7 +157,7 @@ namespace bd.swseguridad.web.Controllers.API
             {
                 Json(false);
             }
-            return Json(true);
+          return  Json(false);
         }
 
         private string NormalizarPathContexto(string cadena)
@@ -182,9 +187,10 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-                var usuario = db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefault();
+                var usuario =await db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefaultAsync();
+                var sistema =await db.Adscsist.Where(x => x.AdstSistema == permisoUsuario.Aplicacion).FirstOrDefaultAsync();
 
-                if (usuario == null)
+                if (usuario == null || sistema==null)
                 {
                     return new Response
                     {
@@ -194,22 +200,38 @@ namespace bd.swseguridad.web.Controllers.API
                 }
 
 
-                var adsctoken = new Adsctoken
-                {
-                    AdpsLogin=permisoUsuario.Usuario,
-                    AdstSistema=permisoUsuario.Aplicacion,
-                    AdtoToken=permisoUsuario.Token,
-                };
+               
+                var adsctokenRequest = await db.Adsctoken.Where(x => x.AdpsLogin == permisoUsuario.Usuario && x.AdstSistema == permisoUsuario.Aplicacion).FirstOrDefaultAsync();
 
-                db.Adsctoken.Add(adsctoken);
+                if (adsctokenRequest == null)
+                {
+                    var adsctoken = new Adsctoken
+                    {
+                        AdpsLogin = permisoUsuario.Usuario,
+                        AdstSistema = permisoUsuario.Aplicacion,
+                        AdtoToken = permisoUsuario.Token,
+                    };
+                    db.Adsctoken.Add(adsctoken);
+                    await db.SaveChangesAsync();
+
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Resultado=adsctoken,
+                    };
+                }
+
+
+                adsctokenRequest.AdtoToken = permisoUsuario.Token;
+               
+                db.Adsctoken.Update(adsctokenRequest);
                 await db.SaveChangesAsync();
 
                 return new Response
                 {
                     IsSuccess = true,
+                    Resultado = adsctokenRequest,
                 };
-
-
             }
             catch (Exception ex)
             {

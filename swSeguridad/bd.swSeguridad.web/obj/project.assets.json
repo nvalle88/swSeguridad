@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
       "bd.log.guardar/1.0.1": {
@@ -4256,12 +4256,6 @@
           "Microsoft.NETCore.App": "1.1.2",
           "bd.log.guardar": "1.0.1",
           "bd.swseguridad.entidades": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/bd.swseguridad.datos.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/bd.swseguridad.datos.dll": {}
         }
       },
       "bd.swseguridad.entidades/1.0.0": {
@@ -4273,12 +4267,6 @@
           "Microsoft.NETCore.App": "1.1.2",
           "Novell.Directory.Ldap.NETStandard": "2.3.8",
           "bd.log.guardar": "1.0.1"
-        },
-        "compile": {
-          "bin/placeholder/bd.swseguridad.entidades.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/bd.swseguridad.entidades.dll": {}
         }
       }
     }
@@ -11005,49 +10993,30 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\": {}
+    "C:\\Users\\NESTOR_DS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
+      "projectUniqueName": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
       "projectName": "bd.swseguridad.web",
-      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
-      "packagesPath": "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\obj\\",
+      "projectPath": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
+      "outputPath": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\obj\\",
       "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\Nestor Yasmani Valle\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-      ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
-      "sources": {
-        "C:\\Paquetes Nuguet Locales": {},
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {},
-        "https://api.nuget.org/v3/index.json": {}
-      },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
-              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
+            "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
+              "projectPath": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
             },
-            "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj": {
-              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj"
+            "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj": {
+              "projectPath": "C:\\Users\\NESTOR_DS\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj"
             }
           }
         }
-      },
-      "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
       }
     },
     "frameworks": {

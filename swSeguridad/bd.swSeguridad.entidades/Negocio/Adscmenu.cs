@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace bd.swseguridad.entidades.Negocio
 {
@@ -11,7 +10,6 @@ namespace bd.swseguridad.entidades.Negocio
             Adscexe = new HashSet<Adscexe>();
         }
 
-        
         public string AdmeSistema { get; set; }
         public string AdmeAplicacion { get; set; }
         public string AdmeTipo { get; set; }
@@ -26,7 +24,6 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdmeEstado { get; set; }
         public string AdmeControlador { get; set; }
         public string AdmeAccionControlador { get; set; }
-
 
         public virtual ICollection<Adscexe> Adscexe { get; set; }
         public virtual Adscsist AdmeSistemaNavigation { get; set; }

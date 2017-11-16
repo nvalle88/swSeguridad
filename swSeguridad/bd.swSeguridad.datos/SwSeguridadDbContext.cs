@@ -23,7 +23,6 @@ namespace bd.swseguridad.datos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Adscbdd>(entity =>
             {
                 entity.HasKey(e => e.AdbdBdd)
@@ -157,6 +156,10 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADME_ENSAMBLADO")
                     .HasColumnType("varchar(100)");
 
+                entity.Property(e => e.AdmeEstado)
+                    .HasColumnName("ADME_ESTADO")
+                    .HasColumnType("varchar(50)");
+
                 entity.Property(e => e.AdmeObjetivo)
                     .HasColumnName("ADME_OBJETIVO")
                     .HasColumnType("varchar(32)");
@@ -178,10 +181,6 @@ namespace bd.swseguridad.datos
                 entity.Property(e => e.AdmeUrl)
                     .HasColumnName("ADME_URL")
                     .HasColumnType("varchar(150)");
-
-                entity.Property(e => e.AdmeEstado)
-                   .HasColumnName("ADME_ESTADO")
-                   .HasColumnType("varchar(50)");
 
                 entity.HasOne(d => d.AdmeSistemaNavigation)
                     .WithMany(p => p.Adscmenu)
@@ -323,39 +322,6 @@ namespace bd.swseguridad.datos
                     .HasConstraintName("FK_ADSCSIST_ADSCBDD");
             });
 
-            modelBuilder.Entity<Adsctoken>(entity =>
-            {
-                entity.HasKey(e => new { e.AdstSistema, e.AdpsLogin, e.AdtoToken })
-                    .HasName("PK_ADSCTOKEN");
-
-                entity.ToTable("ADSCTOKEN");
-
-                entity.Property(e => e.AdstSistema)
-                    .HasColumnName("ADST_SISTEMA")
-                    .HasColumnType("varchar(20)");
-
-                entity.Property(e => e.AdpsLogin)
-                    .HasColumnName("ADPS_LOGIN")
-                    .HasColumnType("varchar(32)");
-
-                entity.Property(e => e.AdtoToken)
-                    .HasColumnName("ADTO_TOKEN")
-                    .HasColumnType("varchar(500)");
-
-                entity.HasOne(d => d.AdpsLoginNavigation)
-                    .WithMany(p => p.Adsctoken)
-                    .HasForeignKey(d => d.AdpsLogin)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_ADSCTOKEN_ADSCPASSW");
-
-                entity.HasOne(d => d.AdstSistemaNavigation)
-                    .WithMany(p => p.Adsctoken)
-                    .HasForeignKey(d => d.AdstSistema)
-                    .OnDelete(DeleteBehavior.Restrict)
-                    .HasConstraintName("FK_ADSCTOKEN_ADSCSIST");
-            });
-
-
             modelBuilder.Entity<Adscswepwd>(entity =>
             {
                 entity.HasKey(e => new { e.AdpsLogin, e.AdseSw })
@@ -408,7 +374,30 @@ namespace bd.swseguridad.datos
                     .HasColumnType("varchar(200)");
             });
 
+            modelBuilder.Entity<Adsctoken>(entity =>
+            {
+                entity.HasKey(e => e.AdtoId)
+                    .HasName("PK_ADSCTOKEN");
 
+                entity.ToTable("ADSCTOKEN");
+
+                entity.Property(e => e.AdtoId).HasColumnName("ADTO_ID");
+
+                entity.Property(e => e.AdpsLogin)
+                    .IsRequired()
+                    .HasColumnName("ADPS_LOGIN")
+                    .HasColumnType("varchar(32)");
+
+                entity.Property(e => e.AdstSistema)
+                    .IsRequired()
+                    .HasColumnName("ADST_SISTEMA")
+                    .HasColumnType("varchar(20)");
+
+                entity.Property(e => e.AdtoToken)
+                    .IsRequired()
+                    .HasColumnName("ADTO_TOKEN")
+                    .HasColumnType("varchar(500)");
+            });
         }
 
 

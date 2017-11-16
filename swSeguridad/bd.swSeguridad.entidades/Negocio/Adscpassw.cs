@@ -5,6 +5,11 @@ namespace bd.swseguridad.entidades.Negocio
 {
     public partial class Adscpassw
     {
+        public Adscpassw()
+        {
+            Adscswepwd = new HashSet<Adscswepwd>();
+        }
+
         public string AdpsLogin { get; set; }
         public string AdpsPassword { get; set; }
         public DateTime? AdpsFechaCambio { get; set; }
@@ -21,9 +26,6 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdpsPasswPoint { get; set; }
         public string AdpsToken { get; set; }
 
-
-
         public virtual ICollection<Adscswepwd> Adscswepwd { get; set; }
-        public virtual ICollection<Adsctoken> Adsctoken { get; set; }
     }
 }

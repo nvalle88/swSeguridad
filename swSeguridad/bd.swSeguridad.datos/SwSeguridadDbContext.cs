@@ -388,14 +388,14 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADPS_LOGIN")
                     .HasColumnType("varchar(32)");
 
-                entity.Property(e => e.AdstSistema)
-                    .IsRequired()
-                    .HasColumnName("ADST_SISTEMA")
-                    .HasColumnType("varchar(20)");
-
                 entity.Property(e => e.AdtoToken)
                     .IsRequired()
                     .HasColumnName("ADTO_TOKEN")
+                    .HasColumnType("varchar(500)");
+
+                entity.Property(e => e.AdtoNombreServicio)
+                    .IsRequired()
+                    .HasColumnName("ADTO_NOMSERV")
                     .HasColumnType("varchar(500)");
             });
         }

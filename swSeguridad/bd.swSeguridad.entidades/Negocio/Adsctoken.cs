@@ -9,5 +9,6 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdpsLogin { get; set; }
         public string AdtoToken { get; set; }
         public string AdtoNombreServicio { get; set; }
+        public DateTime AdtoFecha { get; set; }
     }
 }

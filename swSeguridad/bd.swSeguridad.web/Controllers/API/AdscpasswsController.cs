@@ -125,7 +125,7 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-                var token = await db.Adsctoken.Where(x => x.AdtoToken == permiso.Token && x.AdpsLogin == permiso.Usuario && x.AdtoNombreServicio==permiso.NombreServicio).FirstOrDefaultAsync();
+                var token = await db.Adsctoken.Where(x => x.AdtoToken == permiso.Token && x.AdtoId==permiso.Id && x.AdpsLogin == permiso.Usuario && x.AdtoNombreServicio==permiso.NombreServicio).FirstOrDefaultAsync();
                 if (token != null)
                 { 
                     var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin == permiso.Usuario && x.AdseSw==permiso.NombreServicio).FirstOrDefaultAsync();
@@ -263,6 +263,7 @@ namespace bd.swseguridad.web.Controllers.API
                         AdpsLogin = permisoUsuario.Usuario,
                         AdtoNombreServicio = permisoUsuario.NombreServicio,
                         AdtoToken = permisoUsuario.Token,
+                        AdtoFecha = DateTime.Now,
                     };
                     db.Adsctoken.Add(adsctoken);
                     await db.SaveChangesAsync();
@@ -275,15 +276,21 @@ namespace bd.swseguridad.web.Controllers.API
                 }
 
 
-                adsctokenRequest.AdtoToken = permisoUsuario.Token;
-               
-                db.Adsctoken.Update(adsctokenRequest);
+                var SeleccionarToken =await db.Adsctoken.Where(x=>x.AdtoId==adsctokenRequest.AdtoId).FirstOrDefaultAsync();
+
+                db.Adsctoken.Remove(SeleccionarToken);
+                await db.SaveChangesAsync();
+                var Token = SeleccionarToken;
+                Token.AdtoId = 0;
+                Token.AdtoToken = permisoUsuario.Token;
+                Token.AdtoFecha = DateTime.Now;
+                db.Adsctoken.Add(SeleccionarToken);
                 await db.SaveChangesAsync();
 
                 return new Response
                 {
                     IsSuccess = true,
-                    Resultado = adsctokenRequest,
+                    Resultado = SeleccionarToken,
                 };
             }
             catch (Exception ex)

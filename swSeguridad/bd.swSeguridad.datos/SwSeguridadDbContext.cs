@@ -393,6 +393,11 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADTO_TOKEN")
                     .HasColumnType("varchar(500)");
 
+                entity.Property(e => e.AdtoFecha)
+                   .IsRequired()
+                   .HasColumnName("ADTO_FECHA")
+                   .HasColumnType("datetime"); 
+
                 entity.Property(e => e.AdtoNombreServicio)
                     .IsRequired()
                     .HasColumnName("ADTO_NOMSERV")

@@ -11,7 +11,9 @@ namespace bd.log.web.Controllers
     {
        
         public IActionResult Index()
+
         {
+
             return View();
         }
 

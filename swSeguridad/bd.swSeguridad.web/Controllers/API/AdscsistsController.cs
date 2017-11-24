@@ -52,6 +52,60 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+
+        [HttpPost]
+        [Route("ListarAdscSistemaMiembro")]
+        public async Task<List<Adscsist>> GetAdscsistMiembro([FromBody] string miembro)
+         {
+            try
+            {           
+                var ListadoSistemas = await (from s in db.Adscsist
+                                       join m in db.Adscmenu
+                                       on s.AdstSistema equals m.AdmeSistema
+                                       join e in db.Adscexe
+                                       on new { colA = m.AdmeSistema, colB = m.AdmeAplicacion } equals new { colA = e.AdexSistema, colB = e.AdexAplicacion }
+                                       join g in db.Adscgrp
+                                       on new { colC = e.AdexGrupo, colD = e.AdexBdd } equals new { colC = g.AdgrGrupo, colD = g.AdgrBdd }
+                                       join b in db.Adscmiem
+                                       on new { colE = g.AdgrGrupo, colF = g.AdgrBdd } equals new { colE = b.AdmiGrupo, colF = b.AdmiBdd }
+                                       where b.AdmiEmpleado == miembro
+                                       group s by s.AdstDescripcion into pg
+                                       select new Adscsist
+                                       {
+                                           AdstSistema = pg.FirstOrDefault().AdstSistema,
+                                           AdstDescripcion = pg.FirstOrDefault().AdstDescripcion,
+                                           AdstHost = pg.FirstOrDefault().AdstHost
+                                       }).ToListAsync();
+
+                var listaSalida = new List<Adscsist>();
+                foreach (var item in ListadoSistemas)
+                {
+                    listaSalida.Add(new Adscsist
+                    {
+                        AdstSistema = item.AdstSistema,
+                        AdstDescripcion = item.AdstDescripcion,
+                        AdstHost = item.AdstHost
+                    });
+                }
+
+                return listaSalida;
+            }
+            catch (Exception ex)
+            {
+                //await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                //{
+                //    ApplicationName = Convert.ToString(Aplicacion.SwTH),
+                //    ExceptionTrace = ex,
+                //    Message = Mensaje.Excepcion,
+                //    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                //    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                //    UserName = "",
+
+                //});
+                return new List<Adscsist>();
+            }
+        }
+
         // GET: api/Adscsists/5
         [HttpGet("{id}")]
         public async Task<Response> GetAdscsist([FromRoute] string id)

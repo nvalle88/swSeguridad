@@ -7,3 +7,11 @@ C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSegurida
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.dll
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.pdb
 C:\Users\Nestor Yasmani Valle\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.AssemblyInfoInputs.cache
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Release\netcoreapp1.1\bd.swseguridad.entidades.deps.json
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Release\netcoreapp1.1\bd.swseguridad.entidades.dll
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\bin\Release\netcoreapp1.1\bd.swseguridad.entidades.pdb
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.csprojResolveAssemblyReference.cache
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.csproj.CoreCompileInputs.cache
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.AssemblyInfo.cs
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.dll
+C:\Users\SISTEMAS\source\repos\swSeguridad\swSeguridad\bd.swSeguridad.entidades\obj\Release\netcoreapp1.1\bd.swseguridad.entidades.pdb

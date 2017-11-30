@@ -8,6 +8,7 @@ using bd.swseguridad.datos;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace bd.swseguridad.web
 {
@@ -36,6 +37,25 @@ namespace bd.swseguridad.web
 
             services.AddDbContext<SwSeguridadDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("SeguridadConnection")));
+
+            var tiempoVidaTokenHoras = Configuration.GetSection("TiempoVidaTokenHoras").Value;
+            var tiempoVidaTokenMinutos = Configuration.GetSection("TiempoVidaTokenMinutos").Value;
+            var tiempoVidaTokenSegundos = Configuration.GetSection("TiempoVidaTokenSegundos").Value;
+
+
+            var IntervaloCicloHoras = Configuration.GetSection("IntervaloTemporizadorHoras").Value;
+            var IntervaloCicloMinutos = Configuration.GetSection("IntervaloTemporizadorMinutos").Value;
+            var IntervaloCicloSegundos = Configuration.GetSection("IntervaloTemporizadorSegundos").Value;
+
+            var inicioCicloHoras = Configuration.GetSection("inicioCicloHoras").Value;
+            var inicioCicloMinutos = Configuration.GetSection("inicioCicloMinutos").Value;
+            var inicioCicloSegundos = Configuration.GetSection("inicioCicloSegundos").Value;
+
+
+            Temporizador.Temporizador.InicializarTemporizadorTokenExterno
+                (new TimeSpan(Convert.ToInt32(inicioCicloHoras), Convert.ToInt32(inicioCicloMinutos), Convert.ToInt32(inicioCicloSegundos))
+                , new TimeSpan(Convert.ToInt32(tiempoVidaTokenHoras), Convert.ToInt32(tiempoVidaTokenMinutos), Convert.ToInt32(tiempoVidaTokenSegundos))
+                , new TimeSpan(Convert.ToInt32(IntervaloCicloHoras), Convert.ToInt32(IntervaloCicloMinutos), Convert.ToInt32(IntervaloCicloSegundos)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

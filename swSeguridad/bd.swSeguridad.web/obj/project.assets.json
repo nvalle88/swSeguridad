@@ -11005,7 +11005,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\": {}
+    "C:\\Users\\SISTEMAS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -11013,41 +11013,35 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
+      "projectUniqueName": "C:\\Users\\SISTEMAS\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
       "projectName": "bd.swseguridad.web",
-      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
-      "packagesPath": "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\obj\\",
+      "projectPath": "C:\\Users\\SISTEMAS\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\bd.swseguridad.web.csproj",
+      "packagesPath": "C:\\Users\\SISTEMAS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\SISTEMAS\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Nestor Yasmani Valle\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\SISTEMAS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
       "sources": {
-        "C:\\Paquetes Nuguet Locales": {},
+        "C:\\NugetPackage": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
-              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
+            "C:\\Users\\SISTEMAS\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
+              "projectPath": "C:\\Users\\SISTEMAS\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
             },
-            "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj": {
-              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj"
+            "C:\\Users\\SISTEMAS\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj": {
+              "projectPath": "C:\\Users\\SISTEMAS\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj"
             }
           }
         }
-      },
-      "warningProperties": {
-        "warnAsError": [
-          "NU1605"
-        ]
       }
     },
     "frameworks": {

@@ -287,6 +287,10 @@ namespace bd.swseguridad.datos
                 entity.Property(e => e.AdpsToken)
                     .HasColumnName("ADPS_TOKEN")
                     .HasColumnType("varchar(500)");
+
+                entity.Property(e => e.AdpsTokenTemp)
+                    .HasColumnName("ADPS_TOKEN_TEMP")
+                    .HasColumnType("varchar(500)");
             });
 
             modelBuilder.Entity<Adscsist>(entity =>

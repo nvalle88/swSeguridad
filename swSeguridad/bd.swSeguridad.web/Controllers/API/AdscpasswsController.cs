@@ -97,6 +97,27 @@ namespace bd.swseguridad.web.Controllers.API
         }
 
         [HttpPost]
+        [Route("TienePermisoTemp")]
+        public async Task<Response> TienePermisoTemp([FromBody]PermisoUsuario permiso)
+        {
+            try
+            {
+          
+
+                var token = await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin == permiso.Usuario).FirstOrDefaultAsync();
+                return new Response { IsSuccess = true };
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+        }
+
+        [HttpPost]
         [Route("TieneAcceso")]
         public async Task<Response> TieneAcceso([FromBody] PermisoUsuarioSwExternos permiso)
         {
@@ -369,6 +390,58 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+
+        [HttpPost]
+        [Route("SalvarTokenTemp")]
+        public async Task<Response> SalvarTokenTemp([FromBody]  PermisoUsuario permisoUsuario)
+        {
+            try
+            {
+                var usuario = db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefault();
+
+                if (usuario == null)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.RegistroNoEncontrado
+                    };
+                }
+
+                usuario.AdpsTokenTemp = permisoUsuario.Token;
+                db.Adscpassw.Update(usuario);
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = true,
+                };
+
+
+            }
+            catch (Exception ex)
+            {
+
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    Message = ex.Message,
+                    UserName = permisoUsuario.Usuario,
+
+                });
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = ex.Message,
+
+                };
+                throw;
+            }
+        }
+
         [HttpPost]
         [Route("Login")]
         public async Task<Response> Login([FromBody] Login login)
@@ -509,6 +582,60 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+        [HttpPost]
+        [Route("SeleccionarMiembroLogueado")]
+        public async Task<Response> GetAdscPassws([FromBody] Adscpassw adscpassw)
+        {
+            //try
+            //{
+            //    if (!ModelState.IsValid)
+            //    {
+            //        return new Response
+            //        {
+            //            IsSuccess = false,
+            //            Message = Mensaje.ModeloInvalido,
+            //        };
+            //    }
+
+            var adscgrpSeleccionado =await db.Adscpassw.Where(m => m.AdpsLoginAdm == adscpassw.AdpsLoginAdm && m.AdpsTokenTemp == adscpassw.AdpsTokenTemp).FirstOrDefaultAsync();
+
+            return new Response {IsSuccess=true,Resultado=adscgrpSeleccionado };
+            //    if (adscgrpSeleccionado == null)
+            //    {
+            //        return new Response
+            //        {
+            //            IsSuccess = false,
+            //            Message = Mensaje.RegistroNoEncontrado,
+            //        };
+            //    }
+
+            //    return new Response
+            //    {
+            //        IsSuccess = true,
+            //        Message = Mensaje.Satisfactorio,
+            //        Resultado = adscgrpSeleccionado,
+            //    };
+            //}
+            //catch (Exception ex)
+            //{
+            //    await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+            //    {
+            //        ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+            //        ExceptionTrace = ex,
+            //        Message = Mensaje.Excepcion,
+            //        LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+            //        LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+            //        UserName = "",
+
+            //    });
+            //    return new Response
+            //    {
+            //        IsSuccess = false,
+            //        Message = Mensaje.Error,
+            //    };
+            //}
+        }
+
         // PUT: api/Adscpassws/5
         [HttpPut("{id}")]
         public async Task<Response> PutAdscpassw([FromRoute] string id, [FromBody] Adscpassw adscpassw)
@@ -578,7 +705,144 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
-      
+        // PUT: api/Adscpassws/5
+        [HttpPost]
+        [Route("EliminarTokenTemp")]
+        public async Task<Response> EliminarTokenTemp([FromBody] Adscpassw adscpassw)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
+                }
+
+                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == adscpassw.AdpsLogin).FirstOrDefaultAsync();
+                if (adscPsswActualizar != null)
+                {
+                    try
+                    {
+
+                        adscPsswActualizar.AdpsTokenTemp = null;
+                        db.Adscpassw.Update(adscPsswActualizar);
+                        await db.SaveChangesAsync();
+
+                        return new Response
+                        {
+                            IsSuccess = true,
+                            Message = Mensaje.Satisfactorio,
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = Mensaje.Excepcion,
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = Mensaje.Error,
+                        };
+                    }
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Excepcion
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("EliminarToken")]
+        public async Task<Response> EliminarToken([FromBody] Adscpassw adscpassw)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = Mensaje.ModeloInvalido
+                    };
+                }
+
+                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == adscpassw.AdpsLogin).FirstOrDefaultAsync();
+                if (adscPsswActualizar != null)
+                {
+                    try
+                    {
+
+                        adscPsswActualizar.AdpsToken = null;
+                        db.Adscpassw.Update(adscPsswActualizar);
+                        await db.SaveChangesAsync();
+
+                        return new Response
+                        {
+                            IsSuccess = true,
+                            Message = Mensaje.Satisfactorio,
+                        };
+
+                    }
+                    catch (Exception ex)
+                    {
+                        await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                        {
+                            ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                            ExceptionTrace = ex,
+                            Message = Mensaje.Excepcion,
+                            LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                            LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                            UserName = "",
+
+                        });
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = Mensaje.Error,
+                        };
+                    }
+                }
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.ExisteRegistro
+                };
+            }
+            catch (Exception)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = Mensaje.Excepcion
+                };
+            }
+        }
+
+
         // POST: api/Adscpassws
         [HttpPost]
         [Route("InsertarAdscPassw")]

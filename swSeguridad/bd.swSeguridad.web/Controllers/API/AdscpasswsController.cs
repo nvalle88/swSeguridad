@@ -877,7 +877,8 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = true,
-                        Message = Mensaje.Satisfactorio
+                        Message = Mensaje.Satisfactorio,
+                        Resultado=adscpassw,
                     };
                 }
 
@@ -939,6 +940,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     IsSuccess = true,
                     Message = Mensaje.Satisfactorio,
+                    Resultado=respuesta,
                 };
             }
             catch (Exception ex)

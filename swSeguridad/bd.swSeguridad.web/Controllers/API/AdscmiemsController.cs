@@ -140,6 +140,7 @@ namespace bd.swseguridad.web.Controllers.API
                         {
                             IsSuccess = true,
                             Message = Mensaje.Satisfactorio,
+                            Resultado=adscmienmSeleccionado,
                         };
 
                     }
@@ -203,7 +204,8 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = true,
-                        Message = Mensaje.Satisfactorio
+                        Message = Mensaje.Satisfactorio,
+                        Resultado=adscmiem,
                     };
                 }
 
@@ -268,6 +270,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     IsSuccess = true,
                     Message = Mensaje.Satisfactorio,
+                    Resultado=adscmiem,
                 };
             }
             catch (Exception ex)

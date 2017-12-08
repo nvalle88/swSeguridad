@@ -289,6 +289,7 @@ namespace bd.swseguridad.web.Controllers.API
                         {
                             IsSuccess = true,
                             Message = Mensaje.Satisfactorio,
+                            Resultado=adscgrpSeleccionado,
                         };
 
                     }
@@ -352,7 +353,8 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = true,
-                        Message = Mensaje.Satisfactorio
+                        Message = Mensaje.Satisfactorio,
+                        Resultado=adscgrp,
                     };
                 }
 
@@ -415,6 +417,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     IsSuccess = true,
                     Message = Mensaje.Satisfactorio,
+                    Resultado=adscgrpSeleccionado,
                 };
             }
             catch (Exception ex)

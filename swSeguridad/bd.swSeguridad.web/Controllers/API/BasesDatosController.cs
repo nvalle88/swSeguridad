@@ -52,10 +52,16 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+        public async Task<Adscbdd> SeleccionarAdscbdd(Adscbdd adscbdd)
+        {
+            var respuesta =await db.Adscbdd.Where(x => x.AdbdBdd == adscbdd.AdbdBdd).FirstOrDefaultAsync();
+            return respuesta;
+        }
 
         // GET: api/BasesDatos/5
-        [HttpGet("{id}")]
-        public async Task<Response> GetAdscbdd([FromRoute] string id)
+        [HttpPost]
+        [Route("SeleccionarAdscBdd")]
+        public async Task<Response> GetAdscbdd([FromBody]  Adscbdd adscbdd)
         {
             try
             {
@@ -64,18 +70,18 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Módelo no válido",
+                        Message = Mensaje.ModeloInvalido,
                     };
                 }
 
-                var adscbdd = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == id);
+                var respuesta = await db.Adscbdd.SingleOrDefaultAsync(m => m.AdbdBdd == adscbdd.AdbdBdd);
 
                 if (adscbdd == null)
                 {
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "No encontrado",
+                        Message = Mensaje.RegistroNoEncontrado,
                     };
                 }
 
@@ -83,7 +89,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     IsSuccess = true,
                     Message = "Ok",
-                    Resultado = adscbdd,
+                    Resultado = respuesta,
                 };
             }
             catch (Exception ex)
@@ -107,8 +113,9 @@ namespace bd.swseguridad.web.Controllers.API
         }
 
         // PUT: api/BasesDatos/5
-        [HttpPut("{id}")]
-        public async Task<Response> PutAdscbdd([FromRoute] string id, [FromBody] Adscbdd adscbdd)
+        [HttpPut]
+        [Route("EditarAdscbdd")]
+        public async Task<Response> PutAdscbdd([FromBody] Adscbdd adscbdd)
         {
             try
             {
@@ -117,25 +124,26 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Módelo inválido"
+                        Message = Mensaje.ModeloInvalido
                     };
                 }
+                var RespuestaActualizar = await SeleccionarAdscbdd(adscbdd);
 
-                var adscdbbActualizar =await db.Adscbdd.Where(x => x.AdbdBdd == id).FirstOrDefaultAsync();
-                if (adscdbbActualizar!=null)
+                if (RespuestaActualizar != null)
                 {
                     try
                     {
-                       
-                        adscdbbActualizar.AdbdDescripcion = adscbdd.AdbdDescripcion;
-                        adscdbbActualizar.AdbdServidor = adscbdd.AdbdServidor;
-                        db.Adscbdd.Update(adscdbbActualizar);
-                        await db.SaveChangesAsync(); 
+                        RespuestaActualizar.AdbdBdd = adscbdd.AdbdBdd;
+                        RespuestaActualizar.AdbdDescripcion = adscbdd.AdbdDescripcion;
+                        RespuestaActualizar.AdbdServidor = adscbdd.AdbdServidor;
+                        db.Adscbdd.Update(RespuestaActualizar);
+                        await db.SaveChangesAsync();
 
                         return new Response
                         {
-                            IsSuccess=true,
-                            Message="Ok",
+                            IsSuccess = true,
+                            Message = Mensaje.Satisfactorio,
+                            Resultado = RespuestaActualizar,
                         };
 
                     }
@@ -145,7 +153,7 @@ namespace bd.swseguridad.web.Controllers.API
                         {
                             ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
                             ExceptionTrace = ex,
-                            Message = "Se ha producido una exepción",
+                            Message = Mensaje.Excepcion,
                             LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
                             LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
                             UserName = "",
@@ -154,18 +162,15 @@ namespace bd.swseguridad.web.Controllers.API
                         return new Response
                         {
                             IsSuccess = false,
-                            Message = "Error ",
+                            Message = Mensaje.Error,
                         };
                     }
                 }
 
-                
-           
-
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Existe"
+                    Message = Mensaje.ExisteRegistro
                 };
             }
             catch (Exception)
@@ -173,7 +178,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Excepción"
+                    Message = Mensaje.Excepcion
                 };
             }
         }
@@ -190,10 +195,9 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess=false,
-                        Message="Módelo inválido"
+                        Message=Mensaje.ModeloInvalido,
                     };
                 }
-
                 var respuesta = Existe(adscbdd);
                 if (!respuesta.IsSuccess)
                 {
@@ -202,7 +206,8 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = true,
-                        Message = Mensaje.Satisfactorio
+                        Message = Mensaje.Satisfactorio,
+                        Resultado=adscbdd,
                     };
                 }
                
@@ -235,7 +240,6 @@ namespace bd.swseguridad.web.Controllers.API
 
         // DELETE: api/BasesDatos/acccion/5
         [HttpDelete("{id}")]
-       
         public async Task<Response> DeleteAdscbdd([FromRoute] string id)
         {
             try
@@ -245,7 +249,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "Módelo no válido ",
+                        Message = Mensaje.ModeloInvalido,
                     };
                 }
 
@@ -255,7 +259,7 @@ namespace bd.swseguridad.web.Controllers.API
                     return new Response
                     {
                         IsSuccess = false,
-                        Message = "No existe ",
+                        Message = Mensaje.RegistroNoEncontrado,
                     };
                 }
                 db.Adscbdd.Remove(respuesta);
@@ -264,7 +268,7 @@ namespace bd.swseguridad.web.Controllers.API
                  return new Response
                 {
                     IsSuccess = true,
-                    Message = "Eliminado ",
+                   Resultado=respuesta,
                 };
             }
             catch (Exception ex)
@@ -292,7 +296,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Error ",
+                    Message = Mensaje.Error,
                 };
             }
         }       

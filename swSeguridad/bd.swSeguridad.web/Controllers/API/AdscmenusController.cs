@@ -14,6 +14,7 @@ using bd.swseguridad.entidades.Utils;
 using bd.log.guardar.Enumeradores;
 using bd.swseguridad.entidades.ViewModels;
 using bd.swseguridad.entidades.Constantes;
+using bd.swseguridad.entidades.ObjectTranfer;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -54,6 +55,33 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+
+        //Módulo es cuando el padre primario es null o 0
+        [HttpPost]
+        [Route("GetMenuPadre")]
+        public async Task<Response> GetMenuPadre([FromBody] ModuloAplicacion moduloAplicacion )
+        {
+            try
+            {
+
+               var request= await db.Adscmenu.FirstOrDefaultAsync();
+                return new Response { IsSuccess=true,Resultado=request }; 
+            }
+            catch (Exception ex)
+            {
+                await GuardarLogService.SaveLogEntry(new LogEntryTranfer
+                {
+                    ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
+                    ExceptionTrace = ex,
+                    Message = Mensaje.Excepcion,
+                    LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
+                    LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
+                    UserName = "",
+
+                });
+                return new Response {IsSuccess=false};
+            }
+        }
 
 
         // GET: api/Adscmenus

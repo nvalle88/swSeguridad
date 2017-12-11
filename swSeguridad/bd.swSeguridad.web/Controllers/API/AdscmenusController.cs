@@ -55,6 +55,22 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+        public async Task<Adscmenu> ObtenerMenuPadreRecursivo(Adscmenu adscmenu)
+        {
+            var menu =await db.Adscmenu.Where(x => x.AdmeAplicacion == adscmenu.AdmePadre).FirstOrDefaultAsync();
+
+            switch (menu.AdmePadre)
+            {
+                case null:
+                    return menu;
+                    
+                case "0":
+                    return menu;
+            }
+           
+           menu= await ObtenerMenuPadreRecursivo(menu);
+           return menu;
+        }
 
         //Módulo es cuando el padre primario es null o 0
         [HttpPost]
@@ -64,8 +80,23 @@ namespace bd.swseguridad.web.Controllers.API
             try
             {
 
-               var request= await db.Adscmenu.FirstOrDefaultAsync();
-                return new Response { IsSuccess=true,Resultado=request }; 
+               var request= await db.Adscmenu
+                                    .Where(x=>x.AdmeSistema==moduloAplicacion.NombreAplicacion 
+                                           && x.AdmeControlador==moduloAplicacion.Path).FirstOrDefaultAsync();
+                if (request==null)
+                {
+                    return new Response { IsSuccess = false };
+                }
+
+
+                if (request.AdmePadre==null || request.AdmePadre== Convert.ToString(0))
+                {
+                    return new Response { IsSuccess = true, Resultado = request };
+                }
+
+                var menu =await ObtenerMenuPadreRecursivo(request);
+            
+                return new Response { IsSuccess=true,Resultado=menu }; 
             }
             catch (Exception ex)
             {

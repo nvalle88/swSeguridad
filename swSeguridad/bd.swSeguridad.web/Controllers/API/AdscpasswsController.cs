@@ -17,6 +17,8 @@ using System.Security.Cryptography;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using bd.swseguridad.entidades.Interfaces;
+using bd.swseguridad.entidades.LDAP;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -25,10 +27,12 @@ namespace bd.swseguridad.web.Controllers.API
     public class AdscpasswsController : Controller
     {
         private readonly SwSeguridadDbContext db;
+        private readonly IAuthenticationService _authService;
 
-        public AdscpasswsController(SwSeguridadDbContext db)
+        public AdscpasswsController(SwSeguridadDbContext db, IAuthenticationService _authService)
         {
             this.db = db;
+            this._authService = _authService;
         }
 
         // GET: api/Adscpassws
@@ -448,9 +452,18 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-                //Verificar tipo de usuario Interno u otro...
-                //Interno LDAP externo u otros contra la BDD
-                
+
+                var userResponse = _authService.Login(login.Usuario, login.Contrasena);
+
+                if (userResponse.IsSuccess)
+                {
+
+                    var usuarioLdap = JsonConvert.DeserializeObject<UsuarioLDAP>(userResponse.Resultado.ToString());
+                    return new Response
+                    { IsSuccess = true,
+                      Resultado = new Adscpassw
+                      { AdpsLogin = usuarioLdap.Username } }; 
+                }
 
                 var usuario = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario).FirstOrDefault();
 

@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="LDAP\" />
     <Folder Include="Negocio\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>

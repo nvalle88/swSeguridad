@@ -1,8 +1,10 @@
-﻿namespace bd.swseguridad.entidades.LDAP
+﻿using bd.swseguridad.entidades.LDAP;
+using bd.swseguridad.entidades.Utils;
+
+namespace bd.swseguridad.entidades.Interfaces
 {
-    public interface IAuthenticationService<T>
+    public interface IAuthenticationService
     {
-        T Login(string username, string password);
-        T FindByNameAsync(string userName);
+        Response Login(string username, string password);
     }
 }

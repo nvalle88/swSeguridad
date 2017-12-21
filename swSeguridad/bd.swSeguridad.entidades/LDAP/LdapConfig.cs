@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace bd.swseguridad.entidades.LDAP
 {
@@ -12,5 +11,6 @@ namespace bd.swseguridad.entidades.LDAP
         public string BindCredentials { get; set; }
         public string SearchBase { get; set; }
         public string SearchFilter { get; set; }
+        public string AdminCn { get; set; }
     }
 }

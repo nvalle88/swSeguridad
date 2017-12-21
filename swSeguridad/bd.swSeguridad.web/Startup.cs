@@ -9,6 +9,9 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using bd.swseguridad.entidades.LDAP;
+using bd.swseguridad.entidades.Interfaces;
+using bd.swseguridad.entidades.Servicios;
 
 namespace bd.swseguridad.web
 {
@@ -34,6 +37,8 @@ namespace bd.swseguridad.web
             services.AddMvc();
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            services.Configure<LdapConfig>(Configuration.GetSection("ldap"));
+            services.AddScoped<IAuthenticationService, LdapAuthenticationService>();
 
             services.AddDbContext<SwSeguridadDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("SeguridadConnection")));

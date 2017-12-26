@@ -79,9 +79,13 @@ namespace bd.swseguridad.web.Controllers.API
                         foreach (var s in a)
                         {
                             var ds = await db.Adscmenu.Where(x => x.AdmeSistema == s.AdexSistema && x.AdmeAplicacion == s.AdexAplicacion).FirstOrDefaultAsync();
-                            if (path.ToUpper()==ds.AdmeControlador.ToUpper())
+
+                            if (ds!=null)
                             {
-                                return new Response { IsSuccess = true };
+                                if (path.ToUpper() == ds.AdmeControlador.ToUpper())
+                                {
+                                    return new Response { IsSuccess = true };
+                                } 
                             }
 
                         }

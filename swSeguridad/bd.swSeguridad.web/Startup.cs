@@ -35,28 +35,66 @@ namespace bd.swseguridad.web
             // Add framework services.
 
             services.AddMvc();
+
+            /// <summary>
+            /// Se adiciona una configuración para eliminar los posibles lasos del Json. 
+            /// </summary>
             services.AddMvc().AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+            /// <summary>
+            /// Se obtiene la configuración del ldap del appsetting.json 
+            /// y se adiciona el servicio para ser utilizado en la inyección de dependencia...
+            /// </summary>
             services.Configure<LdapConfig>(Configuration.GetSection("ldap"));
             services.AddScoped<IAuthenticationService, LdapAuthenticationService>();
 
+            /// <summary>
+            /// se adiciona el contexto de datos y se lee la configuracion de la base de datos del appsetting.json
+            /// </summary>
             services.AddDbContext<SwSeguridadDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("SeguridadConnection")));
 
+            /// <summary>
+            /// Se lee el fichero appsetting.json según las etiquetas expuestas en este.
+            /// Ejemplo:TiempoVidaTokenHoras Horas que tendra de vida la token externo.
+            /// TiempoVidaTokenMinutos Minutos que tendra de vida la token externo
+            ///  TiempoVidaTokenSegundos Segundos que tendra de vida la token externo.
+            ///  Con estas tres variables mencionadas se conforma el tiempo de vida del Token externo 
+            ///   que serán consumidos por terceros
+            /// </summary>
             var tiempoVidaTokenHoras = Configuration.GetSection("TiempoVidaTokenHoras").Value;
             var tiempoVidaTokenMinutos = Configuration.GetSection("TiempoVidaTokenMinutos").Value;
             var tiempoVidaTokenSegundos = Configuration.GetSection("TiempoVidaTokenSegundos").Value;
 
 
+            /// <summary>
+            /// Se lee el fichero appsetting.json según las etiquetas expuestas en este.
+            /// Ejemplo:IntervaloTemporizadorHoras Horas que tendra de vida la token.
+            /// IntervaloTemporizadorMinutos Minutos que tendra de vida la token
+            ///  IntervaloTemporizadorSegundos Segundos que tendra de vida la token.
+            ///  Con estas tres variables mencionadas se conforma cada que tiempo se realizará 
+            ///  el ciclo para invalidar los Token externos que serán consumidos por terceros
+            /// </summary>
             var IntervaloCicloHoras = Configuration.GetSection("IntervaloTemporizadorHoras").Value;
             var IntervaloCicloMinutos = Configuration.GetSection("IntervaloTemporizadorMinutos").Value;
             var IntervaloCicloSegundos = Configuration.GetSection("IntervaloTemporizadorSegundos").Value;
 
+            /// <summary>
+            /// Se lee el fichero appsetting.json según las etiquetas expuestas en este.
+            /// Ejemplo:inicioCicloHoras Horas que comensará a ejecutarse una vez iniciada la aplicación.
+            /// inicioCicloMinutos Minutos que comensará a ejecutarse una vez iniciada la aplicación.
+            ///  inicioCicloSegundos Segundos que comensará a ejecutarse una vez iniciada la aplicación.
+            ///  Con estas tres variables mencionadas se conforma el tiempo que se comenzará a ejecutar 
+            ///  el ciclo para  invalidar los Token externos que serán consumidos por terceros
+            /// </summary>
             var inicioCicloHoras = Configuration.GetSection("inicioCicloHoras").Value;
             var inicioCicloMinutos = Configuration.GetSection("inicioCicloMinutos").Value;
             var inicioCicloSegundos = Configuration.GetSection("inicioCicloSegundos").Value;
 
 
+            /// <summary>
+            /// Se inicializa el temporizador invalidar los Token externos que serán consumidos por terceros
+            /// </summary>
             Temporizador.Temporizador.InicializarTemporizadorTokenExterno
                 (new TimeSpan(Convert.ToInt32(inicioCicloHoras), Convert.ToInt32(inicioCicloMinutos), Convert.ToInt32(inicioCicloSegundos))
                 , new TimeSpan(Convert.ToInt32(tiempoVidaTokenHoras), Convert.ToInt32(tiempoVidaTokenMinutos), Convert.ToInt32(tiempoVidaTokenSegundos))

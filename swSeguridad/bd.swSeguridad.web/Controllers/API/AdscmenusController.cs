@@ -18,6 +18,22 @@ using bd.swseguridad.entidades.ObjectTranfer;
 
 namespace bd.swseguridad.web.Controllers.API
 {
+    /// <summary>
+    /// Controladores API de los servicios web estos son los que trabajan directamente con la base de datos
+    /// Tiene algunos aspectos que explicar como:
+    /// [Produces("application/json")]: filtro especifica los formatos de 
+    /// respuesta para una acción específica (o controlador). 
+    /// Al igual que la mayoría de los filtros , 
+    /// esto se puede aplicar en la acción, el controlador o el alcance global.
+    /// para más información visitar:https://docs.microsoft.com/en-us/aspnet/core/mvc/models/formatting
+    /// [Route("api/Codificar")]:es la ruta del recurso del controlador en general
+    /// public class NombreController : Controller
+    /// [Route("Nombre")] en los métodos es la ruta del recurso.
+    /// para acceder a estos recursos es: Host + ruta concatenados 
+    /// , ruta del controlador + ruta del método
+    /// [FromBody] es para capturar el objeto que se envia en el body 
+    /// para más información visitar:https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api
+    /// </summary>
     [Produces("application/json")]
     [Route("api/Adscmenus")]
     public class AdscmenusController : Controller

@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using System.Text;
 using bd.swseguridad.entidades.Interfaces;
 using bd.swseguridad.entidades.LDAP;
+using bd.swseguridad.entidades.Constantes;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -466,76 +467,98 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
+        private Response ValidarFechaCaducidad(Adscpassw usuario)
+        {
+            if (usuario.AdpsFechaVencimiento < DateTime.Now)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Usuario Caducado contacte con el administrador"
+                };
+            }
+            return new Response { IsSuccess = true };
+        }
+        private Response ValidarNumeroIntentos(Adscpassw usuario)
+        {
+            if (usuario.AdpsIntentos >= 3)
+            {
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Usuario Bloqueado contacte con el administrador"
+                };
+            }
+
+            return new Response { IsSuccess = true };
+        }
+
+        private async Task<Response> AutenticarBDD(Adscpassw usuario,Login login) {
+
+            var salida = CodificarHelper.SHA512(new Codificar { Entrada = login.Contrasena }).Salida;
+            var existeLogin = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario && x.AdpsPasswPoint == salida).FirstOrDefault();
+            if (existeLogin == null)
+            {
+                usuario.AdpsIntentos = usuario.AdpsIntentos + 1;
+                db.Entry(usuario).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+
+                return new Response
+                {
+                    IsSuccess = false,
+                    Message = "Usuario o contraseña incorrecto",
+                    Resultado = "",
+                };
+            }
+            return new Response
+            {
+                IsSuccess = true,
+                Message = "Ok",
+                Resultado = existeLogin,
+            };
+        }
         [HttpPost]
         [Route("Login")]
         public async Task<Response> Login([FromBody] Login login)
         {
             try
             {
-
-                var userResponse = _authService.Login(login.Usuario, login.Contrasena);
-
-                if (userResponse.IsSuccess)
-                {
-
-                    var usuarioLdap = JsonConvert.DeserializeObject<UsuarioLDAP>(userResponse.Resultado.ToString());
-                    return new Response
-                    { IsSuccess = true,
-                      Resultado = new Adscpassw
-                      { AdpsLogin = usuarioLdap.Username } }; 
-                }
-
+                var respuesta = new Response();
                 var usuario = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario).FirstOrDefault();
 
-                if (usuario == null)
+                if (usuario==null)
                 {
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Message = Mensaje.RegistroNoEncontrado
-                    };
+                    return new Response { IsSuccess = false, Message = "Usuario o contraseña incorrecto !!!" };
                 }
 
-                if (usuario.AdpsFechaVencimiento<DateTime.Now)
+                if (usuario.AdpsTipoUso==Constantes.UsuarioInterno)
                 {
-                    return new Response
+                    respuesta = _authService.Login(login.Usuario, login.Contrasena);
+                    if (respuesta.IsSuccess)
                     {
-                        IsSuccess = false,
-                        Message = "Usuario Caducado"
-                    };
+                        return new Response { IsSuccess=true};
+                    }
                 }
 
-                if (usuario.AdpsIntentos>=3)
+                respuesta = ValidarFechaCaducidad(usuario);
+                if (!respuesta.IsSuccess)
                 {
-                    return new Response
-                    {
-                        IsSuccess=false,
-                        Message="Usuario Bloqueado contacte con el administrador"
-                    }; 
+                    return respuesta;
+                }
+                respuesta = ValidarNumeroIntentos(usuario);
+                if (!respuesta.IsSuccess)
+                {
+                    return respuesta;
                 }
 
-               var salida= CodificarHelper.SHA512(new Codificar { Entrada = login.Contrasena }).Salida;
-
-                var existeLogin = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario && x.AdpsPasswPoint == salida).FirstOrDefault();
-                if (existeLogin == null)
+                respuesta = await AutenticarBDD(usuario, login);
+                if (!respuesta.IsSuccess)
                 {
-                    usuario.AdpsIntentos = usuario.AdpsIntentos +1;
-                    db.Entry(usuario).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
-
-                    return new Response
-                    {
-                        IsSuccess = false,
-                        Message = "No existe",
-                        Resultado = "",
-                    };
+                    return respuesta;
                 }
-                return new Response
-                {
-                    IsSuccess=true,
-                    Message="Ok",
-                    Resultado=existeLogin,
-                };
+
+                return respuesta;
+               
             }
             catch (Exception ex)
             {

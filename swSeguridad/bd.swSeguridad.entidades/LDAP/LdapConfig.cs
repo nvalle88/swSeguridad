@@ -7,6 +7,7 @@ namespace bd.swseguridad.entidades.LDAP
     public class LdapConfig
     {
         public string Url { get; set; }
+        public int Port { get; set; }
         public string BindDn { get; set; }
         public string BindCredentials { get; set; }
         public string SearchBase { get; set; }

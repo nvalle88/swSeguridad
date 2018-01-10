@@ -6,6 +6,7 @@ namespace bd.swseguridad.entidades.Constantes
 {
   public static class Constantes
     {
-      public static  string Referencia= "REFERENCE"; 
+      public static  string Referencia= "REFERENCE";
+      public static string UsuarioInterno = "INTERNO";
     }
 }

@@ -20,7 +20,7 @@ namespace bd.swseguridad.datos
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscswepwd> Adscswepwd { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscswext> Adscswext { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adsctoken> Adsctoken { get; set; }
-
+        public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscmailconf> Adscmailconf { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Adscbdd>(entity =>
@@ -91,6 +91,27 @@ namespace bd.swseguridad.datos
                     .HasConstraintName("FK_ADSCEXE_ADSCMENU");
             });
 
+            modelBuilder.Entity<Adscmailconf>(entity =>
+            {
+                entity.HasKey(e => e.AdcfTipo)
+                    .HasName("PK_ADSC_MAIL_CONF");
+
+                entity.ToTable("ADSCMAILCONF");
+
+                entity.Property(e => e.AdcfTipo)
+                    .HasColumnName("ADCF_TIPO")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.AdcfAsunto)
+                    .IsRequired()
+                    .HasColumnName("ADCF_ASUNTO")
+                    .HasColumnType("varchar(250)");
+
+                entity.Property(e => e.AdcfCorreo)
+                    .IsRequired()
+                    .HasColumnName("ADCF_CORREO")
+                    .HasColumnType("varchar(100)");
+            });
             modelBuilder.Entity<Adscgrp>(entity =>
             {
                 entity.HasKey(e => new { e.AdgrBdd, e.AdgrGrupo })

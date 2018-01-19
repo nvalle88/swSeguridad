@@ -538,6 +538,10 @@ namespace bd.swseguridad.web.Controllers.API
                     {
                         return new Response { IsSuccess=true};
                     }
+                    else
+                    {
+                        return new Response { IsSuccess = false };
+                    }
                 }
 
                 respuesta = ValidarFechaCaducidad(usuario);

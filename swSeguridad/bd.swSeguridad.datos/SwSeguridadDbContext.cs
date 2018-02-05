@@ -14,7 +14,7 @@ namespace bd.swseguridad.datos
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscexe> Adscexe { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscgrp> Adscgrp { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscmenu> Adscmenu { get; set; }
-        public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscmiem> Adscmiem { get; set; }
+        public virtual DbSet<Adscmiem> Adscmiem { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscsist> Adscsist { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscpassw> Adscpassw { get; set; }
         public virtual DbSet<bd.swseguridad.entidades.Negocio.Adscswepwd> Adscswepwd { get; set; }
@@ -275,7 +275,9 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADPS_ID_ENTIDAD")
                     .HasColumnType("varchar(50)");
 
-                entity.Property(e => e.AdpsIntentos).HasColumnName("ADPS_INTENTOS");
+                entity.Property(e => e.AdpsIntentos)
+                    .HasColumnName("ADPS_INTENTOS")
+                    .HasDefaultValueSql("0");
 
                 entity.Property(e => e.AdpsLoginAdm)
                     .HasColumnName("ADPS_LOGIN_ADM")
@@ -283,7 +285,7 @@ namespace bd.swseguridad.datos
 
                 entity.Property(e => e.AdpsPasswCg)
                     .HasColumnName("ADPS_PASSW_CG")
-                    .HasColumnType("varchar(1000)");
+                    .HasColumnType("varchar(100)");
 
                 entity.Property(e => e.AdpsPasswPoint)
                     .HasColumnName("ADPS_PASSW_POINT")
@@ -291,7 +293,7 @@ namespace bd.swseguridad.datos
 
                 entity.Property(e => e.AdpsPassword)
                     .HasColumnName("ADPS_PASSWORD")
-                    .HasColumnType("varchar(1000)");
+                    .HasColumnType("varchar(32)");
 
                 entity.Property(e => e.AdpsPreguntaRecuperacion)
                     .HasColumnName("ADPS_PREGUNTA_RECUPERACION")

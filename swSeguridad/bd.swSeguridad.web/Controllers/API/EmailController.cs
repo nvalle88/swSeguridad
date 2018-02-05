@@ -29,7 +29,6 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-
                 var config = await db.Adscmailconf.Where(x => x.AdcfTipo == adscmailconf.AdcfTipo).FirstOrDefaultAsync();
                 if (config == null)
                 {

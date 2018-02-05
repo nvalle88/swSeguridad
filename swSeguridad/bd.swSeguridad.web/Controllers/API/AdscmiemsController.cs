@@ -215,8 +215,10 @@ namespace bd.swseguridad.web.Controllers.API
                 var respuesta = Existe(adscmiem);
                 if (!respuesta.IsSuccess)
                 {
-                    db.Adscmiem.Add(adscmiem);
-                    await db.SaveChangesAsync();
+
+                        db.Adscmiem.Add(adscmiem);
+                        await db.SaveChangesAsync();
+                   
                     return new Response
                     {
                         IsSuccess = true,

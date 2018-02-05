@@ -46,6 +46,79 @@ namespace bd.swseguridad.web.Controllers.API
         }
 
 
+        [HttpPost]
+        [Route("ObtenerMenuPorUsuarioSistema")]
+        public async Task<List<Adscmenu>> ObtenerMenuPorUsuarioSistema([FromBody] UsuarioSistema usuarioSistema)
+        {
+            var listaSalida = new List<Adscmenu>();
+
+            var grupos = await db.Adscmiem.Where(m => m.AdmiEmpleado.ToUpper() == usuarioSistema.Usuario.ToUpper()).ToListAsync();
+            foreach (var item in grupos)
+            {
+                var a = await db.Adscexe.Where(x => x.AdexGrupo == item.AdmiGrupo).ToListAsync();
+                foreach (var s in a)
+                {
+                    var ds = await db.Adscmenu.Where(x => x.AdmeSistema == usuarioSistema.Sistema && x.AdmeAplicacion == s.AdexAplicacion).FirstOrDefaultAsync();
+                    if (ds != null)
+                    {
+                        listaSalida.Add(ds);
+                    }
+
+                }
+            }
+            return listaSalida;
+
+        }
+
+
+        [HttpPost]
+        [Route("ObtenerMenuPadrePorUsuarioSistema")]
+        public async Task<List<Adscmenu>> ObtenerMenuPadrePorUsuarioSistema([FromBody] MenuPadreSistemaUsuario sistemaUsuario)
+        {
+            var listaSalida = new List<Adscmenu>();
+
+                var grupos = await db.Adscmiem.Where(m => m.AdmiEmpleado.ToUpper() == sistemaUsuario.Usuario.ToUpper()).ToListAsync();
+                foreach (var item in grupos)
+                {
+                    var a = await db.Adscexe.Where(x => x.AdexGrupo == item.AdmiGrupo).ToListAsync();
+                    foreach (var s in a)
+                    {
+                        var ds = await db.Adscmenu.Where(x => x.AdmeSistema == sistemaUsuario.Sistema && x.AdmeAplicacion == s.AdexAplicacion && (x.AdmePadre==null || x.AdmePadre==Convert.ToString(0))).FirstOrDefaultAsync();
+                    if (ds!=null)
+                    {
+                        listaSalida.Add(ds);
+                    }
+                         
+                    }
+                }
+            return listaSalida;
+
+        }
+
+        [HttpPost]
+        [Route("ObtenerHijosPorUsuarioSistema")]
+        public async Task<List<Adscmenu>> ObtenerMenuPadrePorUsuarioSistema([FromBody] MenuHijoSistema menuHijoSistema)
+        {
+            var listaSalida = new List<Adscmenu>();
+
+            var grupos = await db.Adscmiem.Where(m => m.AdmiEmpleado.ToUpper() == menuHijoSistema.Usuario.ToUpper()).ToListAsync();
+            foreach (var item in grupos)
+            {
+                var a = await db.Adscexe.Where(x => x.AdexGrupo == item.AdmiGrupo).ToListAsync();
+                foreach (var s in a)
+                {
+                    var ds = await db.Adscmenu.Where(x => x.AdmeSistema == menuHijoSistema.AdmeSistema && x.AdmeAplicacion == s.AdexAplicacion && x.AdmePadre == menuHijoSistema.AdmeAplicacion).FirstOrDefaultAsync();
+                    if (ds!=null)
+                    {
+                        listaSalida.Add(ds);
+                    }
+                    
+                }
+            }
+            return listaSalida;
+
+        }
+
 
         [HttpGet]
         [Route("ListarMenuDistinct")]

@@ -84,7 +84,7 @@ namespace bd.swseguridad.web.Controllers.API
                                        on new { colC = e.AdexGrupo, colD = e.AdexBdd } equals new { colC = g.AdgrGrupo, colD = g.AdgrBdd }
                                        join b in db.Adscmiem
                                        on new { colE = g.AdgrGrupo, colF = g.AdgrBdd } equals new { colE = b.AdmiGrupo, colF = b.AdmiBdd }
-                                       where b.AdmiEmpleado == miembro
+                                       where b.AdmiEmpleado.ToUpper() == miembro.ToUpper()
                                        group s by s.AdstDescripcion into pg
                                        select new Adscsist
                                        {

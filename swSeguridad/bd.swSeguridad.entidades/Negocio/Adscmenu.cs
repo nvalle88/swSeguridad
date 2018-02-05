@@ -16,7 +16,7 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdmePadre { get; set; }
         public string AdmeObjetivo { get; set; }
         public string AdmeDescripcion { get; set; }
-        public int? AdmeOrden { get; set; }
+        public byte? AdmeOrden { get; set; }
         public string AdmeTipoObjeto { get; set; }
         public string AdmeUrl { get; set; }
         public string AdmeEnsamblado { get; set; }

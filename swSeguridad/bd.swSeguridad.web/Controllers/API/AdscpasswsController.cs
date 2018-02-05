@@ -20,6 +20,7 @@ using System.Text;
 using bd.swseguridad.entidades.Interfaces;
 using bd.swseguridad.entidades.LDAP;
 using bd.swseguridad.entidades.Constantes;
+using bd.swseguridad.entidades.ViewModels;
 
 namespace bd.swseguridad.web.Controllers.API
 {
@@ -78,6 +79,35 @@ namespace bd.swseguridad.web.Controllers.API
         }
 
         [HttpPost]
+        [Route("CambiarContrasenaUsuariosExternos")]
+        public async Task<Response> CambiarContraseñaUsuariosExternos([FromBody]CambiarContrasenaViewModel cambiarContrasenaViewModel)
+        {
+            try
+            {
+                var salida = CodificarHelper.SHA512(new Codificar { Entrada = cambiarContrasenaViewModel.ContrasenaActual }).Salida;
+                var usuario = await db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == cambiarContrasenaViewModel.Usuario.ToUpper() && x.AdpsPasswPoint == salida).FirstOrDefaultAsync();
+
+                if (usuario == null)
+                {
+                    return new Response { IsSuccess = false, Message = Mensaje.UsuariooContrasenaIncorrecto };
+                }
+
+                if (usuario.AdpsTipoUso != Constantes.UsuarioInterno)
+                {
+                    SincorizarContrasenaUsuarioExternos(cambiarContrasenaViewModel.Usuario, cambiarContrasenaViewModel.ConfirmacionContrasena);
+                    return new Response { IsSuccess = true, Message = Mensaje.CambioContrasenaExito };
+                }
+
+                return new Response { IsSuccess = false, Message = Mensaje.NoHabilitadoCambioContrasena };
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        
+        [HttpPost]
         [Route("TienePermiso")]
         public async Task<Response> TienePermiso([FromBody]PermisoUsuario permiso)
         {
@@ -85,11 +115,11 @@ namespace bd.swseguridad.web.Controllers.API
             {
                 var path =NormalizarPathContexto(permiso.Contexto);
 
-                var token =await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin==permiso.Usuario).FirstOrDefaultAsync();
+                var token =await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin.ToUpper()==permiso.Usuario.ToUpper()).FirstOrDefaultAsync();
 
                 if (token!=null)
                 {
-                    var grupos = await db.Adscmiem.Where(m => m.AdmiEmpleado == permiso.Usuario).ToListAsync();
+                    var grupos = await db.Adscmiem.Where(m => m.AdmiEmpleado.ToUpper() == permiso.Usuario.ToUpper()).ToListAsync();
                     foreach (var item in grupos)
                     {
                         var a = await db.Adscexe.Where(x => x.AdexGrupo == item.AdmiGrupo).ToListAsync();
@@ -97,7 +127,7 @@ namespace bd.swseguridad.web.Controllers.API
                         {
                             var ds = await db.Adscmenu.Where(x => x.AdmeSistema == s.AdexSistema && x.AdmeAplicacion == s.AdexAplicacion).FirstOrDefaultAsync();
 
-                            if (ds!=null)
+                            if (ds.AdmeControlador!=null)
                             {
                                 if (path.ToUpper() == ds.AdmeControlador.ToUpper())
                                 {
@@ -129,7 +159,7 @@ namespace bd.swseguridad.web.Controllers.API
             {
           
 
-                var token = await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin == permiso.Usuario).FirstOrDefaultAsync();
+                var token = await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin.ToUpper() == permiso.Usuario.ToUpper()).FirstOrDefaultAsync();
                 return new Response { IsSuccess = true };
 
             }
@@ -149,7 +179,7 @@ namespace bd.swseguridad.web.Controllers.API
             try
             {
               
-                    var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin == permiso.Usuario && x.AdseSw == permiso.NombreServicio).FirstOrDefaultAsync();
+                    var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin.ToUpper() == permiso.Usuario.ToUpper() && x.AdseSw == permiso.NombreServicio).FirstOrDefaultAsync();
                     if (servicio != null)
                     {
                         return new Response { IsSuccess = true };
@@ -171,10 +201,10 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-                var token = await db.Adsctoken.Where(x => x.AdtoToken == permiso.Token && x.AdtoId==permiso.Id && x.AdpsLogin == permiso.Usuario && x.AdtoNombreServicio==permiso.NombreServicio).FirstOrDefaultAsync();
+                var token = await db.Adsctoken.Where(x => x.AdtoToken == permiso.Token && x.AdtoId==permiso.Id && x.AdpsLogin.ToUpper() == permiso.Usuario.ToUpper() && x.AdtoNombreServicio==permiso.NombreServicio).FirstOrDefaultAsync();
                 if (token != null)
                 { 
-                    var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin == permiso.Usuario && x.AdseSw==permiso.NombreServicio).FirstOrDefaultAsync();
+                    var servicio = await db.Adscswepwd.Where(x => x.AdpsLogin.ToUpper() == permiso.Usuario.ToUpper() && x.AdseSw==permiso.NombreServicio).FirstOrDefaultAsync();
                     if (servicio != null)
                     {   
                         return new Response {IsSuccess=true};
@@ -195,7 +225,7 @@ namespace bd.swseguridad.web.Controllers.API
         {
             try
             {
-                var token = await db.Adsctoken.Where(x => x.AdtoToken == objeto.Token && x.AdpsLogin == objeto.Usuario).FirstOrDefaultAsync();
+                var token = await db.Adsctoken.Where(x => x.AdtoToken == objeto.Token && x.AdpsLogin.ToUpper() == objeto.Usuario.ToUpper()).FirstOrDefaultAsync();
                 db.Entry(token).State = EntityState.Deleted;
                 await db.SaveChangesAsync();
                 return true;
@@ -280,14 +310,13 @@ namespace bd.swseguridad.web.Controllers.API
             return cadena;
         }
 
-
         [HttpPost]
         [Route("SalvarTokenSwExternos")]
         public async Task<Response> SalvarTokenSwExternos([FromBody]  PermisoUsuarioSwExternos permisoUsuario)
         {
             try
             {
-                var usuario =await db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefaultAsync();
+                var usuario =await db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == permisoUsuario.Usuario.ToUpper()).FirstOrDefaultAsync();
 
                 if (usuario == null)
                 {
@@ -300,7 +329,7 @@ namespace bd.swseguridad.web.Controllers.API
 
 
                
-                var adsctokenRequest = await db.Adsctoken.Where(x => x.AdpsLogin == permisoUsuario.Usuario && x.AdtoNombreServicio == permisoUsuario.NombreServicio).FirstOrDefaultAsync();
+                var adsctokenRequest = await db.Adsctoken.Where(x => x.AdpsLogin.ToUpper() == permisoUsuario.Usuario.ToUpper() && x.AdtoNombreServicio == permisoUsuario.NombreServicio).FirstOrDefaultAsync();
 
                 if (adsctokenRequest == null)
                 {
@@ -362,15 +391,13 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
-
-
         [HttpPost]
         [Route("SalvarToken")]
         public async Task<Response> SalvarToken([FromBody]  PermisoUsuario permisoUsuario)
         {
             try
             {
-                var usuario = db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefault();
+                var usuario = db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == permisoUsuario.Usuario.ToUpper()).FirstOrDefault();
 
                 if (usuario == null)
                 {
@@ -381,6 +408,9 @@ namespace bd.swseguridad.web.Controllers.API
                     };
                 }
 
+                
+
+                
                 usuario.AdpsToken = permisoUsuario.Token;
                 db.Adscpassw.Update(usuario);
                 await db.SaveChangesAsync();
@@ -415,14 +445,13 @@ namespace bd.swseguridad.web.Controllers.API
             }
         }
 
-
         [HttpPost]
         [Route("SalvarTokenTemp")]
         public async Task<Response> SalvarTokenTemp([FromBody]  PermisoUsuario permisoUsuario)
         {
             try
             {
-                var usuario = db.Adscpassw.Where(x => x.AdpsLogin == permisoUsuario.Usuario).FirstOrDefault();
+                var usuario = db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == permisoUsuario.Usuario.ToUpper()).FirstOrDefault();
 
                 if (usuario == null)
                 {
@@ -474,7 +503,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Usuario Caducado contacte con el administrador"
+                  
                 };
             }
             return new Response { IsSuccess = true };
@@ -486,7 +515,8 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Usuario Bloqueado contacte con el administrador"
+                    Message = Mensaje.UsuarioBloqueado,
+                    Resultado=new UsuarioBloqueado { EstaBloqueado=true}
                 };
             }
 
@@ -496,20 +526,23 @@ namespace bd.swseguridad.web.Controllers.API
         private async Task<Response> AutenticarBDD(Adscpassw usuario,Login login) {
 
             var salida = CodificarHelper.SHA512(new Codificar { Entrada = login.Contrasena }).Salida;
-            var existeLogin = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario && x.AdpsPasswPoint == salida).FirstOrDefault();
+            var existeLogin = db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == login.Usuario.ToUpper() && x.AdpsPasswPoint == salida).FirstOrDefault();
             if (existeLogin == null)
             {
                 usuario.AdpsIntentos = usuario.AdpsIntentos + 1;
                 db.Entry(usuario).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-
+                
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Usuario o contraseña incorrecto",
+                    Message = Mensaje.UsuariooContrasenaIncorrecto,
                     Resultado = "",
                 };
             }
+
+            usuario.AdpsIntentos =0;
+            db.Entry(usuario).State = EntityState.Modified;
             return new Response
             {
                 IsSuccess = true,
@@ -517,18 +550,33 @@ namespace bd.swseguridad.web.Controllers.API
                 Resultado = existeLogin,
             };
         }
+
+        private void SincorizarContrasenaUsuarioExternos(string usuario, string contrasena)
+        {
+            var affectedRows = db.Database
+                .ExecuteSqlCommand("sp_CambioPassword_Externo @loginame = {0}, @pwd= {1}"
+                , usuario, contrasena);
+        }
+        private void SincorizarContrasena(string usuario,string contrasena)
+        {
+            var affectedRows = db.Database
+                .ExecuteSqlCommand("sp_SincronizaPwd_AD @loginame = {0}, @pwd= {1}"
+                ,usuario, contrasena);
+        }
+
         [HttpPost]
         [Route("Login")]
         public async Task<Response> Login([FromBody] Login login)
         {
+           
             try
             {
                 var respuesta = new Response();
-                var usuario = db.Adscpassw.Where(x => x.AdpsLogin == login.Usuario).FirstOrDefault();
+                var usuario = db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == login.Usuario.ToUpper()).FirstOrDefault();
 
                 if (usuario==null)
                 {
-                    return new Response { IsSuccess = false, Message = "Usuario o contraseña incorrecto !!!" };
+                    return new Response { IsSuccess = false, Message = Mensaje.UsuariooContrasenaIncorrecto };
                 }
 
                 if (usuario.AdpsTipoUso==Constantes.UsuarioInterno)
@@ -536,11 +584,16 @@ namespace bd.swseguridad.web.Controllers.API
                     respuesta = _authService.Login(login.Usuario, login.Contrasena);
                     if (respuesta.IsSuccess)
                     {
+                       var salida= CodificarHelper.SHA512(new Codificar { Entrada = login.Contrasena }).Salida;
+                        if (salida!=usuario.AdpsPasswPoint)
+                        {
+                            SincorizarContrasena(login.Usuario, login.Contrasena);
+                        }
                         return new Response { IsSuccess=true};
                     }
                     else
                     {
-                        return new Response { IsSuccess = false };
+                        return new Response { IsSuccess = false, Message = Mensaje.UsuariooContrasenaIncorrecto };
                     }
                 }
 
@@ -558,9 +611,12 @@ namespace bd.swseguridad.web.Controllers.API
                 respuesta = await AutenticarBDD(usuario, login);
                 if (!respuesta.IsSuccess)
                 {
-                    return respuesta;
+                  return respuesta;
                 }
 
+                usuario.AdpsIntentos = 0;
+                db.Entry(usuario).State = EntityState.Modified;
+                await db.SaveChangesAsync();
                 return respuesta;
                
             }
@@ -604,7 +660,7 @@ namespace bd.swseguridad.web.Controllers.API
                     };
                 }
 
-                var adscbdd = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin == id);
+                var adscbdd = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin.ToUpper() == id.ToUpper());
 
                 if (adscbdd == null)
                 {
@@ -657,7 +713,7 @@ namespace bd.swseguridad.web.Controllers.API
             //        };
             //    }
 
-            var adscgrpSeleccionado =await db.Adscpassw.Where(m => m.AdpsLoginAdm == adscpassw.AdpsLoginAdm && m.AdpsTokenTemp == adscpassw.AdpsTokenTemp).FirstOrDefaultAsync();
+            var adscgrpSeleccionado =await db.Adscpassw.Where(m => m.AdpsLogin.ToUpper() == adscpassw.AdpsLogin.ToUpper() && m.AdpsTokenTemp == adscpassw.AdpsTokenTemp).FirstOrDefaultAsync();
 
             return new Response {IsSuccess=true,Resultado=adscgrpSeleccionado };
             //    if (adscgrpSeleccionado == null)
@@ -711,12 +767,16 @@ namespace bd.swseguridad.web.Controllers.API
                     };
                 }
 
-                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == id).FirstOrDefaultAsync();
+                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == id.ToUpper()).FirstOrDefaultAsync();
                 if (adscPsswActualizar != null)
                 {
                     try
                     {
-
+                        adscPsswActualizar.AdpsIdContacto = adscpassw.AdpsIdContacto;
+                        adscPsswActualizar.AdpsTipoUso = adscpassw.AdpsTipoUso;
+                        adscPsswActualizar.AdpsLoginAdm = adscpassw.AdpsLoginAdm;
+                        adscPsswActualizar.AdpsIdEntidad = adscpassw.AdpsIdEntidad;
+                        adscPsswActualizar.AdpsCodigoEmpleado = adscpassw.AdpsCodigoEmpleado;
                         adscPsswActualizar.AdpsPreguntaRecuperacion = adscpassw.AdpsPreguntaRecuperacion;
                         adscPsswActualizar.AdpsRespuestaRecuperacion = adscpassw.AdpsRespuestaRecuperacion;
                         db.Adscpassw.Update(adscPsswActualizar);
@@ -781,7 +841,7 @@ namespace bd.swseguridad.web.Controllers.API
                     };
                 }
 
-                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == adscpassw.AdpsLogin).FirstOrDefaultAsync();
+                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == adscpassw.AdpsLogin.ToUpper()).FirstOrDefaultAsync();
                 if (adscPsswActualizar != null)
                 {
                     try
@@ -849,7 +909,7 @@ namespace bd.swseguridad.web.Controllers.API
                     };
                 }
 
-                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin == adscpassw.AdpsLogin).FirstOrDefaultAsync();
+                var adscPsswActualizar = await db.Adscpassw.Where(x => x.AdpsLogin.ToUpper() == adscpassw.AdpsLogin.ToUpper()).FirstOrDefaultAsync();
                 if (adscPsswActualizar != null)
                 {
                     try
@@ -922,9 +982,11 @@ namespace bd.swseguridad.web.Controllers.API
                 var respuesta = Existe(adscpassw);
                 if (!respuesta.IsSuccess)
                 {
+                   
                     adscpassw.AdpsFechaCambio = DateTime.Now;
                     adscpassw.AdpsFechaVencimiento = DateTime.Now.AddMonths(3);
                     adscpassw.AdpsIntentos = 0;
+                    adscpassw.AdpsPassword = adscpassw.AdpsLogin;
                     adscpassw.AdpsPasswCg = adscpassw.AdpsLogin;
                     adscpassw.AdpsPreguntaRecuperacion = Mensaje.UsuarioSinConfirmar;
                     adscpassw.AdpsRespuestaRecuperacion = Mensaje.UsuarioSinConfirmar;
@@ -934,6 +996,8 @@ namespace bd.swseguridad.web.Controllers.API
                     adscpassw.AdpsPasswPoint = CodificarHelper.SHA512(new Codificar {Entrada=adscpassw.AdpsLogin }).Salida; 
                     db.Adscpassw.Add(adscpassw);
                     await db.SaveChangesAsync();
+
+                    SincorizarContrasena(adscpassw.AdpsLogin, adscpassw.AdpsLogin);
                     return new Response
                     {
                         IsSuccess = true,
@@ -984,7 +1048,7 @@ namespace bd.swseguridad.web.Controllers.API
                     };
                 }
 
-                var respuesta = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin == id);
+                var respuesta = await db.Adscpassw.SingleOrDefaultAsync(m => m.AdpsLogin.ToUpper() == id.ToUpper());
                 if (respuesta == null)
                 {
                     return new Response

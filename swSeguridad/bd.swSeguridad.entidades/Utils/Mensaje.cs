@@ -7,6 +7,11 @@ namespace bd.swseguridad.entidades.Utils
   public static class Mensaje
     {
         public static string Excepcion { get { return "Ha ocurrido una Excepción"; } }
+        public static string CambioContrasenaExito { get { return "La contraseña se ha cambiado exitosamente"; } }
+        public static string NoHabilitadoCambioContrasena { get { return "Los Usuarios internos no pueden cambiar la contraseña en el sistema"; } }
+        public static string UsuarioBloqueado { get { return "Usuario Bloqueado contacte con el administrador"; } }
+        public static string UsuarioCaducado { get { return "Usuario Caducado contacte con el administrador"; } }
+        public static string UsuariooContrasenaIncorrecto { get { return "Usuario o contraseña incorrecto !!!"; } }
         public static string ExisteRegistro { get { return "Existe un registro de igual información"; } }
         public static string Satisfactorio { get { return "La acción se ha realizado satisfactoriamente"; } }
         public static string Error { get { return "Ha ocurrido error inesperado"; } }

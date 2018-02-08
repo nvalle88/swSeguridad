@@ -106,7 +106,7 @@ namespace bd.swseguridad.web.Controllers.API
 
                 return listaSalida;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 //await GuardarLogService.SaveLogEntry(new LogEntryTranfer
                 //{

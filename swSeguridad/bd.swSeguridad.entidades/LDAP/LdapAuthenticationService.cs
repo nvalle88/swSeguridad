@@ -107,7 +107,7 @@ namespace bd.swseguridad.entidades.Servicios
                     }
                 }
             }
-            catch(Exception ex)
+            catch(Exception )
             {
                 return new Response
                 {

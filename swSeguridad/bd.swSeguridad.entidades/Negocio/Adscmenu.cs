@@ -23,7 +23,6 @@ namespace bd.swseguridad.entidades.Negocio
         public string AdmeElemento { get; set; }
         public string AdmeEstado { get; set; }
         public string AdmeControlador { get; set; }
-        public string AdmeAccionControlador { get; set; }
 
         public virtual ICollection<Adscexe> Adscexe { get; set; }
         public virtual Adscsist AdmeSistemaNavigation { get; set; }

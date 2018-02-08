@@ -314,7 +314,6 @@ namespace bd.swseguridad.web.Controllers.API
                         adscmenuSeleccionado.AdmeTipoObjeto = adscmenu.AdmeTipo;
                         adscmenuSeleccionado.AdmeUrl = adscmenu.AdmeUrl;
                         adscmenuSeleccionado.AdmeControlador = adscmenu.AdmeControlador;
-                        adscmenuSeleccionado.AdmeAccionControlador = adscmenu.AdmeAccionControlador;
                         db.Adscmenu.Update(adscmenuSeleccionado);
                         await db.SaveChangesAsync();
 

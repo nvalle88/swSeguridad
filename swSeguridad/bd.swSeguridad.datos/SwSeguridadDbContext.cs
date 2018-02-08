@@ -157,13 +157,9 @@ namespace bd.swseguridad.datos
                     .HasColumnName("ADME_APLICACION")
                     .HasColumnType("varchar(30)");
 
-                entity.Property(e => e.AdmeAccionControlador)
-                    .HasColumnName("ADME_ACCION_CONTROLADOR")
-                    .HasColumnType("varchar(50)");
-
                 entity.Property(e => e.AdmeControlador)
                     .HasColumnName("ADME_CONTROLADOR")
-                    .HasColumnType("varchar(50)");
+                    .HasColumnType("varchar(500");
 
                 entity.Property(e => e.AdmeDescripcion)
                     .HasColumnName("ADME_DESCRIPCION")

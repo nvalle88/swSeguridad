@@ -142,7 +142,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response { IsSuccess = false };
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;
@@ -163,7 +163,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response { IsSuccess = true };
 
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
                 throw;
@@ -188,7 +188,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response { IsSuccess = false };
 
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return new Response { IsSuccess = false };
             }
@@ -213,7 +213,7 @@ namespace bd.swseguridad.web.Controllers.API
                 return new Response { IsSuccess = false };
 
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return new Response { IsSuccess = false };
             }
@@ -283,7 +283,7 @@ namespace bd.swseguridad.web.Controllers.API
                 }
                 
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 Json(false);
             }

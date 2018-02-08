@@ -47,9 +47,11 @@ namespace bd.swseguridad.web.Temporizador
 
                 }
             }
-            catch (Exception ex)
-            {
 
+      
+            catch (Exception)
+            {
+                throw;
             }
         }
 

@@ -9573,11 +9573,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
+      "projectUniqueName": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
       "projectName": "bd.swseguridad.datos",
-      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
+      "projectPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\bd.swseguridad.datos.csproj",
       "packagesPath": "C:\\Users\\Nestor Yasmani Valle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\obj\\",
+      "outputPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.datos\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Nestor Yasmani Valle\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9596,8 +9596,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
-              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\source\\repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
+            "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj": {
+              "projectPath": "C:\\Users\\Nestor Yasmani Valle\\Source\\Repos\\swSeguridad\\swSeguridad\\bd.swSeguridad.entidades\\bd.swseguridad.entidades.csproj"
             }
           }
         }

@@ -42,9 +42,8 @@ namespace bd.swseguridad.web.Controllers.API
                         Resultado = config
                     };
                 }
-
             }
-            catch (Exception )
+            catch (Exception ex)
             {
                 return new Response { IsSuccess = false, Message = Mensaje.Excepcion };
                 throw;

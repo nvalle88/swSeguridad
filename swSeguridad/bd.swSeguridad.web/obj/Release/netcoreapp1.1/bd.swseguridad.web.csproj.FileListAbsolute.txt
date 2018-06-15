@@ -21,9 +21,10 @@ C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSegurida
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.entidades.dll
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.datos.pdb
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\bin\Release\netcoreapp1.1\bd.swseguridad.entidades.pdb
-C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.csprojResolveAssemblyReference.cache
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.csproj.CoreCompileInputs.cache
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.AssemblyInfoInputs.cache
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.AssemblyInfo.cs
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.dll
 C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.pdb
+C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.csprojAssemblyReference.cache
+C:\Users\Nestor Yasmani Valle\Source\Repos\swSeguridad\swSeguridad\bd.swSeguridad.web\obj\Release\netcoreapp1.1\bd.swseguridad.web.csproj.CopyComplete

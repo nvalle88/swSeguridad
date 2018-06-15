@@ -106,7 +106,35 @@ namespace bd.swseguridad.web.Controllers.API
                 throw;
             }
         }
-        
+
+
+        [HttpPost]
+        [Route("ExisteToken")]
+        public async Task<Response> ExisteToken([FromBody]PermisoUsuario permiso)
+        {
+            try
+            {
+                var path = NormalizarPathContexto(permiso.Contexto);
+
+                var token = await db.Adscpassw.Where(x => x.AdpsToken == permiso.Token && x.AdpsLogin.ToUpper() == permiso.Usuario.ToUpper()).FirstOrDefaultAsync();
+
+                if (token != null)
+                {
+                    return new Response { IsSuccess = true };
+                }
+
+                return new Response { IsSuccess = false };
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
+
         [HttpPost]
         [Route("TienePermiso")]
         public async Task<Response> TienePermiso([FromBody]PermisoUsuario permiso)

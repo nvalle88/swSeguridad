@@ -28,17 +28,17 @@ namespace bd.swseguridad.web.Controllers.API
     /// Controladores API de los servicios web estos son los que trabajan directamente con la base de datos
     /// Tiene algunos aspectos que explicar como:
     /// [Produces("application/json")]: filtro especifica los formatos de 
-    /// respuesta para una acci髇 espec韋ica (o controlador). 
-    /// Al igual que la mayor韆 de los filtros , 
-    /// esto se puede aplicar en la acci髇, el controlador o el alcance global.
-    /// para m醩 informaci髇 visitar:https://docs.microsoft.com/en-us/aspnet/core/mvc/models/formatting
+    /// respuesta para una acci贸n espec铆fica (o controlador). 
+    /// Al igual que la mayor铆a de los filtros , 
+    /// esto se puede aplicar en la acci贸n, el controlador o el alcance global.
+    /// para m谩s informaci贸n visitar:https://docs.microsoft.com/en-us/aspnet/core/mvc/models/formatting
     /// [Route("api/Codificar")]:es la ruta del recurso del controlador en general
     /// public class NombreController : Controller
-    /// [Route("Nombre")] en los m閠odos es la ruta del recurso.
+    /// [Route("Nombre")] en los m茅todos es la ruta del recurso.
     /// para acceder a estos recursos es: Host + ruta concatenados 
-    /// , ruta del controlador + ruta del m閠odo
+    /// , ruta del controlador + ruta del m茅todo
     /// [FromBody] es para capturar el objeto que se envia en el body 
-    /// para m醩 informaci髇 visitar:https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api
+    /// para m谩s informaci贸n visitar:https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api
     /// </summary>
     [Produces("application/json")]
     [Route("api/Adscpassws")]
@@ -80,7 +80,7 @@ namespace bd.swseguridad.web.Controllers.API
 
         [HttpPost]
         [Route("CambiarContrasenaUsuariosExternos")]
-        public async Task<Response> CambiarContrase馻UsuariosExternos([FromBody]CambiarContrasenaViewModel cambiarContrasenaViewModel)
+        public async Task<Response> CambiarContrase帽aUsuariosExternos([FromBody]CambiarContrasenaViewModel cambiarContrasenaViewModel)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace bd.swseguridad.web.Controllers.API
 
                             if (ds.AdmeControlador!=null)
                             {
-                                if (path.ToUpper() == ds.AdmeControlador.ToUpper())
+                                if (path.ToUpper().StartsWith(ds.AdmeControlador.ToUpper()))
                                 {
                                     return new Response { IsSuccess = true };
                                 } 
@@ -712,7 +712,7 @@ namespace bd.swseguridad.web.Controllers.API
                 {
                     ApplicationName = Convert.ToString(Aplicacion.SwSeguridad),
                     ExceptionTrace = ex,
-                    Message = "Se ha producido una exepci髇",
+                    Message = "Se ha producido una exepci贸n",
                     LogCategoryParametre = Convert.ToString(LogCategoryParameter.Critical),
                     LogLevelShortName = Convert.ToString(LogLevelParameter.ERR),
                     UserName = "",

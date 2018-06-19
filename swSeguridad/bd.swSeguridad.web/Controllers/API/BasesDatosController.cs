@@ -129,7 +129,7 @@ namespace bd.swseguridad.web.Controllers.API
         }
 
         // PUT: api/BasesDatos/5
-        [HttpPost]
+        [HttpPut]
         [Route("EditarAdscbdd")]
         public async Task<Response> PutAdscbdd([FromBody] Adscbdd adscbdd)
         {

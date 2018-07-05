@@ -940,7 +940,7 @@
     "System.Runtime.Serialization.Formatters/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-v1cKNXJew1vz4nRIqjHHp/X4bUUOzTbhq+wSsoEzDju38hckhc56qBDWa2j5uxKyjcy318juVvfgKsfaEC3Xvw==",
+      "sha512": "sha512-4PHHq4CaqHOWOiGaOhcx+ObiRyLM4LtMyqyl/iG31OnTNK38KKAFP1jpRYf1QQ7lfGfCr2bcAm/n4syM6JNxtQ==",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "hashPath": "system.runtime.serialization.formatters.4.3.0.nupkg.sha512"
     },
